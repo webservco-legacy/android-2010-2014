@@ -58,10 +58,11 @@ public class ImageViewerSwipe extends MenuActivity implements
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if (mGestureDetector.onTouchEvent(event))
+		if (mGestureDetector.onTouchEvent(event)) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 }
 /* $Id$ */
