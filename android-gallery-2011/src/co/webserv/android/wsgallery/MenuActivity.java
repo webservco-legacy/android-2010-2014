@@ -25,7 +25,7 @@ public abstract class MenuActivity extends Activity {
 			return true;
 		case R.id.viewer:
 			finish();
-			startActivity(new Intent(MenuActivity.this, ImageViewer.class));
+			startActivity(new Intent(MenuActivity.this, ImageViewerButtons.class));
 			return true;
 		case R.id.about:
 			finish();

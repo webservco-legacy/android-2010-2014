@@ -16,7 +16,7 @@
         
         <activity android:name=".MenuActivity" />
         
-        <activity android:name=".ImageViewer" />
+        <activity android:name=".ImageViewerButtons" />
         
         <activity android:name=".About" />
         
