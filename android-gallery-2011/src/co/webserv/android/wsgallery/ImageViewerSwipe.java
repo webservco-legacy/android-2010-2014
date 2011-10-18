@@ -1,5 +1,6 @@
 package co.webserv.android.wsgallery;
 
+import co.webserv.android.gestures.GestureListener;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
