@@ -79,3 +79,5 @@ public class GalleryBrowser extends Activity implements
 		return i;
 	}
 }
+
+/* $Id$ */
