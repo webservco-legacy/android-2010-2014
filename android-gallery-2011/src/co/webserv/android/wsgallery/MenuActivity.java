@@ -20,17 +20,19 @@ public abstract class MenuActivity extends Activity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.gallery:
+			finish();
 			startActivity(new Intent(MenuActivity.this, GalleryBrowser.class));
 			return true;
 		case R.id.viewer:
+			finish();
 			startActivity(new Intent(MenuActivity.this, ImageViewer.class));
 			return true;
 		case R.id.about:
+			finish();
 			startActivity(new Intent(MenuActivity.this, About.class));
 			return true;
 		case R.id.exit:
 			finish();
-            System.exit(0);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
