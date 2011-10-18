@@ -1,9 +1,8 @@
 package co.webserv.android.wsgallery;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class About extends Activity {
+public class About extends MenuActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

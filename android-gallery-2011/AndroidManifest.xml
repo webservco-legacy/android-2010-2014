@@ -14,7 +14,11 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".MenuActivity" />
+        
+        <activity android:name=".ImageViewer" />
+        
         <activity android:name=".About" />
-
+        
     </application>
 </manifest>
