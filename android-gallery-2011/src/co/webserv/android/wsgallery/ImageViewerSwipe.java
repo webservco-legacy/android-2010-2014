@@ -20,7 +20,6 @@ public class ImageViewerSwipe extends MenuActivity implements
 			R.drawable.img7, R.drawable.img8, R.drawable.img9,
 			R.drawable.img10, };
 
-	// XXX
 	private GestureDetector mGestureDetector;
 
 	@Override
@@ -28,10 +27,9 @@ public class ImageViewerSwipe extends MenuActivity implements
 
 		super.onCreate(savedInstanceState);
 
-		// XXX
-		mGestureDetector = new GestureDetector(this, new LearnGestureListener());
-
 		setContentView(R.layout.viewerswipe);
+
+		mGestureDetector = new GestureDetector(this, new GestureListener());
 
 		mSwitcher = (ImageSwitcher) findViewById(R.id.imageswipe);
 
@@ -64,17 +62,5 @@ public class ImageViewerSwipe extends MenuActivity implements
 		else
 			return false;
 	}
-
-	/*
-	 * @Override public boolean onTouchEvent(MotionEvent event) { // TODO
-	 * Auto-generated method stub return super.onTouchEvent(event); }
-	 */
-	/*
-	 * @Override public boolean onTouchEvent(MotionEvent event) {
-	 * gd.onTouchEvent(event); return true; }
-	 * 
-	 * @Override public boolean onInterceptTouchEvent(MotionEvent ev) { return
-	 * gd.onTouchEvent(ev); }
-	 */
 }
 /* $Id$ */
