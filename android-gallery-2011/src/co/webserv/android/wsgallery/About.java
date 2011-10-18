@@ -12,3 +12,4 @@ public class About extends MenuActivity {
 		setContentView(R.layout.about);
 	}
 }
+/* $Id$ */

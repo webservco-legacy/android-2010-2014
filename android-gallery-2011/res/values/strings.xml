@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_viewer">Viewer</string>
+    <string name="menu_viewerbuttons">Viewer (buttons)</string>
+    <string name="menu_viewerswipe">Viewer (swipe)</string>
     <string name="menu_about">About</string>
     <string name="menu_exit">Exit</string>
     <string name="about">About wsGallery.</string>
     <string name="app_name">wsGallery</string>
 </resources>
+<!-- $Id$ -->

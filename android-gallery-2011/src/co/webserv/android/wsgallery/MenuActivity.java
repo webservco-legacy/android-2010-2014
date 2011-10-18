@@ -23,9 +23,13 @@ public abstract class MenuActivity extends Activity {
 			finish();
 			startActivity(new Intent(MenuActivity.this, GalleryBrowser.class));
 			return true;
-		case R.id.viewer:
+		case R.id.viewerbuttons:
 			finish();
 			startActivity(new Intent(MenuActivity.this, ImageViewerButtons.class));
+			return true;
+		case R.id.viewerswipe:
+			finish();
+			startActivity(new Intent(MenuActivity.this, ImageViewerSwipe.class));
 			return true;
 		case R.id.about:
 			finish();
@@ -39,3 +43,4 @@ public abstract class MenuActivity extends Activity {
 		}
 	}
 }
+/* $Id$ */

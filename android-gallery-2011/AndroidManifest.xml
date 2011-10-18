@@ -18,7 +18,10 @@
         
         <activity android:name=".ImageViewerButtons" />
         
+        <activity android:name=".ImageViewerSwipe" />
+        
         <activity android:name=".About" />
         
     </application>
 </manifest>
+<!-- $Id$ -->

@@ -13,3 +13,4 @@
 	<ImageView android:id="@+id/myimage" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_below="@+id/previous_btn" />
 </RelativeLayout>
+<!-- $Id$ -->

@@ -70,3 +70,4 @@ public class ImageViewerButtons extends MenuActivity implements OnClickListener 
 
     }
 }
+/* $Id$ */
