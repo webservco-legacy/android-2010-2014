@@ -64,8 +64,6 @@ public class ImageViewerSwipe extends MenuActivity implements
 		else
 			return false;
 	}
-	
-	
 
 	/*
 	 * @Override public boolean onTouchEvent(MotionEvent event) { // TODO

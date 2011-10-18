@@ -42,3 +42,4 @@ public class LearnGestureListener extends SimpleOnGestureListener {
 		return true;
 	}
 }
+/* $Id$ */
