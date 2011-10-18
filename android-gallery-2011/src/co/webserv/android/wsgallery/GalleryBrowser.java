@@ -50,13 +50,13 @@ public class GalleryBrowser extends Activity implements
 		g.setAdapter(new ImageAdapter(this));
 		g.setOnItemSelectedListener(this);
 
-		// XXX Set a item click listener, and just Toast the clicked position
+		// XXX move captions to an array
 		g.setOnItemClickListener(new OnItemClickListener() {
 			@SuppressWarnings("rawtypes")
 			public void onItemClick(AdapterView parent, View v, int position,
 					long id) {
-				Toast.makeText(GalleryBrowser.this, "image caption " + position,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(GalleryBrowser.this,
+						"image caption " + position, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
