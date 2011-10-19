@@ -30,16 +30,18 @@ public class GalleryBrowserWeb extends MenuActivity implements
 	private ImageSwitcher mSwitcher;
 
 	private String[] mImageUrls = {
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img1.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img2.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img3.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img4.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img5.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img6.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img7.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img8.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img9.jpg",
-			"http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/img10.jpg", };
+			"http://147.123.157.186/election/site/obama/img/img1.jpg",
+			"http://147.123.157.186/election/site/obama/img/img2.jpg",
+			"http://147.123.157.186/election/site/obama/img/img3.jpg",
+			"http://147.123.157.186/election/site/obama/img/img4.jpg",
+			"http://147.123.157.186/election/site/obama/img/img5.jpg",
+			"http://147.123.157.186/election/site/obama/img/img6.jpg",
+			"http://147.123.157.186/election/site/obama/img/img7.jpg",
+			"http://147.123.157.186/election/site/obama/img/img8.jpg",
+			"http://147.123.157.186/election/site/obama/img/img9.jpg",
+			"http://147.123.157.186/election/site/obama/img/img10.jpg",
+
+	};
 
 	/** Called when the activity is first created. */
 	@Override
@@ -79,7 +81,8 @@ public class GalleryBrowserWeb extends MenuActivity implements
 			mSwitcher.setImageDrawable(bmd);
 		} catch (MalformedURLException e) {
 			mSwitcher.setImageResource(R.drawable.network_error);
-			Log.e("DEBUGTAG", "Remote Image Exception / MalformedURLException", e);
+			Log.e("DEBUGTAG", "Remote Image Exception / MalformedURLException",
+					e);
 		} catch (IOException e) {
 			mSwitcher.setImageResource(R.drawable.network_error);
 			Log.e("DEBUGTAG", "Remote Image Exception / IOException", e);
