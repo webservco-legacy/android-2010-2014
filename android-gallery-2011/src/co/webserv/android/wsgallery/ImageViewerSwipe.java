@@ -1,6 +1,5 @@
 package co.webserv.android.wsgallery;
 
-import co.webserv.android.gestures.GestureListener;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import android.widget.Gallery.LayoutParams;
 
@@ -59,10 +59,13 @@ public class ImageViewerSwipe extends MenuActivity implements
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (mGestureDetector.onTouchEvent(event)) {
+			Toast.makeText(getApplicationContext(), "touchdown!", Toast.LENGTH_SHORT);
 			return true;
 		} else {
+			Toast.makeText(getApplicationContext(), "no touchdown!", Toast.LENGTH_SHORT);
 			return false;
 		}
 	}
+	
 }
 /* $Id$ */
