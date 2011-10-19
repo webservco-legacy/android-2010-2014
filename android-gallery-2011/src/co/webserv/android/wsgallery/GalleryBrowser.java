@@ -2,8 +2,6 @@ package co.webserv.android.wsgallery;
 
 import co.webserv.android.wsgallery.R;
 
-import co.webserv.android.wsgallery.ImageAdapter;
-
 import android.os.Bundle;
 
 import android.view.View;
@@ -11,11 +9,9 @@ import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Gallery;
-//import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Gallery.LayoutParams;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-//import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class GalleryBrowser extends MenuActivity implements

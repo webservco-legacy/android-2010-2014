@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="menu_gallery">Gallery</string>
+    <string name="menu_galleryweb">Gallery (web)</string>
     <string name="menu_viewerbuttons">Viewer (buttons)</string>
     <string name="menu_viewerswipe">Viewer (swipe)</string>
     <string name="menu_about">About</string>

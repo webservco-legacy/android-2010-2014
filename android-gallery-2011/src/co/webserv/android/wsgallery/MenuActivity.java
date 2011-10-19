@@ -23,6 +23,10 @@ public abstract class MenuActivity extends Activity {
 			// finish();
 			startActivity(new Intent(MenuActivity.this, GalleryBrowser.class));
 			return true;
+		case R.id.galleryweb:
+			// finish();
+			startActivity(new Intent(MenuActivity.this, GalleryBrowserWeb.class));
+			return true;
 		case R.id.viewerbuttons:
 			// finish();
 			startActivity(new Intent(MenuActivity.this,

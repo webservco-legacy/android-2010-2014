@@ -3,6 +3,9 @@
     <item android:id="@+id/gallery"
           android:icon="@drawable/ic_menu_gallery"
           android:title="@string/menu_gallery" />
+    <item android:id="@+id/galleryweb"
+          android:icon="@drawable/ic_menu_gallery"
+          android:title="@string/menu_galleryweb" />
 	<item android:id="@+id/viewerbuttons"
           android:icon="@drawable/ic_menu_view"
           android:title="@string/menu_viewerbuttons" />          
