@@ -31,7 +31,7 @@ public class ImageViewerButtons extends MenuActivity implements OnClickListener 
 	private void showImage() {
 
 		ImageView imgView = (ImageView) findViewById(R.id.myimage);
-		imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		imgView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 		imgView.setImageResource(mImageIds[image_index]);
 
 	}

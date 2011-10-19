@@ -71,7 +71,7 @@ public class GalleryBrowser extends MenuActivity implements
 	public View makeView() {
 		ImageView i = new ImageView(this);
 		i.setBackgroundColor(0xFF000000);
-		i.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 		i.setLayoutParams(new ImageSwitcher.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		return i;
