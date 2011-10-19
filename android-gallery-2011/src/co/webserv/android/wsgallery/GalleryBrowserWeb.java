@@ -39,9 +39,7 @@ public class GalleryBrowserWeb extends MenuActivity implements
 			"http://147.123.157.186/election/site/obama/img/img7.jpg",
 			"http://147.123.157.186/election/site/obama/img/img8.jpg",
 			"http://147.123.157.186/election/site/obama/img/img9.jpg",
-			"http://147.123.157.186/election/site/obama/img/img10.jpg",
-
-	};
+			"http://147.123.157.186/election/site/obama/img/img10.jpg", };
 
 	/** Called when the activity is first created. */
 	@Override
@@ -61,7 +59,7 @@ public class GalleryBrowserWeb extends MenuActivity implements
 				android.R.anim.fade_out));
 
 		Gallery g = (Gallery) findViewById(R.id.gallery);
-		g.setAdapter(new ImageAdapter(this));
+		g.setAdapter(new ImageAdapterWeb(this));
 		g.setOnItemSelectedListener(this);
 	}
 
