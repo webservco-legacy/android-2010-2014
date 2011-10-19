@@ -9,65 +9,63 @@ import android.widget.ImageView;
 public class ImageViewerButtons extends MenuActivity implements OnClickListener {
 
 	int image_index = 0;
-    private static final int MAX_IMAGE_COUNT = 3;
-    
-    private Integer[] mImageIds = {
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-    };
-    
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.viewer);
+	private static final int MAX_IMAGE_COUNT = 3;
 
-        Button btnPrevious = (Button)findViewById(R.id.previous_btn);
-        btnPrevious.setOnClickListener(this);       
-        Button btnNext = (Button)findViewById(R.id.next_btn);
-        btnNext.setOnClickListener(this);
+	private Integer[] mImageIds = { R.drawable.img1, R.drawable.img2,
+			R.drawable.img3, };
 
-        showImage();        
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.viewer);
 
-    }
-    
-    private void showImage() {
+		Button btnPrevious = (Button) findViewById(R.id.previous_btn);
+		btnPrevious.setOnClickListener(this);
+		Button btnNext = (Button) findViewById(R.id.next_btn);
+		btnNext.setOnClickListener(this);
 
-        ImageView imgView = (ImageView) findViewById(R.id.myimage);             
-        imgView.setImageResource(mImageIds[image_index]);       
+		showImage();
 
-    }
-    
-    public void onClick(View v) {
+	}
 
-        switch (v.getId()) {
+	private void showImage() {
 
-            case (R.id.previous_btn):
+		ImageView imgView = (ImageView) findViewById(R.id.myimage);
+		imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		imgView.setImageResource(mImageIds[image_index]);
 
-                image_index--;
+	}
 
-                if (image_index == -1) {                    
-                    image_index = MAX_IMAGE_COUNT - 1;                  
-                }
+	public void onClick(View v) {
 
-                showImage();
+		switch (v.getId()) {
 
-            break;
+		case (R.id.previous_btn):
 
-            case (R.id.next_btn):
+			image_index--;
 
-                image_index++;
+			if (image_index == -1) {
+				image_index = MAX_IMAGE_COUNT - 1;
+			}
 
-                if (image_index == MAX_IMAGE_COUNT) {               
-                image_index = 0;                
-            }
+			showImage();
 
-                showImage();
+			break;
 
-            break;      
+		case (R.id.next_btn):
 
-        }
+			image_index++;
 
-    }
+			if (image_index == MAX_IMAGE_COUNT) {
+				image_index = 0;
+			}
+
+			showImage();
+
+			break;
+
+		}
+
+	}
 }
 /* $Id$ */

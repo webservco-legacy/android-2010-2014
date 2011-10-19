@@ -11,11 +11,11 @@ import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Gallery;
-import android.widget.AdapterView.OnItemClickListener;
+//import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Gallery.LayoutParams;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.Toast;
+//import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class GalleryBrowser extends MenuActivity implements
@@ -49,15 +49,14 @@ public class GalleryBrowser extends MenuActivity implements
 		g.setAdapter(new ImageAdapter(this));
 		g.setOnItemSelectedListener(this);
 
-		// XXX move captions to an array
-		g.setOnItemClickListener(new OnItemClickListener() {
-			@SuppressWarnings("rawtypes")
-			public void onItemClick(AdapterView parent, View v, int position,
-					long id) {
-				Toast.makeText(GalleryBrowser.this,
-						"image caption " + position, Toast.LENGTH_SHORT).show();
-			}
-		});
+		/*
+		 * g.setOnItemClickListener(new OnItemClickListener() {
+		 * 
+		 * @SuppressWarnings("rawtypes") public void onItemClick(AdapterView
+		 * parent, View v, int position, long id) {
+		 * Toast.makeText(GalleryBrowser.this, "image caption " + position,
+		 * Toast.LENGTH_SHORT).show(); } });
+		 */
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -72,7 +71,7 @@ public class GalleryBrowser extends MenuActivity implements
 	public View makeView() {
 		ImageView i = new ImageView(this);
 		i.setBackgroundColor(0xFF000000);
-		i.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		i.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		i.setLayoutParams(new ImageSwitcher.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		return i;
