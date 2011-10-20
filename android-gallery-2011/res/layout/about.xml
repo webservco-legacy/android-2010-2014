@@ -4,7 +4,19 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent" android:gravity="center_horizontal">
-    <TextView android:layout_width="wrap_content" android:text="@string/about" android:id="@+id/textView1" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_marginTop="24dp"></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/menu_gallery" android:layout_alignParentLeft="true" android:layout_marginTop="15dp"></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView1_1" android:text="@string/menu_gallery_desc" android:layout_below="@+id/textView1" android:layout_alignParentLeft="true"></TextView>
+    
+    <TextView android:layout_width="wrap_content" android:layout_below="@+id/textView1_1" android:layout_height="wrap_content" android:id="@+id/textView2" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/menu_galleryweb" android:layout_alignParentLeft="true" android:layout_marginTop="15dp"></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView2_2" android:text="@string/menu_galleryweb_desc" android:layout_below="@+id/textView2" android:layout_alignParentLeft="true"></TextView>
+    
+    <TextView android:layout_width="wrap_content" android:layout_below="@+id/textView2_2" android:layout_height="wrap_content" android:id="@+id/textView3" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/menu_viewerbuttons" android:layout_alignParentLeft="true" android:layout_marginTop="15dp"></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView3_3" android:text="@string/menu_viewerbuttons_desc" android:layout_below="@+id/textView3" android:layout_alignParentLeft="true"></TextView>
+    
+    <TextView android:layout_width="wrap_content" android:layout_below="@+id/textView3_3" android:layout_height="wrap_content" android:id="@+id/textView4" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/menu_viewerswipe" android:layout_alignParentLeft="true" android:layout_marginTop="15dp"></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView4_4" android:text="@string/menu_viewerswipe_desc" android:layout_below="@+id/textView4" android:layout_alignParentLeft="true"></TextView>
+    
+    <TextView android:layout_width="wrap_content" android:layout_below="@+id/textView4" android:layout_height="wrap_content" android:id="@+id/textView5" android:text="@string/about" android:layout_marginTop="100dp" android:textColor="#00CC00" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_centerHorizontal="true"></TextView>
     
 </RelativeLayout>
 <!-- $Id$ -->

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="menu_gallery">Gallery</string>
+    <string name="menu_gallery_desc">Test image gallery with local images</string>
     <string name="menu_galleryweb">Gallery (web)</string>
+    <string name="menu_galleryweb_desc">Test image gallery with remote images</string>
     <string name="menu_viewerbuttons">Viewer (buttons)</string>
+    <string name="menu_viewerbuttons_desc">Test image viewer using buttons for switching images</string>
     <string name="menu_viewerswipe">Viewer (swipe)</string>
+    <string name="menu_viewerswipe_desc">Test image viewer using swipe gestures for switching images</string>
     <string name="menu_about">About</string>
     <string name="menu_exit">Exit</string>
-    <string name="about">About wsGallery.</string>
+    <string name="about">Please touch menu to begin...</string>
     <string name="app_name">wsGallery</string>
 </resources>
 <!-- $Id$ -->
