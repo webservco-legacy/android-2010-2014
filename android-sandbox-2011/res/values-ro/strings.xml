@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Salutare lume!</string>
+	<string name="app_name">Sandbox</string>
+	<string name="menu_home">Acasă</string>
+	<string name="menu_about">Despre</string>
+	<string name="menu_exit">Ieșire</string>
+</resources>
+<!-- $Id$ -->
