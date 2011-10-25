@@ -35,6 +35,9 @@ public class MenuActivity extends Activity {
 		case R.id.about:
 			startActivity(new Intent(MenuActivity.this, AboutActivity.class));
 			return true;
+		case R.id.sax:
+			startActivity(new Intent(MenuActivity.this, SaxActivity.class));
+			return true;
 		case R.id.exit:
 			moveTaskToBack(true);
 			return true;
