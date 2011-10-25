@@ -12,9 +12,9 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".MenuActivity" android:configChanges="locale" />
 		<activity android:name=".AboutActivity"
 			android:configChanges="locale" />
-		<activity android:name=".MenuActivity" android:configChanges="locale" />
 	</application>
 </manifest>
 <!-- $Id$ -->
