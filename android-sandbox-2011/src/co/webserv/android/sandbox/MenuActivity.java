@@ -9,13 +9,25 @@ import android.view.MenuItem;
 import android.view.Window;
 
 public class MenuActivity extends Activity {
-	
+
+	private static final int RESULT_CLOSE_ALL = 1;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case RESULT_CLOSE_ALL:
+			setResult(RESULT_CLOSE_ALL);
+			finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -30,16 +42,21 @@ public class MenuActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.home:
-			startActivity(new Intent(MenuActivity.this, HomeActivity.class));
+			startActivityForResult(new Intent(MenuActivity.this,
+					HomeActivity.class), RESULT_CLOSE_ALL);
 			return true;
 		case R.id.about:
-			startActivity(new Intent(MenuActivity.this, AboutActivity.class));
+			startActivityForResult(new Intent(MenuActivity.this,
+					AboutActivity.class), RESULT_CLOSE_ALL);
 			return true;
 		case R.id.sax:
-			startActivity(new Intent(MenuActivity.this, SaxActivity.class));
+			startActivityForResult(new Intent(MenuActivity.this,
+					SaxActivity.class), RESULT_CLOSE_ALL);
 			return true;
 		case R.id.exit:
-			moveTaskToBack(true);
+			setResult(RESULT_CLOSE_ALL);
+			finish();
+			// moveTaskToBack(true);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
