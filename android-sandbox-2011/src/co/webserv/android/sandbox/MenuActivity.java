@@ -49,9 +49,13 @@ public class MenuActivity extends Activity {
 			startActivityForResult(new Intent(MenuActivity.this,
 					AboutActivity.class), RESULT_CLOSE_ALL);
 			return true;
-		case R.id.sax:
+		case R.id.sax_example:
 			startActivityForResult(new Intent(MenuActivity.this,
-					SaxActivity.class), RESULT_CLOSE_ALL);
+					SaxExampleActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.sax_gallery:
+			startActivityForResult(new Intent(MenuActivity.this,
+					SaxGalleryActivity.class), RESULT_CLOSE_ALL);
 			return true;
 		case R.id.exit:
 			setResult(RESULT_CLOSE_ALL);

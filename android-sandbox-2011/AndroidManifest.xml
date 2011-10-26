@@ -16,7 +16,10 @@
 		<activity android:name=".MenuActivity" android:configChanges="locale" />
 		<activity android:name=".AboutActivity"
 			android:configChanges="locale" />
-		<activity android:name=".SaxActivity" android:configChanges="locale" />
+		<activity android:name=".SaxExampleActivity"
+			android:configChanges="locale" />
+		<activity android:name=".SaxGalleryActivity"
+			android:configChanges="locale" />
 	</application>
 </manifest>
 <!-- $Id$ -->
