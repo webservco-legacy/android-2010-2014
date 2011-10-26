@@ -105,7 +105,7 @@ public class ImageAdapterGrid extends BaseAdapter {
 				Toast.makeText(mContext, "Error: " + e.getMessage(),
 						Toast.LENGTH_LONG).show();
 			}
-
+			//XXX small screen problems
 			imageView.setAdjustViewBounds(true);
 			imageView.setLayoutParams(new GridView.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
