@@ -9,7 +9,8 @@
 	<string name="menu_home">Home</string>
 	<string name="menu_about">About</string>
 	<string name="menu_sax_example">SAX Test</string>
-	<string name="menu_sax_gallery">SAX Gallery</string>
+	<string name="menu_sax_gallery">SAX Gallery Test</string>
+	<string name="menu_gridview">Grid Test</string>
 	<string name="menu_exit">Exit</string>
 </resources>
 <!-- $Id$ -->

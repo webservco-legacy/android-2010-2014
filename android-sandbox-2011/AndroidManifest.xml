@@ -20,6 +20,8 @@
 			android:configChanges="locale" />
 		<activity android:name=".SaxGalleryActivity"
 			android:configChanges="locale" />
+		<activity android:name=".GridViewActivity"
+			android:configChanges="locale" />
 	</application>
 </manifest>
 <!-- $Id$ -->

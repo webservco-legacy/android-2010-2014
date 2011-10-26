@@ -10,6 +10,13 @@ public class GalleryData {
 	private ArrayList<String> mThumb = new ArrayList<String>();
 	private ArrayList<String> mImage = new ArrayList<String>();
 
+	public boolean isEmpty() {
+		if (mName.length() == 0) {
+			return true;
+		}
+		return false;
+	}
+
 	public String getName() {
 		return mName;
 	}
@@ -43,7 +50,8 @@ public class GalleryData {
 	}
 
 	public String toString() {
-		return mName + ": " + mImage.size() + " images, " + mThumb.size() + " thumbs, " + mTitle.size() + " titles";
+		return mName + ": " + mImage.size() + " images, " + mThumb.size()
+				+ " thumbs, " + mTitle.size() + " titles";
 	}
 }
 /* $Id$ */
