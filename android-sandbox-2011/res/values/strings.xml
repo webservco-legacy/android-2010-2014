@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="app_url">http://147.123.157.186/election/</string>
+	<string name="app_id">obama</string>
+	<string name="app_language">es</string>
+
 	<string name="hello">Hello World!</string>
 	<string name="app_name">Sandbox</string>
 	<string name="menu_home">Home</string>
