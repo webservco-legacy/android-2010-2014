@@ -84,34 +84,36 @@ public class ImageAdapterGridWeb extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView;
 
-		ArrayList<String> galleryThumbs = mGallery.getThumb();
-
 		if (convertView == null) {
 
 			imageView = new ImageView(mContext);
 
-			try {
-				URL imgURL = new URL(galleryThumbs.get(position));
-				URLConnection con = imgURL.openConnection();
-				con.connect();
-				InputStream is = con.getInputStream();
-				BufferedInputStream bis = new BufferedInputStream(is);
-				Bitmap bm = BitmapFactory.decodeStream(bis);
-				bis.close();
-				is.close();
-				imageView.setImageBitmap(bm);
-			} catch (IOException e) {
-				imageView.setImageResource(R.drawable.network_error_t);
-				Toast.makeText(mContext, "Error: " + e.getMessage(),
-						Toast.LENGTH_LONG).show();
-			}
-			//XXX small screen problems
 			imageView.setAdjustViewBounds(true);
 			imageView.setLayoutParams(new GridView.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			imageView.setPadding(0, 0, 0, 0);
+			imageView.setPadding(3, 3, 3, 3);
+
 		} else {
 			imageView = (ImageView) convertView;
+		}
+
+		ArrayList<String> galleryThumbs = mGallery.getThumb();
+
+		try {
+			URL imgURL = new URL(galleryThumbs.get(position));
+			URLConnection con = imgURL.openConnection();
+			con.connect();
+			InputStream is = con.getInputStream();
+			BufferedInputStream bis = new BufferedInputStream(is);
+			Bitmap bm = BitmapFactory.decodeStream(bis);
+			bis.close();
+			is.close();
+			imageView.setImageBitmap(bm);
+
+		} catch (IOException e) {
+			imageView.setImageResource(R.drawable.network_error_t);
+			Toast.makeText(mContext, "Error: " + e.getMessage(),
+					Toast.LENGTH_LONG).show();
 		}
 
 		return imageView;
