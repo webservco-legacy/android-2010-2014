@@ -57,9 +57,13 @@ public class MenuActivity extends Activity {
 			startActivityForResult(new Intent(MenuActivity.this,
 					SaxGalleryActivity.class), RESULT_CLOSE_ALL);
 			return true;
-		case R.id.gridview:
+		case R.id.grid:
 			startActivityForResult(new Intent(MenuActivity.this,
-					GridViewActivity.class), RESULT_CLOSE_ALL);
+					GridActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.gridweb:
+			startActivityForResult(new Intent(MenuActivity.this,
+					GridWebActivity.class), RESULT_CLOSE_ALL);
 			return true;
 		case R.id.exit:
 			setResult(RESULT_CLOSE_ALL);

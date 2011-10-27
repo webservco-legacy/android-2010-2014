@@ -8,8 +8,10 @@
 		android:title="@string/menu_sax_example" />
 	<item android:id="@+id/sax_gallery" android:icon="@drawable/ic_menu_archive"
 		android:title="@string/menu_sax_gallery" />
-	<item android:id="@+id/gridview" android:icon="@drawable/ic_menu_archive"
-		android:title="@string/menu_gridview" />
+	<item android:id="@+id/grid" android:icon="@drawable/ic_menu_archive"
+		android:title="@string/menu_grid" />
+		<item android:id="@+id/gridweb" android:icon="@drawable/ic_menu_archive"
+		android:title="@string/menu_gridweb" />
 	<item android:id="@+id/exit" android:icon="@drawable/ic_menu_close_clear_cancel"
 		android:title="@string/menu_exit" />
 </menu>
