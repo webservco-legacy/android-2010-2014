@@ -12,6 +12,7 @@
 	<string name="menu_sax_gallery">SAX Gallery Test</string>
 	<string name="menu_grid">Grid Test</string>
 	<string name="menu_gridweb">Grid Test (web)</string>
+	<string name="menu_gridwebpd">Grid Test (web) progress</string>
 	<string name="menu_exit">Exit</string>
 </resources>
 <!-- $Id$ -->

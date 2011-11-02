@@ -1,8 +1,11 @@
 package co.webserv.android.sandbox;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,26 +48,51 @@ public class MenuActivity extends Activity {
 			startActivityForResult(new Intent(MenuActivity.this,
 					HomeActivity.class), RESULT_CLOSE_ALL);
 			return true;
-		case R.id.about:
-			startActivityForResult(new Intent(MenuActivity.this,
-					AboutActivity.class), RESULT_CLOSE_ALL);
-			return true;
-		case R.id.sax_example:
-			startActivityForResult(new Intent(MenuActivity.this,
-					SaxExampleActivity.class), RESULT_CLOSE_ALL);
-			return true;
-		case R.id.sax_gallery:
-			startActivityForResult(new Intent(MenuActivity.this,
-					SaxGalleryActivity.class), RESULT_CLOSE_ALL);
-			return true;
-		case R.id.grid:
-			startActivityForResult(new Intent(MenuActivity.this,
-					GridActivity.class), RESULT_CLOSE_ALL);
+
+		case R.id.gridwebpd:
+			final ProgressDialog pd = ProgressDialog.show(this, "Loading",
+					"Please wait...", true);
+
+			final Handler handler = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					pd.dismiss();
+				}
+			};
+
+			Thread startActivity = new Thread() {
+				@Override
+				public void run() {
+					startActivityForResult(new Intent(MenuActivity.this,
+							GridWebActivity.class), RESULT_CLOSE_ALL);
+					handler.sendEmptyMessage(0);
+				}
+			};
+
+			startActivity.start();
+
 			return true;
 		case R.id.gridweb:
 			startActivityForResult(new Intent(MenuActivity.this,
 					GridWebActivity.class), RESULT_CLOSE_ALL);
 			return true;
+		case R.id.grid:
+			startActivityForResult(new Intent(MenuActivity.this,
+					GridActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.sax_gallery:
+			startActivityForResult(new Intent(MenuActivity.this,
+					SaxGalleryActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.sax_example:
+			startActivityForResult(new Intent(MenuActivity.this,
+					SaxExampleActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.about:
+			startActivityForResult(new Intent(MenuActivity.this,
+					AboutActivity.class), RESULT_CLOSE_ALL);
+			return true;
+
 		case R.id.exit:
 			setResult(RESULT_CLOSE_ALL);
 			finish();
