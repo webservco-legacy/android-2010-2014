@@ -4,5 +4,4 @@
 	android:layout_height="fill_parent" android:numColumns="auto_fit"
 	android:verticalSpacing="13dp" android:horizontalSpacing="0dp"
 	android:columnWidth="77dp" android:stretchMode="columnWidth"
-	android:gravity="center" android:background="#28466f"
-	 />
+	android:gravity="center" android:background="#28466f" />

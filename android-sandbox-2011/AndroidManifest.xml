@@ -23,6 +23,8 @@
 		<activity android:name=".GridActivity" android:configChanges="locale" />
 		<activity android:name=".GridWebActivity"
 			android:configChanges="locale" />
+		<activity android:name=".ImageGallery"
+			android:configChanges="locale" />
 	</application>
 </manifest>
 <!-- $Id$ -->

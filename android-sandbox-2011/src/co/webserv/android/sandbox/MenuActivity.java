@@ -49,8 +49,7 @@ public class MenuActivity extends Activity {
 			startActivityForResult(new Intent(MenuActivity.this,
 					HomeActivity.class), RESULT_CLOSE_ALL);
 			return true;
-			
-		case R.id.gridwebpd:
+		case R.id.image_gallery:
 			final ProgressDialog pd = ProgressDialog.show(this, "Loading",
 					"Please wait...", true);
 
@@ -65,7 +64,7 @@ public class MenuActivity extends Activity {
 				@Override
 				public void run() {
 					startActivityForResult(new Intent(MenuActivity.this,
-							GridWebActivity.class), RESULT_CLOSE_ALL);
+							ImageGallery.class), RESULT_CLOSE_ALL);
 					handler.sendEmptyMessage(0);
 				}
 			};
