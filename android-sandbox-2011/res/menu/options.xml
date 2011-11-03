@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/home" android:icon="@drawable/ic_menu_home"
 		android:title="@string/menu_home" />
+	<item android:id="@+id/temp" android:icon="@drawable/ic_menu_archive"
+		android:title="@string/menu_temp" />
 	<item android:id="@+id/gridwebpd" android:icon="@drawable/ic_menu_archive"
 		android:title="@string/menu_gridwebpd" />
 	<item android:id="@+id/gridweb" android:icon="@drawable/ic_menu_archive"

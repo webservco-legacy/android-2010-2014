@@ -13,6 +13,7 @@
 	<string name="menu_grid">Grid Test</string>
 	<string name="menu_gridweb">Grid Test (web)</string>
 	<string name="menu_gridwebpd">Grid Test (web) progress</string>
+	<string name="menu_temp">TEMP</string>
 	<string name="menu_exit">Exit</string>
 </resources>
 <!-- $Id$ -->

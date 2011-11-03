@@ -45,10 +45,11 @@ public class MenuActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.home:
+		case R.id.temp:
 			startActivityForResult(new Intent(MenuActivity.this,
 					HomeActivity.class), RESULT_CLOSE_ALL);
 			return true;
-
+			
 		case R.id.gridwebpd:
 			final ProgressDialog pd = ProgressDialog.show(this, "Loading",
 					"Please wait...", true);
