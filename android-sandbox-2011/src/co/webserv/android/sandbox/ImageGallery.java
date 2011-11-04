@@ -10,6 +10,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -44,10 +46,9 @@ public class ImageGallery extends MenuActivity implements
 		mImageItem.setOnClickListener(this);
 
 		mImageItem.setAdjustViewBounds(true);
-		/*
-		 * XXX mImageItem.setLayoutParams(new ViewGroup.LayoutParams(
-		 * LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-		 */
+
+		mImageItem.setLayoutParams(new FrameLayout.LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		mImageContainer
 				.setPersistentDrawingCache(ViewGroup.PERSISTENT_ANIMATION_CACHE);
 
