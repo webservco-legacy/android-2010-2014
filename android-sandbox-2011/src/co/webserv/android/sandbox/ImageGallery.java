@@ -65,7 +65,7 @@ public class ImageGallery extends MenuActivity implements
 	}
 
 	public void onClick(View v) {
-		applyRotation(-1, 180, 90);
+		applyRotation(-1, 180, 90, true);
 
 	}
 
@@ -76,10 +76,10 @@ public class ImageGallery extends MenuActivity implements
 
 		mImageDownloader.download(galleryImages.get(position), mImageItem);
 
-		applyRotation(position, 0, 90);
+		applyRotation(position, 0, 90, false);
 	}
 
-	public void applyRotation(int position, float start, float end) {
+	public void applyRotation(int position, float start, float end, boolean mirror) {
 
 		final float centerX = mImageContainer.getWidth() / 2.0f;
 		final float centerY = mImageContainer.getHeight() / 2.0f;
@@ -87,6 +87,7 @@ public class ImageGallery extends MenuActivity implements
 		final Rotate3dAnimation rotation = new Rotate3dAnimation(start, end,
 				centerX, centerY, 310.0f, true);
 
+		rotation.setMirror(mirror);
 		rotation.setDuration(500);
 		rotation.setFillAfter(true);
 		rotation.setInterpolator(new AccelerateInterpolator());
@@ -135,6 +136,7 @@ public class ImageGallery extends MenuActivity implements
 				mImageItem.requestFocus();
 				rotation = new Rotate3dAnimation(90, 180, centerX, centerY,
 						310.0f, false);
+				rotation.setMirror(true);
 			} else {
 				mImageItem.setVisibility(View.GONE);
 				mImageList.setVisibility(View.VISIBLE);
