@@ -10,8 +10,13 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.View.OnTouchListener;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -23,12 +28,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class ImageGallery extends MenuActivity implements
-		AdapterView.OnItemClickListener, View.OnClickListener {
+		AdapterView.OnItemClickListener {
 
 	private ViewGroup mImageContainer;
 	private GridView mImageList;
 	private ImageView mImageItem;
 	private GalleryData mGallery;
+	private ArrayList<String> mGalleryImages;
+	private int mGalleryPosition = 0;
+
+	private GestureDetector mGestureDetector;
 
 	private final ImageDownloader mImageDownloader = new ImageDownloader();
 
@@ -44,18 +53,31 @@ public class ImageGallery extends MenuActivity implements
 		mImageContainer = (ViewGroup) findViewById(R.id.image_container);
 
 		mGallery = getGallery();
+		mGalleryImages = mGallery.getImage();
 
 		mImageList.setAdapter(new ImageAdapterGridWeb(this, mGallery));
 		mImageList.setOnItemClickListener(this);
 
 		mImageItem.setClickable(true);
 		mImageItem.setFocusable(true);
-		mImageItem.setOnClickListener(this);
 
 		mImageItem.setAdjustViewBounds(true);
 
 		mImageItem.setLayoutParams(new FrameLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+
+		mGestureDetector = new GestureDetector(this, new GestureListener());
+		mImageItem.setOnTouchListener(new OnTouchListener() {
+
+			public boolean onTouch(View v, MotionEvent event) {
+				if (mGestureDetector.onTouchEvent(event)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+
 		mImageContainer
 				.setPersistentDrawingCache(ViewGroup.PERSISTENT_ANIMATION_CACHE);
 
@@ -64,22 +86,22 @@ public class ImageGallery extends MenuActivity implements
 		mImageDownloader.setMode(mode);
 	}
 
-	public void onClick(View v) {
-		applyRotation(-1, 180, 90, true);
-
-	}
-
 	public void onItemClick(AdapterView<?> parent, View v, final int position,
 			long id) {
+		mGalleryPosition = position;
 
-		final ArrayList<String> galleryImages = mGallery.getImage();
-
-		mImageDownloader.download(galleryImages.get(position), mImageItem);
-
-		applyRotation(position, 0, 90, false);
+		showImage();
 	}
 
-	public void applyRotation(int position, float start, float end, boolean mirror) {
+	public void showImage() {
+		mImageDownloader.download(mGalleryImages.get(mGalleryPosition),
+				mImageItem);
+
+		applyRotation(mGalleryPosition, 0, 90, false);
+	}
+
+	public void applyRotation(int position, float start, float end,
+			boolean mirror) {
 
 		final float centerX = mImageContainer.getWidth() / 2.0f;
 		final float centerY = mImageContainer.getHeight() / 2.0f;
@@ -187,6 +209,65 @@ public class ImageGallery extends MenuActivity implements
 		}
 
 		return gallery;
+	}
+
+	public class GestureListener extends SimpleOnGestureListener {
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent ev) {
+			applyRotation(-1, 180, 90, true);
+			return super.onSingleTapUp(ev);
+		}
+
+		@Override
+		public void onShowPress(MotionEvent ev) {
+		}
+
+		@Override
+		public void onLongPress(MotionEvent ev) {
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			return true;
+		}
+
+		@Override
+		public boolean onDown(MotionEvent ev) {
+			return true;
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+
+			int dx = (int) (e2.getX() - e1.getX());
+
+			if (Math.abs(dx) > 60 && Math.abs(velocityX) > Math.abs(velocityY)) {
+				if (velocityX < 0) { // left swipe
+					mGalleryPosition++;
+					if (mGalleryPosition == mGalleryImages.size()) {
+						mGalleryPosition = 0;
+						applyRotation(-1, 180, 90, true);
+					} else {
+						showImage();
+					}
+					Log.d("left_swipe", e1.toString());
+				} else if (velocityX > 0) { // right swipe
+					mGalleryPosition--;
+					if (mGalleryPosition == -1) {
+						mGalleryPosition = 0;
+						applyRotation(-1, 180, 90, true);
+					} else {
+						showImage();
+					}
+					Log.d("right_swipe", e1.toString());
+				}
+			}
+
+			return super.onFling(e1, e2, velocityX, velocityY);
+		}
 	}
 }
 /* $Id$ */
