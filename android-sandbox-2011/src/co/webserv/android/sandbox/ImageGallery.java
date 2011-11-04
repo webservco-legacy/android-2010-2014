@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -30,8 +29,6 @@ public class ImageGallery extends MenuActivity implements
 
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
 		setContentView(R.layout.image_gallery);
 
 		mImageList = (GridView) findViewById(R.id.image_list);
@@ -55,8 +52,6 @@ public class ImageGallery extends MenuActivity implements
 		ImageDownloader.Mode mode = ImageDownloader.Mode.CORRECT;
 
 		mImageDownloader.setMode(mode);
-
-		setProgressBarIndeterminateVisibility(true);
 	}
 
 	public void onClick(View v) {

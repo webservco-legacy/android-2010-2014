@@ -1,10 +1,6 @@
 package co.webserv.android.sandbox;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
@@ -14,8 +10,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -29,6 +23,8 @@ public class ImageAdapterGridWeb extends BaseAdapter {
 	private Context mContext;
 
 	private GalleryData mGallery = new GalleryData();
+
+	private final ImageDownloader mImageDownloader = new ImageDownloader();
 
 	public ImageAdapterGridWeb(Context c) {
 		mContext = c;
@@ -100,21 +96,10 @@ public class ImageAdapterGridWeb extends BaseAdapter {
 
 		ArrayList<String> galleryThumbs = mGallery.getThumb();
 
-		try {
-			URL imgURL = new URL(galleryThumbs.get(position));
-			URLConnection con = imgURL.openConnection();
-			con.connect();
-			InputStream is = con.getInputStream();
-			BufferedInputStream bis = new BufferedInputStream(is);
-			Bitmap bm = BitmapFactory.decodeStream(bis);
-			bis.close();
-			is.close();
-			imageView.setImageBitmap(bm);
-		} catch (IOException e) {
-			imageView.setImageResource(R.drawable.network_error_t);
-			Toast.makeText(mContext, "Error: " + e.getMessage(),
-					Toast.LENGTH_LONG).show();
-		}
+		ImageDownloader.Mode mode = ImageDownloader.Mode.CORRECT;
+
+		mImageDownloader.setMode(mode);
+		mImageDownloader.download(galleryThumbs.get(position), imageView);
 
 		return imageView;
 	}

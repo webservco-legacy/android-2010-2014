@@ -405,3 +405,4 @@ public class ImageDownloader {
         purgeHandler.postDelayed(purger, DELAY_BEFORE_PURGE);
     }
 }
+/* $Id$ */

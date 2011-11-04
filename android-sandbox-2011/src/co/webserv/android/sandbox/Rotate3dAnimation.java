@@ -90,3 +90,4 @@ public class Rotate3dAnimation extends Animation {
         matrix.postTranslate(centerX, centerY);
     }
 }
+/* $Id$ */
