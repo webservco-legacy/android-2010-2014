@@ -1,13 +1,6 @@
 package co.webserv.android.sandbox;
 
-import java.net.URL;
 import java.util.ArrayList;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
 
 import android.content.Context;
 import android.view.View;
@@ -16,7 +9,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class ImageAdapterGridWeb extends BaseAdapter {
 
@@ -26,42 +18,9 @@ public class ImageAdapterGridWeb extends BaseAdapter {
 
 	private final ImageDownloader mImageDownloader = new ImageDownloader();
 
-	public ImageAdapterGridWeb(Context c) {
+	public ImageAdapterGridWeb(Context c, GalleryData g) {
 		mContext = c;
-		mGallery = getGallery();
-	}
-
-	public GalleryData getGallery() {
-
-		GalleryData gallery = new GalleryData();
-
-		try {
-
-			String galleryUrl = mContext.getString(R.string.app_url) + "site/"
-					+ mContext.getString(R.string.app_id)
-					+ "/gallery/gallery.xml";
-			URL url = new URL(galleryUrl);
-
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			SAXParser sp = spf.newSAXParser();
-
-			XMLReader xr = sp.getXMLReader();
-
-			GalleryHandler gh = new GalleryHandler();
-			xr.setContentHandler(gh);
-
-			xr.parse(new InputSource(url.openStream()));
-
-			ArrayList<GalleryData> galleryList = gh.getGalleryList();
-
-			gallery = galleryList.get(0);
-
-		} catch (Exception e) {
-			Toast.makeText(mContext, "Error: " + e.getMessage(),
-					Toast.LENGTH_LONG).show();
-		}
-
-		return gallery;
+		mGallery = g;
 	}
 
 	public int getCount() {

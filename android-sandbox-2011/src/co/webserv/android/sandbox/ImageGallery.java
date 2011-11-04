@@ -1,6 +1,13 @@
 package co.webserv.android.sandbox;
 
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ImageGallery extends MenuActivity implements
 		AdapterView.OnItemClickListener, View.OnClickListener {
@@ -20,7 +28,7 @@ public class ImageGallery extends MenuActivity implements
 	private ViewGroup mImageContainer;
 	private GridView mImageList;
 	private ImageView mImageItem;
-	private GalleryData mGallery = new GalleryData();
+	private GalleryData mGallery;
 
 	private final ImageDownloader mImageDownloader = new ImageDownloader();
 
@@ -35,7 +43,9 @@ public class ImageGallery extends MenuActivity implements
 		mImageItem = (ImageView) findViewById(R.id.image_item);
 		mImageContainer = (ViewGroup) findViewById(R.id.image_container);
 
-		mImageList.setAdapter(new ImageAdapterGridWeb(this));
+		mGallery = getGallery();
+
+		mImageList.setAdapter(new ImageAdapterGridWeb(this, mGallery));
 		mImageList.setOnItemClickListener(this);
 
 		mImageItem.setClickable(true);
@@ -62,15 +72,11 @@ public class ImageGallery extends MenuActivity implements
 	public void onItemClick(AdapterView<?> parent, View v, final int position,
 			long id) {
 
-		ImageAdapterGridWeb adapter = (ImageAdapterGridWeb) parent.getAdapter();
-		mGallery = adapter.getGallery();
-
 		final ArrayList<String> galleryImages = mGallery.getImage();
 
 		mImageDownloader.download(galleryImages.get(position), mImageItem);
 
 		applyRotation(position, 0, 90);
-
 	}
 
 	public void applyRotation(int position, float start, float end) {
@@ -102,12 +108,10 @@ public class ImageGallery extends MenuActivity implements
 
 		public void onAnimationEnd(Animation animation) {
 			mImageContainer.post(new SwapViews(mPosition));
-
 		}
 
 		public void onAnimationRepeat(Animation animation) {
 		}
-
 	}
 
 	private final class SwapViews implements Runnable {
@@ -145,6 +149,42 @@ public class ImageGallery extends MenuActivity implements
 
 			mImageContainer.startAnimation(rotation);
 		}
+	}
+
+	public GalleryData getGallery() {
+
+		if (mGallery != null) {
+			return mGallery;
+		}
+
+		GalleryData gallery = new GalleryData();
+
+		try {
+
+			String galleryUrl = getString(R.string.app_url) + "site/"
+					+ getString(R.string.app_id) + "/gallery/gallery.xml";
+			URL url = new URL(galleryUrl);
+
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+			SAXParser sp = spf.newSAXParser();
+
+			XMLReader xr = sp.getXMLReader();
+
+			GalleryHandler gh = new GalleryHandler();
+			xr.setContentHandler(gh);
+
+			xr.parse(new InputSource(url.openStream()));
+
+			ArrayList<GalleryData> galleryList = gh.getGalleryList();
+
+			gallery = galleryList.get(0);
+
+		} catch (Exception e) {
+			Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG)
+					.show();
+		}
+
+		return gallery;
 	}
 }
 /* $Id$ */
