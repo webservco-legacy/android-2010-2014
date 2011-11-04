@@ -35,7 +35,7 @@ public class ImageAdapterGridWeb extends BaseAdapter {
 		mGallery = getGallery();
 	}
 
-	private GalleryData getGallery() {
+	public GalleryData getGallery() {
 
 		GalleryData gallery = new GalleryData();
 
@@ -110,7 +110,6 @@ public class ImageAdapterGridWeb extends BaseAdapter {
 			bis.close();
 			is.close();
 			imageView.setImageBitmap(bm);
-
 		} catch (IOException e) {
 			imageView.setImageResource(R.drawable.network_error_t);
 			Toast.makeText(mContext, "Error: " + e.getMessage(),
