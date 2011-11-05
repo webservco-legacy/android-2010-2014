@@ -26,6 +26,10 @@
 			android:layout_below="@+id/pocket_add_form_currency"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:text="@string/pocket_add" android:onClick="addPocket"></Button>
+		<TextView android:id="@+id/pocket_add_form_error"
+			android:layout_below="@+id/pocket_add_form_button"
+			android:layout_width="match_parent" android:layout_height="wrap_content"
+			android:gravity="center" android:textStyle="bold" android:textColor="#990000" android:text="@string/form_error"></TextView>
 	</RelativeLayout>
 </ScrollView>
 <!-- $Id$ -->

@@ -10,7 +10,7 @@ import android.view.Window;
 
 public class MenuActivity extends Activity {
 
-	private static final int RESULT_CLOSE_ALL = 1;
+	protected static final int RESULT_CLOSE_ALL = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
