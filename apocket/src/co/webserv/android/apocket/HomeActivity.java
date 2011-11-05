@@ -12,3 +12,4 @@ public class HomeActivity extends MenuActivity {
 		setContentView(R.layout.main);
 	}
 }
+/* $Id$ */
