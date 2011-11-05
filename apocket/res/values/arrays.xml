@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pocket_types">
+    	<item>@string/pocket_type_cash</item>
+    	<item>@string/pocket_type_bank</item>
+    </string-array>
+    <string-array name="pocket_currencies">
+    	<item>@string/pocket_currency_ron</item>
+    	<item>@string/pocket_currency_huf</item>
+    	<item>@string/pocket_currency_eur</item>
+    	<item>@string/pocket_currency_usd</item>
+    </string-array>
+</resources>
+<!-- $Id$ -->

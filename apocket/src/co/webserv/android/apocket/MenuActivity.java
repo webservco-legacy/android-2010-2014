@@ -1,0 +1,67 @@
+package co.webserv.android.apocket;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
+
+public class MenuActivity extends Activity {
+
+	private static final int RESULT_CLOSE_ALL = 1;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case RESULT_CLOSE_ALL:
+			setResult(RESULT_CLOSE_ALL);
+			finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.pocket_add:
+			startActivityForResult(new Intent(MenuActivity.this,
+					PocketAddActivity.class), RESULT_CLOSE_ALL);
+			return true;
+			
+		case R.id.home:
+			startActivityForResult(new Intent(MenuActivity.this,
+					HomeActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.about:
+			startActivityForResult(new Intent(MenuActivity.this,
+					AboutActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		case R.id.exit:
+			setResult(RESULT_CLOSE_ALL);
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+}
+/* $Id$ */
