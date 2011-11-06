@@ -14,7 +14,8 @@
             </intent-filter>
         </activity>
 		<activity android:name=".AboutActivity" />
-		<activity android:name=".PocketAddActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+		<activity android:name=".PocketListActivity" />
+		<activity android:name=".PocketDetailsActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
     </application>
 </manifest>
 <!-- $Id$ -->

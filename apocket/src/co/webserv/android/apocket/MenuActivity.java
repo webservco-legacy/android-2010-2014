@@ -41,9 +41,13 @@ public class MenuActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
+		case R.id.pocket_list:
+			startActivityForResult(new Intent(MenuActivity.this,
+					PocketListActivity.class), RESULT_CLOSE_ALL);
+			return true;
 		case R.id.pocket_add:
 			startActivityForResult(new Intent(MenuActivity.this,
-					PocketAddActivity.class), RESULT_CLOSE_ALL);
+					PocketDetailsActivity.class), RESULT_CLOSE_ALL);
 			return true;
 			
 		case R.id.home:

@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, APocketActivity!</string>
-    <string name="app_name">APocket</string>
-    
-    <string name="menu_home">Home</string>
-    <string name="menu_about">About</string>
-    <string name="menu_exit">Exit</string>
-    
-    <string name="form_error"> </string>
-    
-    <string name="pocket_add">Add Pocket</string>
-    <string name="pocket_title">Pocket Title</string>
-    <string name="pocket_title_error">Pocket Title is required! </string>
-    
-    <string name="pocket_type">Pocket Type</string>
-    <string name="pocket_type_cash">Cash</string>
-    <string name="pocket_type_bank">Bank</string>
-    
-    <string name="pocket_currency">Pocket Currency</string>
-    <string name="pocket_currency_ron">RON</string>
-    <string name="pocket_currency_huf">HUF</string>
-    <string name="pocket_currency_eur">EUR</string>
-    <string name="pocket_currency_usd">USD</string>
+	<string name="hello">Hello World, APocketActivity!</string>
+	<string name="app_name">APocket</string>
+
+	<string name="menu_home">Home</string>
+	<string name="menu_about">About</string>
+	<string name="menu_exit">Exit</string>
+
+	<string name="form_error"></string>
+
+	<string name="pocket_list">Your pockets</string>
+	<string name="pocket_details">Pocket details</string>
+	<string name="no_pockets">No pockets found</string>
+	<string name="pocket_add">Add Pocket</string>
+	<string name="pocket_mod">Modify Pocket</string>
+	<string name="pocket_save_button">Save</string>
+	<string name="pocket_title">Pocket title</string>
+	<string name="pocket_title_form">Pocket title (required)</string>
+	<string name="pocket_title_error">Pocket Title is required! </string>
+
+	<string name="pocket_type">Pocket type</string>
+	<string name="pocket_type_form">Pocket type</string>
+	<string name="pocket_type_cash">Cash</string>
+	<string name="pocket_type_bank">Bank</string>
+
+	<string name="pocket_currency">Pocket currency</string>
+	<string name="pocket_currency_form">Pocket currency</string>
+	<string name="pocket_currency_ron">RON</string>
+	<string name="pocket_currency_huf">HUF</string>
+	<string name="pocket_currency_eur">EUR</string>
+	<string name="pocket_currency_usd">USD</string>
+
+	<string name="pocket_description">Pocket description</string>
+	<string name="pocket_description_form">Pocket description (optional)</string>
+	
+	<color name="green">#008751</color>
+	<color name="red">#CE1126</color>
+	<color name="white">#FFFFFF</color>
+	<color name="transparent">#00000000</color>
 </resources>
 <!-- $Id$ -->
