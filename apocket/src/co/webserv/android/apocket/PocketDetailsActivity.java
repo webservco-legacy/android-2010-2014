@@ -1,15 +1,19 @@
 package co.webserv.android.apocket;
 
 import co.webserv.android.apocket.database.PocketDbAdapter;
+import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class PocketDetailsActivity extends MenuActivity {
+public class PocketDetailsActivity extends Activity {
 
 	private Long mId;
 
@@ -20,6 +24,8 @@ public class PocketDetailsActivity extends MenuActivity {
 
 	private PocketDbAdapter mDbAdapter;
 
+	private GeneralAdapter mGeneralAdapter;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -27,6 +33,9 @@ public class PocketDetailsActivity extends MenuActivity {
 
 		mDbAdapter = new PocketDbAdapter(this);
 		mDbAdapter.open();
+
+		mGeneralAdapter = new GeneralAdapter(this);
+		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.pocket_form);
 
@@ -50,6 +59,22 @@ public class PocketDetailsActivity extends MenuActivity {
 				savePocket();
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		return mGeneralAdapter.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return mGeneralAdapter.onOptionsItemSelected(item);
 	}
 
 	private void showPocket() {
