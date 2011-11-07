@@ -10,12 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class PocketDetailsActivity extends Activity {
 
 	private Long mId;
+
+	private RelativeLayout mLayoutForm;
+	private RelativeLayout mLayoutResult;
 
 	private EditText mTitle;
 	private Spinner mType;
@@ -38,6 +42,9 @@ public class PocketDetailsActivity extends Activity {
 		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.pocket_form);
+
+		mLayoutForm = (RelativeLayout) findViewById(R.id.pocket_form);
+		mLayoutResult = (RelativeLayout) findViewById(R.id.pocket_result);
 
 		mTitle = (EditText) findViewById(R.id.pocket_title);
 		mType = (Spinner) findViewById(R.id.pocket_type);
@@ -133,12 +140,15 @@ public class PocketDetailsActivity extends Activity {
 						description);
 				if (id > 0) {
 					mId = id;
-					showPocket();
+					mLayoutForm.setVisibility(View.GONE);
+					mLayoutResult.setVisibility(View.VISIBLE);
 				}
 			} else {
 				mDbAdapter
 						.updatePocket(mId, title, type, currency, description);
 				showPocket();
+				mLayoutForm.setVisibility(View.GONE);
+				mLayoutResult.setVisibility(View.VISIBLE);
 			}
 		}
 	}

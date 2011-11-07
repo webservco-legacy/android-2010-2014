@@ -8,6 +8,7 @@
 	<string name="menu_exit">Exit</string>
 
 	<string name="form_error"></string>
+	<string name="form_success">Operation completed successfully!</string>
 
 	<string name="pocket_list">Your pockets</string>
 	<string name="pocket_details">Pocket details</string>

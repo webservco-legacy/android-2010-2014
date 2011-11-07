@@ -2,37 +2,55 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:background="#008751">
+
 	<RelativeLayout android:orientation="vertical"
 		android:layout_width="fill_parent" android:layout_height="fill_parent">
+
 		<TextView android:id="@+id/pocket_form_tt"
 			android:layout_width="match_parent" android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:textSize="20dp" android:layout_alignParentTop="true"
 			android:gravity="center" android:textStyle="bold" android:text="@string/pocket_add"></TextView>
-		<EditText android:id="@+id/pocket_title"
-			android:layout_below="@+id/pocket_form_tt" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:hint="@string/pocket_title_form"
-			android:inputType="text">
-		</EditText>
-		<Spinner android:id="@+id/pocket_type" android:layout_below="@+id/pocket_title"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:prompt="@string/pocket_type_form" android:entries="@array/pocket_types"></Spinner>
-		<Spinner android:id="@+id/pocket_currency"
-			android:layout_below="@+id/pocket_type" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:prompt="@string/pocket_currency_form"
-			android:entries="@array/pocket_currencies"></Spinner>
-		<EditText android:id="@+id/pocket_description"
-			android:layout_below="@+id/pocket_currency" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:hint="@string/pocket_description_form"
-			android:inputType="textMultiLine" android:lines="3">
-		</EditText>
-		<Button android:id="@+id/pocket_button" android:layout_below="@+id/pocket_description"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="@string/pocket_save_button"></Button>
-		<TextView android:id="@+id/pocket_error"
-			android:layout_below="@+id/pocket_button" android:layout_width="match_parent"
-			android:layout_height="wrap_content" android:gravity="center"
-			android:textStyle="bold" android:textColor="#990000" android:text="@string/form_error"></TextView>
+
+		<RelativeLayout android:id="@+id/pocket_form"
+			android:layout_below="@+id/pocket_form_tt" android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+			<EditText android:id="@+id/pocket_title"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:hint="@string/pocket_title_form" android:inputType="text">
+			</EditText>
+			<Spinner android:id="@+id/pocket_type" android:layout_below="@+id/pocket_title"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:prompt="@string/pocket_type_form" android:entries="@array/pocket_types"></Spinner>
+			<Spinner android:id="@+id/pocket_currency"
+				android:layout_below="@+id/pocket_type" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:prompt="@string/pocket_currency_form"
+				android:entries="@array/pocket_currencies"></Spinner>
+			<EditText android:id="@+id/pocket_description"
+				android:layout_below="@+id/pocket_currency" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:hint="@string/pocket_description_form"
+				android:inputType="textMultiLine" android:lines="3">
+			</EditText>
+			<Button android:id="@+id/pocket_button" android:layout_below="@+id/pocket_description"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:text="@string/pocket_save_button"></Button>
+			<TextView android:id="@+id/pocket_error"
+				android:layout_below="@+id/pocket_button" android:layout_width="match_parent"
+				android:layout_height="wrap_content" android:gravity="center"
+				android:textStyle="bold" android:textColor="@color/red"
+				android:text="@string/form_error"></TextView>
+		</RelativeLayout>
+		<RelativeLayout android:id="@+id/pocket_result"
+			android:visibility="gone" android:layout_below="@+id/pocket_form_tt"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+			<TextView android:id="@+id/pocket_success"
+				android:layout_below="@+id/pocket_button" android:layout_width="match_parent"
+				android:layout_height="wrap_content" android:gravity="center"
+				android:textStyle="bold" android:text="@string/form_success"></TextView>
+		</RelativeLayout>
 	</RelativeLayout>
+
 </ScrollView>
 <!-- $Id$ -->
