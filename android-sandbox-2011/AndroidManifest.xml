@@ -24,7 +24,7 @@
 		<activity android:name=".GridWebActivity"
 			android:configChanges="locale" />
 		<activity android:name=".ImageGallery"
-			android:configChanges="locale" />
+			android:configChanges="locale|orientation" />
 	</application>
 </manifest>
 <!-- $Id$ -->
