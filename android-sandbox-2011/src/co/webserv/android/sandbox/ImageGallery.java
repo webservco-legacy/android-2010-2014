@@ -269,5 +269,14 @@ public class ImageGallery extends MenuActivity implements
 			return super.onFling(e1, e2, velocityX, velocityY);
 		}
 	}
+
+	@Override
+	public void onBackPressed() {
+		if (mImageItem.getVisibility() == View.VISIBLE) {
+			applyRotation(-1, 180, 90, true);
+		} else {
+			super.onBackPressed();
+		}
+	}
 }
 /* $Id$ */
