@@ -13,11 +13,12 @@ public class PocketDbAdapter {
 	public static final String msKeyType = "type";
 	public static final String msKeyCurrency = "currency";
 	public static final String msKeyDescription = "description";
+
 	public static final String msDbTable = "pockets";
 
 	private Context mContext;
 	private SQLiteDatabase mDb;
-	private PocketDbHelper mHelper;
+	private DbHelper mHelper;
 
 	public PocketDbAdapter(Context c) {
 
@@ -26,7 +27,7 @@ public class PocketDbAdapter {
 
 	public PocketDbAdapter open() throws SQLException {
 
-		mHelper = new PocketDbHelper(mContext);
+		mHelper = new DbHelper(mContext);
 		mDb = mHelper.getWritableDatabase();
 		return this;
 	}
@@ -57,13 +58,6 @@ public class PocketDbAdapter {
 		return mDb.delete(msDbTable, msKeyId + "=" + id, null) > 0;
 	}
 
-	public Cursor getPockets() {
-
-		return mDb.query(msDbTable, new String[] { msKeyId, msKeyTitle,
-				msKeyType, msKeyCurrency, msKeyDescription }, null, null, null,
-				null, null);
-	}
-
 	public Cursor getPocket(long id) throws SQLException {
 
 		Cursor cursor = mDb.query(true, msDbTable, new String[] {}, msKeyId
@@ -72,6 +66,13 @@ public class PocketDbAdapter {
 			cursor.moveToFirst();
 		}
 		return cursor;
+	}
+
+	public Cursor getPockets() {
+
+		return mDb.query(msDbTable, new String[] { msKeyId, msKeyTitle,
+				msKeyType, msKeyCurrency, msKeyDescription }, null, null, null,
+				null, null);
 	}
 
 	private ContentValues createContentValues(String title, String type,
