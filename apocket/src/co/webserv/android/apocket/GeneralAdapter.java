@@ -45,6 +45,11 @@ public class GeneralAdapter {
 			mActivity.startActivityForResult(new Intent(mActivity,
 					PocketDetailsActivity.class), RESULT_CLOSE_ALL);
 			return true;
+			
+		case R.id.test:
+			mActivity.startActivityForResult(new Intent(mActivity,
+					OperationDetailsActivity.class), RESULT_CLOSE_ALL);
+			return true;
 
 		case R.id.home:
 			mActivity.startActivityForResult(new Intent(mActivity,

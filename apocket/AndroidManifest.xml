@@ -16,6 +16,7 @@
 		<activity android:name=".AboutActivity" />
 		<activity android:name=".PocketListActivity" />
 		<activity android:name=".PocketDetailsActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+		<activity android:name=".OperationDetailsActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
     </application>
 </manifest>
 <!-- $Id$ -->

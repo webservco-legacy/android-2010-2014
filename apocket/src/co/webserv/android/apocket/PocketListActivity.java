@@ -94,5 +94,6 @@ public class PocketListActivity extends ListActivity {
 		SimpleCursorAdapter pocket_list = new SimpleCursorAdapter(this,
 				R.layout.pocket_list_item, pockets, from, to);
 		setListAdapter(pocket_list);
+		stopManagingCursor(pockets);
 	}
 }

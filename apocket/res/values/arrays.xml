@@ -10,5 +10,10 @@
     	<item>@string/pocket_currency_eur</item>
     	<item>@string/pocket_currency_usd</item>
     </string-array>
+    
+    <string-array name="operation_types">
+    	<item>@string/operation_type_out</item>
+    	<item>@string/operation_type_in</item>
+    </string-array>
 </resources>
 <!-- $Id$ -->

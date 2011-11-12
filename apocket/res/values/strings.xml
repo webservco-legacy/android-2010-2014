@@ -6,7 +6,8 @@
 	<string name="menu_home">Home</string>
 	<string name="menu_about">About</string>
 	<string name="menu_exit">Exit</string>
-	
+	<string name="menu_test">TEST</string>
+
 	<string name="pocket_context">Pocket Options</string>
 	<string name="pocket_context_edit">Edit</string>
 	<string name="pocket_context_delete">Delete</string>
@@ -38,7 +39,27 @@
 
 	<string name="pocket_description">Pocket description</string>
 	<string name="pocket_description_form">Pocket description (optional)</string>
-	
+
+	<string name="operation_add">Insert operation</string>
+	<string name="operation_save_button">Insert</string>
+
+	<string name="operation_type_form">Operation type</string>
+	<string name="operation_type_in">In</string>
+	<string name="operation_type_out">Out</string>
+
+	<string name="operation_pocket_form">Pocket</string>
+
+	<string name="operation_date">Operation date</string>
+	<string name="operation_date_form">0000-00-00</string>
+	<string name="operation_date_error">Operation date is required!</string>
+
+	<string name="operation_amount">Operation amount</string>
+	<string name="operation_amount_form">0.00</string>
+	<string name="operation_amount_error">Amount is required!</string>
+
+	<string name="operation_notes">Operation notes</string>
+	<string name="operation_notes_form">Operation notes (optional)</string>
+
 	<color name="green">#008751</color>
 	<color name="red">#CE1126</color>
 	<color name="white">#FFFFFF</color>

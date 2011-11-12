@@ -41,6 +41,7 @@
 				android:textStyle="bold" android:textColor="@color/red"
 				android:text="@string/form_error"></TextView>
 		</RelativeLayout>
+		
 		<RelativeLayout android:id="@+id/pocket_result"
 			android:visibility="gone" android:layout_below="@+id/pocket_form_tt"
 			android:orientation="vertical" android:layout_width="fill_parent"
@@ -50,6 +51,7 @@
 				android:layout_height="wrap_content" android:gravity="center"
 				android:textStyle="bold" android:text="@string/form_success"></TextView>
 		</RelativeLayout>
+		
 	</RelativeLayout>
 
 </ScrollView>
