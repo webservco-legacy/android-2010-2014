@@ -126,17 +126,21 @@ public class OperationListActivity extends ListActivity {
 
 				Cursor pocket = mPocketDbAdapter.getPocket(cursor.getLong(1));
 
+				startManagingCursor(pocket);
+
 				operations.add(new Operation(cursor.getLong(0), pocket
 						.getString(1), cursor.getString(2),
 						cursor.getString(3), cursor.getString(4)));
 
+				stopManagingCursor(pocket);
 				pocket.close();
+
 				cursor.moveToNext();
 			}
 		}
 
-		cursor.close();
 		stopManagingCursor(cursor);
+		cursor.close();
 
 		return operations;
 	}

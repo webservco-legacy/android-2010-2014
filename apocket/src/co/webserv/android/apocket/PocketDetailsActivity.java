@@ -115,8 +115,8 @@ public class PocketDetailsActivity extends Activity {
 
 			mDescription.setText(description);
 
-			pocket.close();
 			stopManagingCursor(pocket);
+			pocket.close();
 		}
 	}
 

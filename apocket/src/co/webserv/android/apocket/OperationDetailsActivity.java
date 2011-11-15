@@ -91,7 +91,10 @@ public class OperationDetailsActivity extends Activity {
 
 		mPocketDbAdapter = new PocketDbAdapter(this);
 		mPocketDbAdapter.open();
+
 		Cursor pockets = mPocketDbAdapter.getPockets();
+
+		startManagingCursor(pockets);
 
 		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
 		int[] to = new int[] { android.R.id.text1 };
@@ -101,7 +104,7 @@ public class OperationDetailsActivity extends Activity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mPocket.setAdapter(pocket_list);
 
-		pockets.close();
+		stopManagingCursor(pockets);
 
 		mDate.setOnClickListener(new View.OnClickListener() {
 
@@ -199,8 +202,8 @@ public class OperationDetailsActivity extends Activity {
 				}
 			}
 
-			operation.close();
 			stopManagingCursor(operation);
+			operation.close();
 		}
 		if (mIdPocket != null) {
 			for (int i = 0; i < mPocket.getCount(); i++) {

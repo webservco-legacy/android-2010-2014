@@ -1,5 +1,6 @@
 package co.webserv.android.apocket;
 
+import co.webserv.android.apocket.database.OperationDbAdapter;
 import co.webserv.android.apocket.database.PocketDbAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -80,6 +81,11 @@ public class PocketListActivity extends ListActivity {
 			Toast.makeText(this, getString(R.string.form_success),
 					Toast.LENGTH_SHORT).show();
 			return true;
+		case R.id.pocket_context_operation:
+			Intent i1 = new Intent(this, OperationDetailsActivity.class);
+			i1.putExtra(OperationDbAdapter.msKeyPocket, info.id);
+			startActivityForResult(i1, 1);
+			return true;
 		default:
 			return super.onContextItemSelected(item);
 		}
@@ -87,6 +93,7 @@ public class PocketListActivity extends ListActivity {
 
 	private void showPockets() {
 		Cursor pockets = mPocketDbAdapter.getPockets();
+
 		startManagingCursor(pockets);
 
 		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
@@ -94,7 +101,7 @@ public class PocketListActivity extends ListActivity {
 		SimpleCursorAdapter pocket_list = new SimpleCursorAdapter(this,
 				R.layout.pocket_list_item, pockets, from, to);
 		setListAdapter(pocket_list);
-		pockets.close();
+
 		stopManagingCursor(pockets);
 	}
 }
