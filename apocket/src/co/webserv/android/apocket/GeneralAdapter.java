@@ -37,32 +37,32 @@ public class GeneralAdapter {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+
 		case R.id.pocket_list:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					PocketListActivity.class), RESULT_CLOSE_ALL);
 			return true;
+
 		case R.id.pocket_add:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					PocketDetailsActivity.class), RESULT_CLOSE_ALL);
 			return true;
 
-		case R.id.test:
+		case R.id.operation_list:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					OperationListActivity.class), RESULT_CLOSE_ALL);
 			return true;
-		case R.id.test2:
+
+		case R.id.operation_add:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					OperationDetailsActivity.class), RESULT_CLOSE_ALL);
 			return true;
 
-		case R.id.home:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					HomeActivity.class), RESULT_CLOSE_ALL);
-			return true;
 		case R.id.about:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					AboutActivity.class), RESULT_CLOSE_ALL);
 			return true;
+
 		case R.id.exit:
 			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();

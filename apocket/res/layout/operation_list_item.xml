@@ -3,21 +3,21 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="wrap_content" android:paddingBottom="8dp">
 	<TextView android:id="@+id/amount" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:textSize="25dp"
+		android:layout_height="wrap_content" android:textSize="20dp"
 		android:text="@string/operation_amount" android:layout_marginTop="4dp"
 		android:textStyle="bold"></TextView>
 	<TextView android:id="@+id/pocket" android:layout_toRightOf="@+id/amount"
-	android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:textSize="25dp"
-		android:text="@string/operation_pocket_form" android:layout_marginTop="4dp"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:textSize="20dp" android:text="@string/operation_pocket_form"
+		android:layout_marginTop="4dp" android:layout_marginLeft="5dp"
 		android:textStyle="bold"></TextView>
 	<TextView android:id="@+id/date" android:layout_below="@+id/amount"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_marginLeft="5dp" android:textSize="20dp"
+		android:layout_marginLeft="5dp" android:textSize="16dp"
 		android:text="@string/operation_date"></TextView>
 	<TextView android:id="@+id/notes" android:layout_below="@+id/amount"
 		android:layout_toRightOf="@+id/date" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_marginLeft="5dp"
-		android:textSize="20dp" android:text="@string/operation_notes"></TextView>
+		android:textSize="16dp" android:text="@string/operation_notes"></TextView>
 </RelativeLayout>
 <!-- $Id$ -->
