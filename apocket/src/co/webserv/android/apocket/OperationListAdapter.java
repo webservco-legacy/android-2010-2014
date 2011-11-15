@@ -10,7 +10,6 @@ import android.widget.SimpleAdapter;
 
 public class OperationListAdapter extends SimpleAdapter {
 
-	@SuppressWarnings("unused")
 	private List<Operation> mOperations;
 
 	@SuppressWarnings("unchecked")
@@ -24,6 +23,11 @@ public class OperationListAdapter extends SimpleAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return super.getView(position, convertView, parent);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return mOperations.get(position).mId;
 	}
 }
 /* $Id$ */

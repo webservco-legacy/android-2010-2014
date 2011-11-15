@@ -9,7 +9,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -76,9 +75,6 @@ public class OperationListActivity extends ListActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 
-		// XXX
-		Log.d("COWEBSERV", "CONTEXT ITEM ID: " + info.id);
-
 		switch (item.getItemId()) {
 		case R.id.operation_context_edit:
 			Intent i = new Intent(this, OperationDetailsActivity.class);
@@ -130,8 +126,7 @@ public class OperationListActivity extends ListActivity {
 
 				Cursor pocket = mPocketDbAdapter.getPocket(cursor.getLong(1));
 
-				//XXX
-				operations.add(new Operation(cursor.getString(0), pocket
+				operations.add(new Operation(cursor.getLong(0), pocket
 						.getString(1), cursor.getString(2),
 						cursor.getString(3), cursor.getString(4)));
 
@@ -140,12 +135,10 @@ public class OperationListActivity extends ListActivity {
 			}
 		}
 
-		cursor.close(); // XXX
-
+		cursor.close();
 		stopManagingCursor(cursor);
 
 		return operations;
 	}
-
 }
 /* $Id$ */

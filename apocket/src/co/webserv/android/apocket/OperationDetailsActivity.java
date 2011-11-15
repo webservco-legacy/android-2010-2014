@@ -101,6 +101,8 @@ public class OperationDetailsActivity extends Activity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mPocket.setAdapter(pocket_list);
 
+		pockets.close();
+
 		mDate.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -197,10 +199,8 @@ public class OperationDetailsActivity extends Activity {
 				}
 			}
 
-			// XXX
-
-			stopManagingCursor(operation);
 			operation.close();
+			stopManagingCursor(operation);
 		}
 		if (mIdPocket != null) {
 			for (int i = 0; i < mPocket.getCount(); i++) {
