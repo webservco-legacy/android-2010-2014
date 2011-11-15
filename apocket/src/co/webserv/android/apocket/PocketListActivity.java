@@ -81,10 +81,15 @@ public class PocketListActivity extends ListActivity {
 			Toast.makeText(this, getString(R.string.form_success),
 					Toast.LENGTH_SHORT).show();
 			return true;
-		case R.id.pocket_context_operation:
+		case R.id.pocket_context_operation_add:
 			Intent i1 = new Intent(this, OperationDetailsActivity.class);
 			i1.putExtra(OperationDbAdapter.msKeyPocket, info.id);
 			startActivityForResult(i1, 1);
+			return true;
+		case R.id.pocket_context_operation_list:
+			Intent i2 = new Intent(this, OperationListActivity.class);
+			i2.putExtra(OperationDbAdapter.msKeyPocket, info.id);
+			startActivityForResult(i2, 1);
 			return true;
 		default:
 			return super.onContextItemSelected(item);

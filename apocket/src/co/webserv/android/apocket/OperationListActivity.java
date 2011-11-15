@@ -21,6 +21,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class OperationListActivity extends ListActivity {
 
+	private Long mPocketId;
+
 	private OperationDbAdapter mOperationDbAdapter;
 
 	private PocketDbAdapter mPocketDbAdapter;
@@ -39,6 +41,11 @@ public class OperationListActivity extends ListActivity {
 		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.operation_list);
+
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket);
+		}
 
 		showOperations();
 
@@ -106,7 +113,15 @@ public class OperationListActivity extends ListActivity {
 	}
 
 	private List<Operation> getOperationsList() {
-		Cursor cursor = mOperationDbAdapter.getOperations();
+
+		Cursor cursor;
+
+		if (mPocketId != null) {
+			cursor = mOperationDbAdapter.getPocketOperations(mPocketId);
+		} else {
+			cursor = mOperationDbAdapter.getOperations();
+		}
+
 		startManagingCursor(cursor);
 
 		int opnum = cursor.getCount();

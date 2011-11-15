@@ -24,7 +24,7 @@ import android.widget.TextView;
 public class OperationDetailsActivity extends Activity {
 
 	private Long mId;
-	private Long mIdPocket;
+	private Long mPocketId;
 
 	private RelativeLayout mLayoutForm;
 	private RelativeLayout mLayoutResult;
@@ -86,7 +86,7 @@ public class OperationDetailsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mId = extras.getLong(OperationDbAdapter.msKeyId);
-			mIdPocket = extras.getLong(OperationDbAdapter.msKeyPocket);
+			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket);
 		}
 
 		mPocketDbAdapter = new PocketDbAdapter(this);
@@ -205,10 +205,10 @@ public class OperationDetailsActivity extends Activity {
 			stopManagingCursor(operation);
 			operation.close();
 		}
-		if (mIdPocket != null) {
+		if (mPocketId != null) {
 			for (int i = 0; i < mPocket.getCount(); i++) {
 				long id = mPocket.getItemIdAtPosition(i);
-				if (id == mIdPocket) {
+				if (id == mPocketId) {
 					mPocket.setSelection(i);
 				}
 			}
