@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
@@ -94,6 +95,16 @@ public class PocketListActivity extends ListActivity {
 		default:
 			return super.onContextItemSelected(item);
 		}
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+
+		super.onListItemClick(l, v, position, id);
+
+		Intent i = new Intent(this, OperationDetailsActivity.class);
+		i.putExtra(OperationDbAdapter.msKeyPocket, id);
+		startActivityForResult(i, 1);
 	}
 
 	private void showPockets() {
