@@ -162,29 +162,42 @@ public class OperationDetailsActivity extends Activity {
 		if (mId != null) {
 			Cursor operation = mOperationDbAdapter.getOperation(mId);
 			startManagingCursor(operation);
-			long pocket = operation.getLong(operation
-					.getColumnIndexOrThrow(OperationDbAdapter.msKeyPocket));
-			String date = operation.getString(operation
-					.getColumnIndexOrThrow(OperationDbAdapter.msKeyDate));
-			double amount = operation.getDouble(operation
-					.getColumnIndexOrThrow(OperationDbAdapter.msKeyAmount));
-			String notes = operation.getString(operation
-					.getColumnIndexOrThrow(OperationDbAdapter.msKeyNotes));
 
-			mType.setSelection((amount > 0) ? 1 : 0);
+			if (operation != null && operation.getCount() > 0) {
+				if (operation.moveToFirst()) {
 
-			for (int i = 0; i < mPocket.getCount(); i++) {
-				long id = mPocket.getItemIdAtPosition(i);
-				if (id == pocket) {
-					mPocket.setSelection(i);
+					long pocket = operation
+							.getLong(operation
+									.getColumnIndexOrThrow(OperationDbAdapter.msKeyPocket));
+					String date = operation
+							.getString(operation
+									.getColumnIndexOrThrow(OperationDbAdapter.msKeyDate));
+					double amount = operation
+							.getDouble(operation
+									.getColumnIndexOrThrow(OperationDbAdapter.msKeyAmount));
+					String notes = operation
+							.getString(operation
+									.getColumnIndexOrThrow(OperationDbAdapter.msKeyNotes));
+
+					mType.setSelection((amount > 0) ? 1 : 0);
+
+					for (int i = 0; i < mPocket.getCount(); i++) {
+						long id = mPocket.getItemIdAtPosition(i);
+						if (id == pocket) {
+							mPocket.setSelection(i);
+						}
+					}
+
+					mDate.setText(date);
+
+					mAmount.setText(Math.abs(amount) + "");
+
+					mNotes.setText(notes);
+
 				}
 			}
 
-			mDate.setText(date);
-
-			mAmount.setText(Math.abs(amount) + "");
-
-			mNotes.setText(notes);
+			// XXX
 
 			stopManagingCursor(operation);
 			operation.close();

@@ -11,6 +11,10 @@
 	<string name="pocket_context">Pocket Options</string>
 	<string name="pocket_context_edit">Edit</string>
 	<string name="pocket_context_delete">Delete</string>
+	
+	<string name="operation_context">Operation Options</string>
+	<string name="operation_context_edit">Edit</string>
+	<string name="operation_context_delete">Delete</string>
 
 	<string name="form_error"></string>
 	<string name="form_success">Operation completed successfully!</string>
@@ -40,7 +44,11 @@
 	<string name="pocket_description">Pocket description</string>
 	<string name="pocket_description_form">Pocket description (optional)</string>
 
+	<string name="operation_list">Operation history</string>
+	<string name="operation_details">Operation details</string>
+	<string name="no_operations">No operations found</string>
 	<string name="operation_add">Insert operation</string>
+	<string name="operation_mod">Modify operation</string>
 	<string name="operation_save_button">Insert</string>
 
 	<string name="operation_type_form">Operation type</string>

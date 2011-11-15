@@ -8,6 +8,8 @@
 		android:title="@string/pocket_add" />
 	<item android:id="@+id/test" android:icon="@drawable/ic_menu_add"
 		android:title="@string/menu_test" />
+	<item android:id="@+id/test2" android:icon="@drawable/ic_menu_add"
+		android:title="@string/menu_test" />
 	<item android:id="@+id/about" android:icon="@drawable/ic_menu_info_details"
 		android:title="@string/menu_about" />
 	<item android:id="@+id/exit" android:icon="@drawable/ic_menu_close_clear_cancel"

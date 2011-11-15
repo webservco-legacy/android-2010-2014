@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class PocketListActivity extends ListActivity {
 
-	private PocketDbAdapter mDbAdapter;
+	private PocketDbAdapter mPocketDbAdapter;
 
 	private GeneralAdapter mGeneralAdapter;
 
@@ -26,8 +26,8 @@ public class PocketListActivity extends ListActivity {
 
 		super.onCreate(savedInstanceState);
 
-		mDbAdapter = new PocketDbAdapter(this);
-		mDbAdapter.open();
+		mPocketDbAdapter = new PocketDbAdapter(this);
+		mPocketDbAdapter.open();
 
 		mGeneralAdapter = new GeneralAdapter(this);
 		mGeneralAdapter.onCreate();
@@ -75,7 +75,7 @@ public class PocketListActivity extends ListActivity {
 			startActivityForResult(i, 1);
 			return true;
 		case R.id.pocket_context_delete:
-			mDbAdapter.deletePocket(info.id);
+			mPocketDbAdapter.deletePocket(info.id);
 			showPockets();
 			Toast.makeText(this, getString(R.string.form_success),
 					Toast.LENGTH_SHORT).show();
@@ -86,7 +86,7 @@ public class PocketListActivity extends ListActivity {
 	}
 
 	private void showPockets() {
-		Cursor pockets = mDbAdapter.getPockets();
+		Cursor pockets = mPocketDbAdapter.getPockets();
 		startManagingCursor(pockets);
 
 		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
@@ -97,3 +97,4 @@ public class PocketListActivity extends ListActivity {
 		stopManagingCursor(pockets);
 	}
 }
+/* $Id$ */
