@@ -86,8 +86,16 @@ public class OperationDetailsActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			mId = extras.getLong(OperationDbAdapter.msKeyId);
-			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket);
+
+			long id = extras.getLong(OperationDbAdapter.msKeyId);
+			if (id > 0) {
+				mId = id;
+			}
+
+			long pocket = extras.getLong(OperationDbAdapter.msKeyPocket);
+			if (pocket > 0) {
+				mPocketId = pocket;
+			}
 		}
 
 		mPocketDbAdapter = new PocketDbAdapter(this);
