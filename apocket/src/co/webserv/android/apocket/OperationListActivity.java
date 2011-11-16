@@ -98,7 +98,8 @@ public class OperationListActivity extends ListActivity {
 		case R.id.operation_context_edit:
 			Intent i = new Intent(this, OperationDetailsActivity.class);
 			i.putExtra(OperationDbAdapter.msKeyId, info.id);
-			startActivityForResult(i, 1);
+			startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 			finish();
 			return true;
 		case R.id.operation_context_delete:
@@ -119,7 +120,8 @@ public class OperationListActivity extends ListActivity {
 
 		Intent i = new Intent(this, OperationDetailsActivity.class);
 		i.putExtra(OperationDbAdapter.msKeyId, id);
-		startActivityForResult(i, 1);
+		startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
+		setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 		finish();
 	}
 

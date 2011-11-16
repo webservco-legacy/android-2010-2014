@@ -86,6 +86,7 @@ public class PocketListActivity extends ListActivity {
 			Intent i = new Intent(this, PocketDetailsActivity.class);
 			i.putExtra(PocketDbAdapter.msKeyId, info.id);
 			startActivityForResult(i, 1);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 			finish();
 			return true;
 		case R.id.pocket_context_delete:
@@ -97,13 +98,15 @@ public class PocketListActivity extends ListActivity {
 		case R.id.pocket_context_operation_add:
 			Intent i1 = new Intent(this, OperationDetailsActivity.class);
 			i1.putExtra(OperationDbAdapter.msKeyPocket, info.id);
-			startActivityForResult(i1, 1);
+			startActivityForResult(i1, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 			finish();
 			return true;
 		case R.id.pocket_context_operation_list:
 			Intent i2 = new Intent(this, OperationListActivity.class);
 			i2.putExtra(OperationDbAdapter.msKeyPocket, info.id);
-			startActivityForResult(i2, 1);
+			startActivityForResult(i2, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 			finish();
 			return true;
 		default:
@@ -118,7 +121,8 @@ public class PocketListActivity extends ListActivity {
 
 		Intent i = new Intent(this, OperationDetailsActivity.class);
 		i.putExtra(OperationDbAdapter.msKeyPocket, id);
-		startActivityForResult(i, 1);
+		startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
+		setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 		finish();
 	}
 
