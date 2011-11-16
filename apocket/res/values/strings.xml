@@ -10,7 +10,7 @@
 	<string name="pocket_context">Pocket Options</string>
 	<string name="pocket_context_edit">Edit</string>
 	<string name="pocket_context_delete">Delete</string>
-	
+
 	<string name="operation_context">Operation Options</string>
 	<string name="operation_context_edit">Edit</string>
 	<string name="operation_context_delete">Delete</string>
@@ -24,9 +24,9 @@
 	<string name="pocket_add">Add Pocket</string>
 	<string name="pocket_mod">Modify Pocket</string>
 	<string name="pocket_save_button">Save</string>
-	
+
 	<string name="pocket_total">Total</string>
-	
+
 	<string name="pocket_title">Pocket title</string>
 	<string name="pocket_title_form">Pocket title (required)</string>
 	<string name="pocket_title_error">Pocket Title is required! </string>
@@ -51,7 +51,7 @@
 	<string name="no_operations">No operations found</string>
 	<string name="operation_add">Insert operation</string>
 	<string name="operation_mod">Modify operation</string>
-	<string name="operation_save_button">Insert</string>
+	<string name="operation_save_button">Save</string>
 
 	<string name="operation_type_form">Operation type</string>
 	<string name="operation_type_in">In</string>
