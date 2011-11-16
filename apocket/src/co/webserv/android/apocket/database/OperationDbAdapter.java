@@ -63,13 +63,15 @@ public class OperationDbAdapter {
 	public Cursor getPocketOperations(long pocket) {
 		return mDb.query(msDbTable, new String[] { msKeyId, msKeyPocket,
 				msKeyDate, msKeyAmount, msKeyNotes }, msKeyPocket + "="
-				+ pocket, null, null, null, null, null);
+				+ pocket, null, null, null, msKeyDate + " DESC, " + msKeyPocket
+				+ " DESC, " + msKeyId + " DESC", null);
 	}
 
 	public Cursor getOperations() {
 		return mDb.query(msDbTable, new String[] { msKeyId, msKeyPocket,
 				msKeyDate, msKeyAmount, msKeyNotes }, null, null, null, null,
-				null, null);
+				msKeyDate + " DESC, " + msKeyPocket + " DESC, " + msKeyId
+						+ " DESC", null);
 	}
 
 	private ContentValues createContentValues(long pocket, String date,

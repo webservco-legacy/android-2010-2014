@@ -255,7 +255,7 @@ public class OperationDetailsActivity extends Activity {
 			errorMessage += "\n" + getString(R.string.operation_date_error);
 		}
 
-		if (amount.longValue() == 0) {
+		if (amount.doubleValue() == 0) {
 			errorMessage += "\n" + getString(R.string.operation_amount_error);
 		}
 

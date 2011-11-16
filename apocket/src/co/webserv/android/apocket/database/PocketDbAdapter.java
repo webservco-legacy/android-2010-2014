@@ -75,7 +75,6 @@ public class PocketDbAdapter {
 				null, null);
 	}
 
-	// XXX
 	public Cursor getPocketList() {
 		return mDb
 				.rawQuery(
