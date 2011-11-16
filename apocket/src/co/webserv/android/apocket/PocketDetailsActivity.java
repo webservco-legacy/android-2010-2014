@@ -26,7 +26,7 @@ public class PocketDetailsActivity extends Activity {
 	private Spinner mCurrency;
 	private EditText mDescription;
 
-	private PocketDbAdapter mDbAdapter;
+	private PocketDbAdapter mPocketDbAdapter;
 
 	private GeneralAdapter mGeneralAdapter;
 
@@ -35,8 +35,8 @@ public class PocketDetailsActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		mDbAdapter = new PocketDbAdapter(this);
-		mDbAdapter.open();
+		mPocketDbAdapter = new PocketDbAdapter(this);
+		mPocketDbAdapter.open();
 
 		mGeneralAdapter = new GeneralAdapter(this);
 		mGeneralAdapter.onCreate();
@@ -69,6 +69,14 @@ public class PocketDetailsActivity extends Activity {
 	}
 
 	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+
+		mPocketDbAdapter.close();
+	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
@@ -86,7 +94,7 @@ public class PocketDetailsActivity extends Activity {
 
 	private void showPocket() {
 		if (mId != null) {
-			Cursor pocket = mDbAdapter.getPocket(mId);
+			Cursor pocket = mPocketDbAdapter.getPocket(mId);
 			startManagingCursor(pocket);
 			String title = pocket.getString(pocket
 					.getColumnIndexOrThrow(PocketDbAdapter.msKeyTitle));
@@ -136,7 +144,7 @@ public class PocketDetailsActivity extends Activity {
 			errorField.setText(errorMessage);
 		} else {
 			if (mId == null) {
-				long id = mDbAdapter.createPocket(title, type, currency,
+				long id = mPocketDbAdapter.createPocket(title, type, currency,
 						description);
 				if (id > 0) {
 					mId = id;
@@ -144,8 +152,8 @@ public class PocketDetailsActivity extends Activity {
 					mLayoutResult.setVisibility(View.VISIBLE);
 				}
 			} else {
-				mDbAdapter
-						.updatePocket(mId, title, type, currency, description);
+				mPocketDbAdapter.updatePocket(mId, title, type, currency,
+						description);
 				showPocket();
 				mLayoutForm.setVisibility(View.GONE);
 				mLayoutResult.setVisibility(View.VISIBLE);

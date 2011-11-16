@@ -1,5 +1,8 @@
 package co.webserv.android.apocket;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.webserv.android.apocket.database.OperationDbAdapter;
 import co.webserv.android.apocket.database.PocketDbAdapter;
 import android.app.ListActivity;
@@ -13,8 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class PocketListActivity extends ListActivity {
@@ -39,6 +42,14 @@ public class PocketListActivity extends ListActivity {
 		showPockets();
 
 		registerForContextMenu(getListView());
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+
+		mPocketDbAdapter.close();
 	}
 
 	@Override
@@ -108,17 +119,45 @@ public class PocketListActivity extends ListActivity {
 	}
 
 	private void showPockets() {
-		Cursor pockets = mPocketDbAdapter.getPockets();
 
-		startManagingCursor(pockets);
+		List<Pocket> pockets = getPocketList();
 
-		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
-		int[] to = new int[] { R.id.label };
-		SimpleCursorAdapter pocket_list = new SimpleCursorAdapter(this,
-				R.layout.pocket_list_item, pockets, from, to);
-		setListAdapter(pocket_list);
+		String[] from = new String[] { Pocket.msKeyTitle, Pocket.msKeyType,
+				Pocket.msKeyCurrency, Pocket.msKeyTotal };
+		int[] to = new int[] { R.id.title, R.id.type, R.id.currency, R.id.total };
 
-		stopManagingCursor(pockets);
+		ListAdapter adapter = new PocketListAdapter(this, pockets,
+				R.layout.pocket_list_item, from, to);
+		setListAdapter(adapter);
+
+	}
+
+	private List<Pocket> getPocketList() {
+
+		Cursor cursor = mPocketDbAdapter.getPocketList();
+
+		startManagingCursor(cursor);
+
+		int pnum = cursor.getCount();
+
+		List<Pocket> pockets = new ArrayList<Pocket>();
+
+		if (pnum > 0) {
+
+			cursor.moveToFirst();
+
+			while (cursor.isAfterLast() == false) {
+				pockets.add(new Pocket(cursor.getLong(0), cursor.getString(1),
+						cursor.getString(2), cursor.getString(3), cursor
+								.getString(4), cursor.getString(5)));
+				cursor.moveToNext();
+			}
+		}
+
+		stopManagingCursor(cursor);
+		cursor.close();
+
+		return pockets;
 	}
 }
 /* $Id$ */

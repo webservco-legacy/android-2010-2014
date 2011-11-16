@@ -43,6 +43,7 @@ public class OperationDetailsActivity extends Activity {
 
 	private OperationDbAdapter mOperationDbAdapter;
 	private PocketDbAdapter mPocketDbAdapter;
+	private Cursor mPockets;
 
 	private GeneralAdapter mGeneralAdapter;
 
@@ -92,19 +93,15 @@ public class OperationDetailsActivity extends Activity {
 		mPocketDbAdapter = new PocketDbAdapter(this);
 		mPocketDbAdapter.open();
 
-		Cursor pockets = mPocketDbAdapter.getPockets();
-
-		startManagingCursor(pockets);
+		mPockets = mPocketDbAdapter.getPockets();
 
 		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
 		int[] to = new int[] { android.R.id.text1 };
 		SimpleCursorAdapter pocket_list = new SimpleCursorAdapter(this,
-				android.R.layout.simple_spinner_item, pockets, from, to);
+				android.R.layout.simple_spinner_item, mPockets, from, to);
 		pocket_list
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mPocket.setAdapter(pocket_list);
-
-		stopManagingCursor(pockets);
 
 		mDate.setOnClickListener(new View.OnClickListener() {
 
@@ -129,6 +126,17 @@ public class OperationDetailsActivity extends Activity {
 				insertOperation();
 			}
 		});
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+
+		mPockets.close();
+
+		mOperationDbAdapter.close();
+		mPocketDbAdapter.close();
 	}
 
 	@Override

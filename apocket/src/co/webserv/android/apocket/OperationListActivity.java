@@ -53,6 +53,17 @@ public class OperationListActivity extends ListActivity {
 	}
 
 	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+
+		mOperationDbAdapter.close();
+		if (mPocketDbAdapter != null) {
+			mPocketDbAdapter.close();
+		}
+	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);

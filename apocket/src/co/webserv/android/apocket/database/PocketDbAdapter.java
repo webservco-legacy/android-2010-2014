@@ -75,6 +75,17 @@ public class PocketDbAdapter {
 				null, null);
 	}
 
+	// XXX
+	public Cursor getPocketList() {
+		return mDb
+				.rawQuery(
+						"SELECT pockets._id, title, type, currency, description,"
+								+ " COALESCE(SUM(amount),0) AS total"
+								+ " FROM pockets"
+								+ " LEFT OUTER JOIN operations ON pockets._id = operations.pocket"
+								+ " GROUP BY pockets._id", null);
+	}
+
 	private ContentValues createContentValues(String title, String type,
 			String currency, String description) {
 

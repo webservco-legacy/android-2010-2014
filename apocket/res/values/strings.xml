@@ -24,6 +24,9 @@
 	<string name="pocket_add">Add Pocket</string>
 	<string name="pocket_mod">Modify Pocket</string>
 	<string name="pocket_save_button">Save</string>
+	
+	<string name="pocket_total">Total</string>
+	
 	<string name="pocket_title">Pocket title</string>
 	<string name="pocket_title_form">Pocket title (required)</string>
 	<string name="pocket_title_error">Pocket Title is required! </string>
