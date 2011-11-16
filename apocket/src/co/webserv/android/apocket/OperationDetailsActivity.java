@@ -175,8 +175,17 @@ public class OperationDetailsActivity extends Activity {
 	}
 
 	private void setDateField() {
-		mDate.setText(new StringBuilder().append(mYear).append("-")
-				.append(mMonth + 1).append("-").append(mDay).append(" "));
+		StringBuilder stringbilder = new StringBuilder();
+		stringbilder.append(mYear).append("-");
+		if (mMonth < 9) {
+			stringbilder.append("0");
+		}
+		stringbilder.append(mMonth + 1).append("-");
+		if (mDay < 10) {
+			stringbilder.append("0");
+		}
+		stringbilder.append(mDay);
+		mDate.setText(stringbilder);
 	}
 
 	private void showOperation() {
