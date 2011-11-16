@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
@@ -108,6 +109,16 @@ public class OperationListActivity extends ListActivity {
 		default:
 			return super.onContextItemSelected(item);
 		}
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+
+		super.onListItemClick(l, v, position, id);
+
+		Intent i = new Intent(this, OperationDetailsActivity.class);
+		i.putExtra(OperationDbAdapter.msKeyId, id);
+		startActivityForResult(i, 1);
 	}
 
 	private void showOperations() {
