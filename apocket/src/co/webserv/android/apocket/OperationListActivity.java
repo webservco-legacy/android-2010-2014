@@ -99,6 +99,7 @@ public class OperationListActivity extends ListActivity {
 			Intent i = new Intent(this, OperationDetailsActivity.class);
 			i.putExtra(OperationDbAdapter.msKeyId, info.id);
 			startActivityForResult(i, 1);
+			finish();
 			return true;
 		case R.id.operation_context_delete:
 			mOperationDbAdapter.deleteOperation(info.id);
@@ -119,6 +120,7 @@ public class OperationListActivity extends ListActivity {
 		Intent i = new Intent(this, OperationDetailsActivity.class);
 		i.putExtra(OperationDbAdapter.msKeyId, id);
 		startActivityForResult(i, 1);
+		finish();
 	}
 
 	private void showOperations() {

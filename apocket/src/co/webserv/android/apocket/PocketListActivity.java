@@ -86,6 +86,7 @@ public class PocketListActivity extends ListActivity {
 			Intent i = new Intent(this, PocketDetailsActivity.class);
 			i.putExtra(PocketDbAdapter.msKeyId, info.id);
 			startActivityForResult(i, 1);
+			finish();
 			return true;
 		case R.id.pocket_context_delete:
 			mPocketDbAdapter.deletePocket(info.id);
@@ -97,11 +98,13 @@ public class PocketListActivity extends ListActivity {
 			Intent i1 = new Intent(this, OperationDetailsActivity.class);
 			i1.putExtra(OperationDbAdapter.msKeyPocket, info.id);
 			startActivityForResult(i1, 1);
+			finish();
 			return true;
 		case R.id.pocket_context_operation_list:
 			Intent i2 = new Intent(this, OperationListActivity.class);
 			i2.putExtra(OperationDbAdapter.msKeyPocket, info.id);
 			startActivityForResult(i2, 1);
+			finish();
 			return true;
 		default:
 			return super.onContextItemSelected(item);
@@ -116,6 +119,7 @@ public class PocketListActivity extends ListActivity {
 		Intent i = new Intent(this, OperationDetailsActivity.class);
 		i.putExtra(OperationDbAdapter.msKeyPocket, id);
 		startActivityForResult(i, 1);
+		finish();
 	}
 
 	private void showPockets() {
