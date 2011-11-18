@@ -10,7 +10,8 @@
 			android:layout_width="match_parent" android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:textSize="20dp" android:layout_alignParentTop="true"
-			android:gravity="center" android:textStyle="bold" android:text="@string/operation_add"></TextView>
+			android:gravity="center" android:textStyle="bold" android:text="@string/operation_add"
+			android:textColor="@color/green2"></TextView>
 
 		<RelativeLayout android:id="@+id/operation_form"
 			android:layout_below="@+id/operation_form_tt" android:orientation="vertical"
@@ -41,6 +42,7 @@
 				android:layout_height="wrap_content" android:hint="@string/operation_notes_form"
 				android:inputType="textMultiLine" android:lines="3">
 			</EditText>
+
 			<Button android:id="@+id/operation_button"
 				android:layout_below="@+id/operation_notes" android:layout_width="fill_parent"
 				android:layout_height="wrap_content" android:text="@string/operation_save_button"></Button>

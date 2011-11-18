@@ -71,8 +71,10 @@
 	<string name="operation_notes_form">Operation notes (optional)</string>
 
 	<color name="green">#008751</color>
+	<color name="green2">#00FA9A</color>
 	<color name="red">#CE1126</color>
 	<color name="white">#FFFFFF</color>
+	<color name="yellow">#F0E68C</color>
 	<color name="transparent">#00000000</color>
 </resources>
 <!-- $Id$ -->

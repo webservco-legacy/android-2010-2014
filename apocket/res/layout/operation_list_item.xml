@@ -5,19 +5,21 @@
 	<TextView android:id="@+id/amount" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:textSize="20dp"
 		android:text="@string/operation_amount" android:layout_marginTop="4dp"
-		android:textStyle="bold"></TextView>
+		android:layout_marginLeft="5dp" android:textStyle="bold"
+		android:textColor="@color/green2"></TextView>
 	<TextView android:id="@+id/pocket" android:layout_toRightOf="@+id/amount"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:textSize="20dp" android:text="@string/operation_pocket_form"
 		android:layout_marginTop="4dp" android:layout_marginLeft="5dp"
-		android:textStyle="bold"></TextView>
+		android:textStyle="bold" android:textColor="@color/green2"></TextView>
 	<TextView android:id="@+id/date" android:layout_below="@+id/amount"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_marginLeft="5dp" android:textSize="16dp"
-		android:text="@string/operation_date"></TextView>
+		android:text="@string/operation_date" android:textColor="@color/green2"></TextView>
 	<TextView android:id="@+id/notes" android:layout_below="@+id/amount"
 		android:layout_toRightOf="@+id/date" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_marginLeft="5dp"
-		android:textSize="16dp" android:text="@string/operation_notes"></TextView>
+		android:textSize="16dp" android:text="@string/operation_notes"
+		android:textColor="@color/green2"></TextView>
 </RelativeLayout>
 <!-- $Id$ -->
