@@ -1,5 +1,12 @@
 package co.webserv.android.apocket;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -62,6 +69,16 @@ public class GeneralAdapter {
 			mActivity.startActivityForResult(new Intent(mActivity,
 					AboutActivity.class), RESULT_CLOSE_ALL);
 			return true;
+		
+		case R.id.importdb:
+			mActivity.startActivityForResult(new Intent(mActivity,
+					ImportActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		
+		case R.id.exportdb:
+			mActivity.startActivityForResult(new Intent(mActivity,
+					ExportActivity.class), RESULT_CLOSE_ALL);
+			return true;
 
 		case R.id.exit:
 			mActivity.setResult(RESULT_CLOSE_ALL);
@@ -70,6 +87,23 @@ public class GeneralAdapter {
 		default:
 			return mActivity.getParent().onOptionsItemSelected(item);
 		}
+	}
+	
+	public void copyFile(File source, File destination) throws IOException {
+
+		InputStream input = new FileInputStream(source);
+		OutputStream output = new FileOutputStream(destination);
+
+		byte[] buffer = new byte[1024];
+
+		int length;
+
+		while ((length = input.read(buffer)) > 0) {
+			output.write(buffer, 0, length);
+		}
+		input.close();
+		output.close();
+
 	}
 }
 /* $Id$ */
