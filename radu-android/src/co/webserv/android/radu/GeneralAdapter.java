@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -146,12 +147,28 @@ public class GeneralAdapter {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = mActivity.getMenuInflater();
+		inflater.inflate(R.menu.options, menu);
 		return true;
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
+		case R.id.home:
+			mActivity.startActivityForResult(new Intent(mActivity,
+					BrowserActivity.class), RESULT_CLOSE_ALL);
+			return true;
+
+		case R.id.about:
+			mActivity.startActivityForResult(new Intent(mActivity,
+					AboutActivity.class), RESULT_CLOSE_ALL);
+			return true;
+		
+		case R.id.exit:
+			mActivity.setResult(RESULT_CLOSE_ALL);
+			mActivity.finish();
+			return true;
 		default:
 			return mActivity.getParent().onOptionsItemSelected(item);
 		}

@@ -1,8 +1,10 @@
 package co.webserv.android.radu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -36,6 +38,7 @@ public class BrowserActivity extends Activity {
 		setContentView(mWebView.getLayout());
 	}
 
+	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -47,29 +50,23 @@ public class BrowserActivity extends Activity {
 		super.onStop();
 		mWebView.stopLoading();
 	}
-
+	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mWebView.inCustomView()) {
-				mWebView.hideCustomView();
-				return true;
-			}
-		}
-		return super.onKeyDown(keyCode, event);
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// return mGeneralAdapter.onCreateOptionsMenu(menu);
-		return false;
+		return mGeneralAdapter.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return mGeneralAdapter.onOptionsItemSelected(item);
 	}
-
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 
@@ -80,15 +77,56 @@ public class BrowserActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-
-		if (mWebView.getOriginalUrl().equals(mUrl)) {
-			mGeneralAdapter.exit();
+		
+		Log.e("COWEBSERVANDROID", "back event");
+		Log.e("COWEBSERVANDROID", "original detected: " + mWebView.getOriginalUrl());
+		Log.e("COWEBSERVANDROID", "original string: " + mUrl);
+		
+		if (mWebView.inCustomView()) {
+			mWebView.hideCustomView();
+		} else if (mWebView.getOriginalUrl().equals(mUrl)) {
+			mGeneralAdapter.onBackPressed();
 		} else {
 			if (mWebView.canGoBack()) {
-				mWebView.goBack();
+				mWebView.clearHistory();
+				mWebView.loadUrl(mUrl);
 			} else {
-				mGeneralAdapter.exit();
+				mGeneralAdapter.onBackPressed();
 			}
 		}
+		
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		Log.d("COWEBSERVANDROID", "keydown!");
+		
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			
+			Log.d("COWEBSERVANDROID", "back event");
+			Log.d("COWEBSERVANDROID", "original detected: " + mWebView.getOriginalUrl());
+			Log.d("COWEBSERVANDROID", "original string: " + mUrl);
+			
+			if (mWebView.inCustomView()) {
+				mWebView.hideCustomView();
+				return true;
+			} else if (mWebView.getOriginalUrl().equals(mUrl)) {
+				mGeneralAdapter.onBackPressed();
+				return true;
+			} else {
+				if (mWebView.canGoBack()) {
+					mWebView.clearHistory();
+					mWebView.loadUrl(mUrl);
+					return true;
+				} else {
+					mGeneralAdapter.onBackPressed();
+					return true;
+				}
+			}
+			
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 }

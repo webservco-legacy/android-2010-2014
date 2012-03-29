@@ -33,6 +33,7 @@
     <color name="black">#ff000000</color>
     
     <color name="grey">#333333</color>
+    <color name="light">#eeeeee</color>
 
     <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
 </resources>
