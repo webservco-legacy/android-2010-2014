@@ -25,7 +25,7 @@ public class GeneralAdapter {
 	protected static final int RESULT_CLOSE_ALL = 1;
 
 	static Locale locale;
-	static final String language = "it";
+	static final String language = "en";
 
 	private Activity mActivity;
 

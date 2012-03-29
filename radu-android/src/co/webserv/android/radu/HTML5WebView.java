@@ -14,7 +14,6 @@ import android.view.Window;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
-import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 //import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -67,6 +66,7 @@ public class HTML5WebView extends WebView {
 		s.setPluginState(WebSettings.PluginState.ON_DEMAND);
 
 		// cache settings (make sure the html5 app implements this)
+		/*
 		s.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		s.setRenderPriority(RenderPriority.HIGH);
 		s.setDomStorageEnabled(true);
@@ -75,6 +75,7 @@ public class HTML5WebView extends WebView {
 				+ a.getPackageName() + "/cache");
 		s.setAllowFileAccess(true);
 		s.setAppCacheEnabled(true);
+		*/
 
 		// enable navigator.geolocation
 		s.setGeolocationEnabled(true);
