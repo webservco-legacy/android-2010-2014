@@ -109,6 +109,7 @@ public class GeneralAdapter {
 	public void onBackPressed() {
 		
 		if (mActivity instanceof PocketListActivity) {
+			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();
 			mActivity.moveTaskToBack(true);
 			
