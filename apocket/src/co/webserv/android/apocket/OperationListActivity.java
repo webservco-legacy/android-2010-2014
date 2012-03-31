@@ -112,6 +112,11 @@ public class OperationListActivity extends ListActivity {
 			return super.onContextItemSelected(item);
 		}
 	}
+	
+	@Override
+	public void onBackPressed() {
+		mGeneralAdapter.onBackPressed();
+	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {

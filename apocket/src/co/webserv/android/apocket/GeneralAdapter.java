@@ -105,5 +105,19 @@ public class GeneralAdapter {
 		output.close();
 
 	}
+	
+	public void onBackPressed() {
+		
+		if (mActivity instanceof PocketListActivity) {
+			mActivity.finish();
+			mActivity.moveTaskToBack(true);
+			
+		} else {
+			mActivity.finish();
+			mActivity.startActivityForResult(new Intent(mActivity,
+					PocketListActivity.class), RESULT_CLOSE_ALL);
+		}
+	}
+	
 }
 /* $Id$ */
