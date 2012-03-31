@@ -125,7 +125,7 @@ public class PocketListActivity extends ListActivity {
 		setResult(GeneralAdapter.RESULT_CLOSE_ALL);
 		finish();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		mGeneralAdapter.onBackPressed();

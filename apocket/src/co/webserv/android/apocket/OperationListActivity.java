@@ -112,7 +112,7 @@ public class OperationListActivity extends ListActivity {
 			return super.onContextItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		mGeneralAdapter.onBackPressed();

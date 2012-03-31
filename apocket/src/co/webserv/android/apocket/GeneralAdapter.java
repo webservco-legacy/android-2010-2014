@@ -69,12 +69,12 @@ public class GeneralAdapter {
 			mActivity.startActivityForResult(new Intent(mActivity,
 					AboutActivity.class), RESULT_CLOSE_ALL);
 			return true;
-		
+
 		case R.id.importdb:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					ImportActivity.class), RESULT_CLOSE_ALL);
 			return true;
-		
+
 		case R.id.exportdb:
 			mActivity.startActivityForResult(new Intent(mActivity,
 					ExportActivity.class), RESULT_CLOSE_ALL);
@@ -88,7 +88,7 @@ public class GeneralAdapter {
 			return mActivity.getParent().onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void copyFile(File source, File destination) throws IOException {
 
 		InputStream input = new FileInputStream(source);
@@ -105,14 +105,12 @@ public class GeneralAdapter {
 		output.close();
 
 	}
-	
+
 	public void onBackPressed() {
-		
+
 		if (mActivity instanceof PocketListActivity) {
 			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();
-			//mActivity.moveTaskToBack(true);
-			
 		} else {
 			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();
@@ -120,6 +118,5 @@ public class GeneralAdapter {
 					PocketListActivity.class), RESULT_CLOSE_ALL);
 		}
 	}
-	
 }
 /* $Id$ */

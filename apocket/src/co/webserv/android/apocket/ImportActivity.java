@@ -13,19 +13,19 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class ImportActivity extends Activity {
-	
+
 	GeneralAdapter mGeneralAdapter;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		
+
 		mGeneralAdapter = new GeneralAdapter(this);
 		mGeneralAdapter.onCreate();
-		
+
 		setContentView(R.layout.main);
-		
+
 		TextView v = (TextView) findViewById(R.id.content);
 
 		v.append("\n\n");
@@ -38,7 +38,7 @@ public class ImportActivity extends Activity {
 					.toString()
 					+ "/Download/"
 					+ getString(R.string.app_name).toLowerCase();
-			
+
 			String destination_path = Environment.getDataDirectory().toString()
 					+ "/data/" + getPackageName() + "/databases/"
 					+ getString(R.string.app_name).toLowerCase();
@@ -61,7 +61,7 @@ public class ImportActivity extends Activity {
 
 		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
@@ -77,7 +77,7 @@ public class ImportActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return mGeneralAdapter.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		mGeneralAdapter.onBackPressed();

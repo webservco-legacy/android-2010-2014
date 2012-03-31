@@ -91,7 +91,7 @@ public class PocketDetailsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return mGeneralAdapter.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		mGeneralAdapter.onBackPressed();

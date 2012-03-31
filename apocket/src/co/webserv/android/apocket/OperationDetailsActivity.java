@@ -162,7 +162,7 @@ public class OperationDetailsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return mGeneralAdapter.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		mGeneralAdapter.onBackPressed();
