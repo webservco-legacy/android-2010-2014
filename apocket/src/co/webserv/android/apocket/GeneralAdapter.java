@@ -111,9 +111,10 @@ public class GeneralAdapter {
 		if (mActivity instanceof PocketListActivity) {
 			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();
-			mActivity.moveTaskToBack(true);
+			//mActivity.moveTaskToBack(true);
 			
 		} else {
+			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();
 			mActivity.startActivityForResult(new Intent(mActivity,
 					PocketListActivity.class), RESULT_CLOSE_ALL);
