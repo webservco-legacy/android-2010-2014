@@ -79,7 +79,7 @@ public class PocketDbAdapter {
 		return mDb
 				.rawQuery(
 						"SELECT pockets._id, title, type, currency, description,"
-								+ " COALESCE(SUM(amount),0) AS total"
+								+ " ROUND(SUM(amount),2) AS total"
 								+ " FROM pockets"
 								+ " LEFT OUTER JOIN operations ON pockets._id = operations.pocket"
 								+ " GROUP BY pockets._id", null);
