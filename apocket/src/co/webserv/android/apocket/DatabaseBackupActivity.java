@@ -48,7 +48,7 @@ public class DatabaseBackupActivity extends Activity {
 				try {
 					mGeneralAdapter.copyFile(source, destination);
 					content.append("success!");
-					content.append("\n\nDatabase backed up to "
+					content.append("\n\nDatabase backed up to\n"
 							+ path_destination);
 				} catch (IOException e) {
 					Log.d("COWEBSERV", e.getMessage());

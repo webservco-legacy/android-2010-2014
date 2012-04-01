@@ -47,7 +47,7 @@ public class DatabaseRestoreActivity extends Activity {
 				try {
 					mGeneralAdapter.copyFile(source, destination);
 					content.append("success!");
-					content.append("\n\nDatabase restored from " + path_source);
+					content.append("\n\nDatabase restored from\n" + path_source);
 				} catch (IOException e) {
 					Log.d("COWEBSERV", e.getMessage());
 					content.append("error: copy error!");
