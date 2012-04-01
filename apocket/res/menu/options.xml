@@ -25,13 +25,5 @@
         android:id="@+id/about"
         android:icon="@drawable/ic_menu_info_details"
         android:title="@string/menu_about"/>
-    <item
-        android:id="@+id/importdb"
-        android:icon="@drawable/ic_menu_info_details"
-        android:title="@string/menu_import"/>
-    <item
-        android:id="@+id/exportdb"
-        android:icon="@drawable/ic_menu_info_details"
-        android:title="@string/menu_export"/>
 
 </menu> <!-- $Id$ -->

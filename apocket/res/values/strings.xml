@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="dev">&#160;&#160;&#160;</string>
+    <string name="dev_context">Developer Options</string>
+    <string name="dev_db_backup">Backup Database</string>
+    <string name="dev_db_restore">Restore Database</string>
+    <string name="dev_db_delete">Delete Database</string>
+    
     <string name="content_about">Copyright &#169; 2012 <![CDATA[<a href="http://radu.webserv.co">Radu Maier</a>]]> </string>
     <string name="app_name">aPocket</string>
     <string name="menu_about">About</string>
-    <string name="menu_import">Import DB</string>
-    <string name="menu_export">Export DB</string>
     <string name="menu_exit">Exit</string>
     <string name="menu_test">TEST</string>
     <string name="pocket_context">Pocket Options</string>
@@ -49,7 +53,7 @@
     <string name="operation_type_out">Out</string>
     <string name="operation_pocket_form">Pocket</string>
     <string name="operation_date">Operation date</string>
-    <string name="operation_date_form">0000-00-00</string>
+    <string name="operation_date_form">0000&#70;00&#70;00</string>
     <string name="operation_date_error">Operation date is required!</string>
     <string name="operation_amount">Operation amount</string>
     <string name="operation_amount_form">0.00</string>

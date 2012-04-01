@@ -6,8 +6,12 @@ import android.os.Bundle;
 
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.TextView;
 
 public class AboutActivity extends Activity {
@@ -15,6 +19,8 @@ public class AboutActivity extends Activity {
 	private GeneralAdapter mGeneralAdapter;
 
 	private TextView mContent;
+
+	private TextView mDev;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,12 @@ public class AboutActivity extends Activity {
 
 		mContent.setText(Html.fromHtml(getString(R.string.content_about)));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance());
+
+		mDev = (TextView) findViewById(R.id.dev);
+
+		mDev.setVisibility(View.VISIBLE);
+
+		registerForContextMenu(mDev);
 	}
 
 	@Override
@@ -46,6 +58,42 @@ public class AboutActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return mGeneralAdapter.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		menu.setHeaderIcon(R.drawable.icon);
+		menu.setHeaderTitle(R.string.dev_context);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.dev_context, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.dev_db_backup:
+			Intent idb = new Intent(this, DatabaseBackupActivity.class);
+			startActivityForResult(idb, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
+			finish();
+			return true;
+		case R.id.dev_db_restore:
+			Intent idr = new Intent(this, DatabaseRestoreActivity.class);
+			startActivityForResult(idr, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
+			finish();
+			return true;
+		case R.id.dev_db_delete:
+			Intent idd = new Intent(this, DatabaseDeleteActivity.class);
+			startActivityForResult(idd, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
+			finish();
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
 	}
 
 	@Override

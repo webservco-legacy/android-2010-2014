@@ -70,16 +70,6 @@ public class GeneralAdapter {
 					AboutActivity.class), RESULT_CLOSE_ALL);
 			return true;
 
-		case R.id.importdb:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					ImportActivity.class), RESULT_CLOSE_ALL);
-			return true;
-
-		case R.id.exportdb:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					ExportActivity.class), RESULT_CLOSE_ALL);
-			return true;
-
 		case R.id.exit:
 			mActivity.setResult(RESULT_CLOSE_ALL);
 			mActivity.finish();

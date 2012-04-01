@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/aPocketTheme" >
+    style="@style/aPocketTheme.Pattern" >
 
     <TextView
         android:id="@+id/operation_list_title"
@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/empty"
-        style="@style/aPocketTheme.Text"
+        style="@style/aPocketTheme.Text.Margin"
         android:layout_below="@+id/operation_list_title"
         android:text="@string/no_operations" />
 

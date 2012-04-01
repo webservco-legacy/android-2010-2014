@@ -19,8 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".AboutActivity" />
-        <activity android:name=".ImportActivity" />
-        <activity android:name=".ExportActivity" />
+        <activity android:name=".DatabaseBackupActivity" />
+        <activity android:name=".DatabaseRestoreActivity" />
+        <activity android:name=".DatabaseDeleteActivity" />
+        
         <activity
             android:name=".PocketDetailsActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

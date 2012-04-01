@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/aPocketTheme" >
+    style="@style/aPocketTheme.Pattern" >
+    
+    <TextView
+        android:id="@+id/dev"
+        style="@style/aPocketTheme.Dev"
+        android:text="@string/dev"
+         />
 
     <TextView
         android:id="@+id/title"
@@ -12,5 +18,7 @@
         style="@style/aPocketTheme.Text"
         android:layout_below="@+id/title"
         android:text="@string/app_name" />
+
+    
 
 </RelativeLayout> <!-- $Id$ -->

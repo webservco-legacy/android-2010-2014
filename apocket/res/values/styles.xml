@@ -9,8 +9,12 @@
         <item name="android:textColor">@color/ws_light</item>
         <item name="android:textColorLink">@color/green</item>
     </style>
+    
+    <style name="aPocketTheme.Pattern">
+        <item name="android:background">@drawable/bg_repeat</item>
+    </style>
 
-    <style name="aPocketTheme.Hidden">
+    <style name="aPocketTheme.Pattern.Hidden">
         <item name="android:visibility">gone</item>
     </style>
 
@@ -24,18 +28,33 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:background">@color/transparent</item>
     </style>
+    
+    <style name="aPocketTheme.Dev">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">50dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+	</style>
 
     <style name="aPocketTheme.Text">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@color/transparent</item>
     </style>
+    
+	<style name="aPocketTheme.Text.Margin">
+	    <item name="android:layout_marginTop">5dp</item>
+	</style>
 
     <style name="aPocketTheme.TextResult">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+		<item name="android:background">@color/transparent</item>
     </style>
 
     <style name="aPocketTheme.TextResult.Error">
