@@ -75,13 +75,14 @@ public class PocketDbAdapter {
 				null, null);
 	}
 
-	public Cursor getPocketList() {
+	public Cursor getPocketList(long user_id) {
 		return mDb
 				.rawQuery(
 						"SELECT pockets._id, title, type, currency, description,"
 								+ " ROUND(SUM(amount),2) AS total"
 								+ " FROM pockets"
 								+ " LEFT OUTER JOIN operations ON pockets._id = operations.pocket"
+								+ " WHERE pockets.user_id = '" + user_id + "'"
 								+ " GROUP BY pockets._id", null);
 	}
 

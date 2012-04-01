@@ -18,12 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UserAddActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".UserActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".DatabaseImportActivity" />
         <activity android:name=".DatabaseBackupActivity" />
         <activity android:name=".DatabaseRestoreActivity" />
         <activity android:name=".DatabaseDeleteActivity" />
-        
         <activity
             android:name=".PocketDetailsActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

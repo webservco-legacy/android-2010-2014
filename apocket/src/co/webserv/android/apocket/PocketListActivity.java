@@ -47,6 +47,22 @@ public class PocketListActivity extends ListActivity {
 		mMessageEmpty = (TextView) findViewById(R.id.empty);
 
 		mList = (ListView) getListView();
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			mGeneralAdapter.mUserId = extras.getLong(GeneralAdapter.msKeyUserId);
+		}
+		
+		if (mGeneralAdapter.mUserId == 0) {
+			
+			Intent iu = new Intent(this, UserActivity.class);
+			startActivityForResult(iu, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
+			finish();
+			
+		} else {
+			// XXX set user name to use in activities
+		}
 
 		showPockets();
 
@@ -142,7 +158,7 @@ public class PocketListActivity extends ListActivity {
 
 	private void showPockets() {
 
-		List<Pocket> pockets = getPocketList();
+		List<Pocket> pockets = getPocketList(mGeneralAdapter.mUserId);
 
 		if (pockets.isEmpty()) {
 			mList.setVisibility(View.GONE);
@@ -160,9 +176,9 @@ public class PocketListActivity extends ListActivity {
 		setListAdapter(adapter);
 	}
 
-	private List<Pocket> getPocketList() {
+	private List<Pocket> getPocketList(long user_id) {
 
-		Cursor cursor = mPocketDbAdapter.getPocketList();
+		Cursor cursor = mPocketDbAdapter.getPocketList(user_id);
 
 		startManagingCursor(cursor);
 

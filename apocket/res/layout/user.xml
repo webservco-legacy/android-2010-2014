@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/aPocketTheme" >
+
+    <RelativeLayout style="@style/aPocketTheme" >
+
+        <TextView
+            android:id="@+id/user_tt"
+            style="@style/aPocketTheme.Title"
+            android:text="@string/user_tt" />
+
+        <TextView
+            android:id="@+id/user_login"
+            style="@style/aPocketTheme.Text.Margin"
+            android:layout_below="@+id/user_tt"
+            android:text="@string/user_login" />
+
+        <RelativeLayout
+            android:id="@+id/user_form"
+            style="@style/aPocketTheme"
+            android:layout_below="@+id/user_login" >
+
+            <EditText
+                android:id="@+id/user_username"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_username"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/user_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_username"
+                android:hint="@string/user_password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/user_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_password"
+                android:text="@string/user_login_button" />
+
+            <TextView
+                android:id="@+id/user_error"
+                style="@style/aPocketTheme.TextResult.Error"
+                android:layout_below="@+id/user_button"
+                android:text="@string/form_error" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>
