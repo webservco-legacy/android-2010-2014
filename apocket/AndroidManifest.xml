@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AboutActivity" />
+        <activity android:name=".DatabaseImportActivity" />
         <activity android:name=".DatabaseBackupActivity" />
         <activity android:name=".DatabaseRestoreActivity" />
         <activity android:name=".DatabaseDeleteActivity" />

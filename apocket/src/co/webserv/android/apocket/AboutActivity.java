@@ -73,6 +73,12 @@ public class AboutActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
+		case R.id.dev_db_import:
+			Intent idi = new Intent(this, DatabaseImportActivity.class);
+			startActivityForResult(idi, GeneralAdapter.RESULT_CLOSE_ALL);
+			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
+			finish();
+			return true;
 		case R.id.dev_db_backup:
 			Intent idb = new Intent(this, DatabaseBackupActivity.class);
 			startActivityForResult(idb, GeneralAdapter.RESULT_CLOSE_ALL);

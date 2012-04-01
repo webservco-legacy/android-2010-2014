@@ -77,7 +77,7 @@ public class DatabaseBackupActivity extends Activity {
 
 				}
 			} else {
-				content.append("error: source not found!");
+				content.append("error: source not found:\n" + path_source);
 			}
 		}
 	}

@@ -57,7 +57,7 @@ public class DatabaseRestoreActivity extends Activity {
 
 				}
 			} else {
-				content.append("error: source " + path_source + " not found!");
+				content.append("error: source not found:\n" + path_source);
 			}
 
 		}

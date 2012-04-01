@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/dev_db_import"
+        android:title="@string/dev_db_import">
+    </item>
+    <item
         android:id="@+id/dev_db_backup"
         android:title="@string/dev_db_backup">
     </item>

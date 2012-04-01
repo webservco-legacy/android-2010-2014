@@ -3,6 +3,7 @@
 
     <string name="dev">&#160;&#160;&#160;</string>
     <string name="dev_context">Developer Options</string>
+    <string name="dev_db_import">Import Database from SDCARD root</string>
     <string name="dev_db_backup">Backup Database</string>
     <string name="dev_db_restore">Restore Database</string>
     <string name="dev_db_delete">Delete Database</string>
