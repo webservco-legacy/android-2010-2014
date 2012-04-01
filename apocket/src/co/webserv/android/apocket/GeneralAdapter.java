@@ -168,12 +168,6 @@ public class GeneralAdapter {
 
 	public static int getVersionCode(Context context) {
 		try {
-			// XXX
-			// ComponentName comp = new ComponentName(context, cls);
-			// PackageInfo pinfo =
-			// context.getPackageManager().getPackageInfo(comp.getPackageName(),
-			// 0);
-			// return pinfo.versionName;
 			return context.getPackageManager().getPackageInfo(
 					context.getPackageName(), 0).versionCode;
 
