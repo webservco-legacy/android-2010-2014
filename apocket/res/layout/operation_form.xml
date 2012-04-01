@@ -1,67 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:background="#008751">
+    style="@style/aPocketTheme" >
 
-	<RelativeLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="fill_parent">
+    <RelativeLayout style="@style/aPocketTheme" >
 
-		<TextView android:id="@+id/operation_form_tt"
-			android:layout_width="match_parent" android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:textSize="20dp" android:layout_alignParentTop="true"
-			android:gravity="center" android:textStyle="bold" android:text="@string/operation_add"
-			android:textColor="@color/green2"></TextView>
+        <TextView
+            android:id="@+id/operation_form_tt"
+            style="@style/aPocketTheme.Title"
+            android:text="@string/operation_add" />
 
-		<RelativeLayout android:id="@+id/operation_form"
-			android:layout_below="@+id/operation_form_tt" android:orientation="vertical"
-			android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <RelativeLayout
+            android:id="@+id/operation_form"
+            style="@style/aPocketTheme"
+            android:layout_below="@+id/operation_form_tt" >
 
-			<Spinner android:id="@+id/operation_type"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:prompt="@string/operation_type_form" android:entries="@array/operation_types"></Spinner>
+            <Spinner
+                android:id="@+id/operation_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/operation_types"
+                android:prompt="@string/operation_type_form" />
 
-			<Spinner android:id="@+id/operation_pocket"
-				android:layout_below="@+id/operation_type" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:prompt="@string/operation_pocket_form"></Spinner>
+            <Spinner
+                android:id="@+id/operation_pocket"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operation_type"
+                android:prompt="@string/operation_pocket_form" />
 
-			<EditText android:id="@+id/operation_date"
-				android:layout_below="@+id/operation_pocket" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:inputType="date"
-				android:hint="@string/operation_date_form">
-			</EditText>
+            <EditText
+                android:id="@+id/operation_date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operation_pocket"
+                android:hint="@string/operation_date_form"
+                android:inputType="date" />
 
-			<EditText android:id="@+id/operation_amount"
-				android:layout_below="@+id/operation_date" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:hint="@string/operation_amount_form"
-				android:inputType="numberDecimal">
-			</EditText>
+            <EditText
+                android:id="@+id/operation_amount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operation_date"
+                android:hint="@string/operation_amount_form"
+                android:inputType="numberDecimal" />
 
-			<EditText android:id="@+id/operation_notes"
-				android:layout_below="@+id/operation_amount" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:hint="@string/operation_notes_form"
-				android:inputType="textMultiLine" android:lines="3">
-			</EditText>
+            <EditText
+                android:id="@+id/operation_notes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operation_amount"
+                android:hint="@string/operation_notes_form"
+                android:inputType="textMultiLine"
+                android:lines="3" />
 
-			<Button android:id="@+id/operation_button"
-				android:layout_below="@+id/operation_notes" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="@string/operation_save_button"></Button>
-			<TextView android:id="@+id/operation_error"
-				android:layout_below="@+id/operation_button" android:layout_width="match_parent"
-				android:layout_height="wrap_content" android:gravity="center"
-				android:textStyle="bold" android:textColor="@color/red"
-				android:text="@string/form_error"></TextView>
-		</RelativeLayout>
+            <Button
+                android:id="@+id/operation_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/operation_notes"
+                android:text="@string/operation_save_button" />
 
-		<RelativeLayout android:id="@+id/operation_result"
-			android:visibility="gone" android:layout_below="@+id/operation_form_tt"
-			android:orientation="vertical" android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
-			<TextView android:id="@+id/operation_success"
-				android:layout_below="@+id/operation_button" android:layout_width="match_parent"
-				android:layout_height="wrap_content" android:gravity="center"
-				android:textStyle="bold" android:text="@string/form_success"></TextView>
-		</RelativeLayout>
-	</RelativeLayout>
-</ScrollView>
-<!-- $Id$ -->
+            <TextView
+                android:id="@+id/operation_error"
+                style="@style/aPocketTheme.TextResult.Error"
+                android:layout_below="@+id/operation_button"
+                android:text="@string/form_error" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/operation_result"
+            style="@style/aPocketTheme.Hidden"
+            android:layout_below="@+id/operation_form_tt" >
+
+            <TextView
+                android:id="@+id/operation_success"
+                style="@style/aPocketTheme.TextResult.Success"
+                android:layout_below="@+id/operation_button"
+                android:text="@string/form_success" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView> <!-- $Id$ -->

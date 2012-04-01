@@ -1,0 +1,10 @@
+0.1
+- first version
+- working but various bugs
+
+0.2
+- fixed amount total
+
+0.3
+- introducing static themes
+- changed layout from green to WebServ official style

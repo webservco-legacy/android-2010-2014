@@ -1,82 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World!</string>
-	<string name="app_name">aPocket</string>
 
-	<string name="menu_about">About</string>
-	<string name="menu_import">Import DB</string>
-	<string name="menu_export">Export DB</string>
-	<string name="menu_exit">Exit</string>
-	<string name="menu_test">TEST</string>
+    <string name="content_about">Copyright &#169; 2012 <![CDATA[<a href="http://radu.webserv.co">Radu Maier</a>]]> </string>
+    <string name="app_name">aPocket</string>
+    <string name="menu_about">About</string>
+    <string name="menu_import">Import DB</string>
+    <string name="menu_export">Export DB</string>
+    <string name="menu_exit">Exit</string>
+    <string name="menu_test">TEST</string>
+    <string name="pocket_context">Pocket Options</string>
+    <string name="pocket_context_edit">Edit</string>
+    <string name="pocket_context_delete">Delete</string>
+    <string name="operation_context">Operation Options</string>
+    <string name="operation_context_edit">Edit</string>
+    <string name="operation_context_delete">Delete</string>
+    <string name="form_error"></string>
+    <string name="form_success">Operation completed successfully!</string>
+    <string name="pocket_list">Your pockets</string>
+    <string name="pocket_details">Pocket details</string>
+    <string name="no_pockets">No pockets found</string>
+    <string name="pocket_add">Add Pocket</string>
+    <string name="pocket_mod">Modify Pocket</string>
+    <string name="pocket_save_button">Save</string>
+    <string name="pocket_total">Total</string>
+    <string name="pocket_title">Pocket title</string>
+    <string name="pocket_title_form">Pocket title (required)</string>
+    <string name="pocket_title_error">Pocket Title is required! </string>
+    <string name="pocket_type">Pocket type</string>
+    <string name="pocket_type_form">Pocket type</string>
+    <string name="pocket_type_cash">Cash</string>
+    <string name="pocket_type_bank">Bank</string>
+    <string name="pocket_currency">Pocket currency</string>
+    <string name="pocket_currency_form">Pocket currency</string>
+    <string name="pocket_currency_ron">RON</string>
+    <string name="pocket_currency_huf">HUF</string>
+    <string name="pocket_currency_eur">EUR</string>
+    <string name="pocket_currency_usd">USD</string>
+    <string name="pocket_description">Pocket description</string>
+    <string name="pocket_description_form">Pocket description (optional)</string>
+    <string name="operation_list">Operation history</string>
+    <string name="operation_details">Operation details</string>
+    <string name="no_operations">No operations found</string>
+    <string name="operation_add">Insert operation</string>
+    <string name="operation_mod">Modify operation</string>
+    <string name="operation_save_button">Save</string>
+    <string name="operation_type_form">Operation type</string>
+    <string name="operation_type_in">In</string>
+    <string name="operation_type_out">Out</string>
+    <string name="operation_pocket_form">Pocket</string>
+    <string name="operation_date">Operation date</string>
+    <string name="operation_date_form">0000-00-00</string>
+    <string name="operation_date_error">Operation date is required!</string>
+    <string name="operation_amount">Operation amount</string>
+    <string name="operation_amount_form">0.00</string>
+    <string name="operation_amount_error">Amount is required!</string>
+    <string name="operation_notes">Operation notes</string>
+    <string name="operation_notes_form">Operation notes (optional)</string>
 
-	<string name="pocket_context">Pocket Options</string>
-	<string name="pocket_context_edit">Edit</string>
-	<string name="pocket_context_delete">Delete</string>
-
-	<string name="operation_context">Operation Options</string>
-	<string name="operation_context_edit">Edit</string>
-	<string name="operation_context_delete">Delete</string>
-
-	<string name="form_error"></string>
-	<string name="form_success">Operation completed successfully!</string>
-
-	<string name="pocket_list">Your pockets</string>
-	<string name="pocket_details">Pocket details</string>
-	<string name="no_pockets">No pockets found</string>
-	<string name="pocket_add">Add Pocket</string>
-	<string name="pocket_mod">Modify Pocket</string>
-	<string name="pocket_save_button">Save</string>
-
-	<string name="pocket_total">Total</string>
-
-	<string name="pocket_title">Pocket title</string>
-	<string name="pocket_title_form">Pocket title (required)</string>
-	<string name="pocket_title_error">Pocket Title is required! </string>
-
-	<string name="pocket_type">Pocket type</string>
-	<string name="pocket_type_form">Pocket type</string>
-	<string name="pocket_type_cash">Cash</string>
-	<string name="pocket_type_bank">Bank</string>
-
-	<string name="pocket_currency">Pocket currency</string>
-	<string name="pocket_currency_form">Pocket currency</string>
-	<string name="pocket_currency_ron">RON</string>
-	<string name="pocket_currency_huf">HUF</string>
-	<string name="pocket_currency_eur">EUR</string>
-	<string name="pocket_currency_usd">USD</string>
-
-	<string name="pocket_description">Pocket description</string>
-	<string name="pocket_description_form">Pocket description (optional)</string>
-
-	<string name="operation_list">Operation history</string>
-	<string name="operation_details">Operation details</string>
-	<string name="no_operations">No operations found</string>
-	<string name="operation_add">Insert operation</string>
-	<string name="operation_mod">Modify operation</string>
-	<string name="operation_save_button">Save</string>
-
-	<string name="operation_type_form">Operation type</string>
-	<string name="operation_type_in">In</string>
-	<string name="operation_type_out">Out</string>
-
-	<string name="operation_pocket_form">Pocket</string>
-
-	<string name="operation_date">Operation date</string>
-	<string name="operation_date_form">0000-00-00</string>
-	<string name="operation_date_error">Operation date is required!</string>
-
-	<string name="operation_amount">Operation amount</string>
-	<string name="operation_amount_form">0.00</string>
-	<string name="operation_amount_error">Amount is required!</string>
-
-	<string name="operation_notes">Operation notes</string>
-	<string name="operation_notes_form">Operation notes (optional)</string>
-
-	<color name="green">#008751</color>
-	<color name="green2">#00FA9A</color>
-	<color name="red">#CE1126</color>
-	<color name="white">#FFFFFF</color>
-	<color name="yellow">#F0E68C</color>
-	<color name="transparent">#00000000</color>
-</resources>
-<!-- $Id$ -->
+</resources> <!-- $Id$ -->

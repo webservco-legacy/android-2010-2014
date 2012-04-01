@@ -18,6 +18,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PocketListActivity extends ListActivity {
@@ -25,6 +26,10 @@ public class PocketListActivity extends ListActivity {
 	private PocketDbAdapter mPocketDbAdapter;
 
 	private GeneralAdapter mGeneralAdapter;
+
+	private TextView mMessageEmpty;
+
+	private ListView mList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,10 @@ public class PocketListActivity extends ListActivity {
 		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.pocket_list);
+
+		mMessageEmpty = (TextView) findViewById(R.id.empty);
+
+		mList = (ListView) getListView();
 
 		showPockets();
 
@@ -135,14 +144,20 @@ public class PocketListActivity extends ListActivity {
 
 		List<Pocket> pockets = getPocketList();
 
+		if (pockets.isEmpty()) {
+			mList.setVisibility(View.GONE);
+		} else {
+			mMessageEmpty.setVisibility(View.GONE);
+		}
+
 		String[] from = new String[] { Pocket.msKeyTitle, Pocket.msKeyType,
 				Pocket.msKeyCurrency, Pocket.msKeyTotal };
 		int[] to = new int[] { R.id.title, R.id.type, R.id.currency, R.id.total };
 
 		ListAdapter adapter = new PocketListAdapter(this, pockets,
 				R.layout.pocket_list_item, from, to);
-		setListAdapter(adapter);
 
+		setListAdapter(adapter);
 	}
 
 	private List<Pocket> getPocketList() {

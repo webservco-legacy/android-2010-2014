@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AboutActivity extends Activity {
 
 	private GeneralAdapter mGeneralAdapter;
+
+	private TextView mContent;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,10 @@ public class AboutActivity extends Activity {
 
 		setContentView(R.layout.main);
 
+		mContent = (TextView) findViewById(R.id.content);
+
+		mContent.setText(Html.fromHtml(getString(R.string.content_about)));
+		mContent.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 	@Override

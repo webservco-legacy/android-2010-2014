@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:background="@color/green">
-	<TextView android:id="@+id/operation_list_title"
-		android:layout_width="match_parent" android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textSize="20dp" android:layout_alignParentTop="true"
-		android:gravity="center" android:textStyle="bold"
-		android:layout_marginBottom="10dp" android:text="@string/operation_list"
-		android:textColor="@color/green2"></TextView>
-	<View android:id="@+id/force_divider" android:layout_below="@+id/operation_list_title"
-		android:layout_width="match_parent" android:layout_height="2dp"
-		android:background="@color/green2"></View>
-	<TextView android:id="@+id/empty" android:layout_below="@+id/operation_list_title"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/no_operations" android:textColor="@color/green2"></TextView>
-	<ListView android:id="@android:id/list" android:layout_below="@+id/force_divider"
-		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:headerDividersEnabled="true" android:footerDividersEnabled="true"
-		android:background="@color/green" android:divider="@color/green2"
-		android:dividerHeight="2dp" android:cacheColorHint="@color/transparent" />
-</RelativeLayout>
-<!-- $Id$ -->
+    style="@style/aPocketTheme" >
+
+    <TextView
+        android:id="@+id/operation_list_title"
+        style="@style/aPocketTheme.Title"
+        android:text="@string/operation_list" />
+
+    <View
+        android:id="@+id/force_divider"
+        style="@style/aPocketTheme.ListDivider"
+        android:layout_below="@+id/operation_list_title" />
+
+    <TextView
+        android:id="@+id/empty"
+        style="@style/aPocketTheme.Text"
+        android:layout_below="@+id/operation_list_title"
+        android:text="@string/no_operations" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/force_divider" />
+
+</RelativeLayout> <!-- $Id$ -->

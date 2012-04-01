@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
@@ -29,6 +30,10 @@ public class OperationListActivity extends ListActivity {
 	private PocketDbAdapter mPocketDbAdapter;
 
 	private GeneralAdapter mGeneralAdapter;
+
+	private TextView mMessageEmpty;
+
+	private ListView mList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,10 @@ public class OperationListActivity extends ListActivity {
 		if (extras != null) {
 			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket);
 		}
+
+		mMessageEmpty = (TextView) findViewById(R.id.empty);
+
+		mList = (ListView) getListView();
 
 		showOperations();
 
@@ -133,6 +142,12 @@ public class OperationListActivity extends ListActivity {
 	private void showOperations() {
 
 		List<Operation> operations = getOperationsList();
+
+		if (operations.isEmpty()) {
+			mList.setVisibility(View.GONE);
+		} else {
+			mMessageEmpty.setVisibility(View.GONE);
+		}
 
 		String[] from = new String[] { Operation.msKeyPocket,
 				Operation.msKeyDate, Operation.msKeyAmount,

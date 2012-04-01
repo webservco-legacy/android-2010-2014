@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="wrap_content" android:paddingBottom="8dp">
-	<TextView android:id="@+id/amount" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:textSize="20dp"
-		android:text="@string/operation_amount" android:layout_marginTop="4dp"
-		android:layout_marginLeft="5dp" android:textStyle="bold"
-		android:textColor="@color/green2"></TextView>
-	<TextView android:id="@+id/pocket" android:layout_toRightOf="@+id/amount"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:textSize="20dp" android:text="@string/operation_pocket_form"
-		android:layout_marginTop="4dp" android:layout_marginLeft="5dp"
-		android:textStyle="bold" android:textColor="@color/green2"></TextView>
-	<TextView android:id="@+id/date" android:layout_below="@+id/amount"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_marginLeft="5dp" android:textSize="16dp"
-		android:text="@string/operation_date" android:textColor="@color/green2"></TextView>
-	<TextView android:id="@+id/notes" android:layout_below="@+id/amount"
-		android:layout_toRightOf="@+id/date" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_marginLeft="5dp"
-		android:textSize="16dp" android:text="@string/operation_notes"
-		android:textColor="@color/green2"></TextView>
-</RelativeLayout>
-<!-- $Id$ -->
+    style="@style/aPocketTheme.ListItem" >
+
+    <TextView
+        android:id="@+id/amount"
+        style="@style/aPocketTheme.ListItemTitle"
+        android:text="@string/operation_amount" />
+
+    <TextView
+        android:id="@+id/pocket"
+        style="@style/aPocketTheme.ListItemTitle"
+        android:layout_toRightOf="@+id/amount"
+        android:text="@string/operation_pocket_form" />
+
+    <TextView
+        android:id="@+id/date"
+        style="@style/aPocketTheme.ListItemSubtitle"
+        android:layout_below="@+id/amount"
+        android:text="@string/operation_date" />
+
+    <TextView
+        android:id="@+id/notes"
+        style="@style/aPocketTheme.ListItemSubtitle"
+        android:layout_below="@+id/amount"
+        android:layout_toRightOf="@+id/date"
+        android:text="@string/operation_notes" />
+
+</RelativeLayout> <!-- $Id$ -->
