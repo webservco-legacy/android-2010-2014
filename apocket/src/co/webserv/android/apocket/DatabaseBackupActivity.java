@@ -34,10 +34,12 @@ public class DatabaseBackupActivity extends Activity {
 		if (Environment.getExternalStorageState().equals("mounted")) {
 
 			String path_storage = Environment.getExternalStorageDirectory()
-					.toString();
+					.toString()
+					+ "/Android/data/"
+					+ getPackageName()
+					+ "/backups";
 			String db_name = getString(R.string.app_name).toLowerCase();
-			String path_destination = path_storage + "/Android/data/"
-					+ getPackageName() + "/backups/" + db_name;
+			String path_destination = path_storage + "/" + db_name;
 			String path_source = Environment.getDataDirectory().toString()
 					+ "/data/" + getPackageName() + "/databases/" + db_name;
 
@@ -46,19 +48,37 @@ public class DatabaseBackupActivity extends Activity {
 
 			if (source.exists() && source.canRead()) {
 				try {
-					mGeneralAdapter.copyFile(source, destination);
-					content.append("success!");
-					content.append("\n\nDatabase backed up to\n"
-							+ path_destination);
+
+					File backup_dir = new File(path_storage);
+
+					boolean copy = false;
+
+					if (!backup_dir.exists()) {
+
+						copy = backup_dir.mkdirs();
+						Log.d(GeneralAdapter.TAG, "Creating directory "
+								+ path_storage);
+					} else {
+						copy = true;
+					}
+
+					if (!copy) {
+						Log.e(GeneralAdapter.TAG, "Error creating directory "
+								+ path_storage);
+					} else {
+						mGeneralAdapter.copyFile(source, destination);
+						content.append("success!");
+						content.append("\n\nDatabase backed up to\n"
+								+ path_destination);
+					}
 				} catch (IOException e) {
-					Log.d(GeneralAdapter.TAG, e.getMessage());
+					Log.e(GeneralAdapter.TAG, e.getMessage());
 					content.append("error: copy error!");
 
 				}
 			} else {
 				content.append("error: source not found!");
 			}
-
 		}
 	}
 

@@ -34,7 +34,10 @@ public class DatabaseRestoreActivity extends Activity {
 		if (Environment.getExternalStorageState().equals("mounted")) {
 
 			String path_storage = Environment.getExternalStorageDirectory()
-					.toString();
+					.toString()
+					+ "/Android/data/"
+					+ getPackageName()
+					+ "/backups";
 			String db_name = getString(R.string.app_name).toLowerCase();
 			String path_source = path_storage + "/" + db_name;
 			String path_destination = Environment.getDataDirectory().toString()
@@ -49,7 +52,7 @@ public class DatabaseRestoreActivity extends Activity {
 					content.append("success!");
 					content.append("\n\nDatabase restored from\n" + path_source);
 				} catch (IOException e) {
-					Log.d(GeneralAdapter.TAG, e.getMessage());
+					Log.e(GeneralAdapter.TAG, e.getMessage());
 					content.append("error: copy error!");
 
 				}
