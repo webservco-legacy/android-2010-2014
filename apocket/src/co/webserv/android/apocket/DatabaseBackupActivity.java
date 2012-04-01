@@ -51,7 +51,7 @@ public class DatabaseBackupActivity extends Activity {
 					content.append("\n\nDatabase backed up to\n"
 							+ path_destination);
 				} catch (IOException e) {
-					Log.d("COWEBSERV", e.getMessage());
+					Log.d(GeneralAdapter.TAG, e.getMessage());
 					content.append("error: copy error!");
 
 				}

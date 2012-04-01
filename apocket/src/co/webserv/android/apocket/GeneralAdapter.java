@@ -17,6 +17,8 @@ import android.view.Window;
 public class GeneralAdapter {
 
 	protected static final int RESULT_CLOSE_ALL = 1;
+	
+	protected static final String TAG = "COWEBSERVANDROID";
 
 	private Activity mActivity;
 

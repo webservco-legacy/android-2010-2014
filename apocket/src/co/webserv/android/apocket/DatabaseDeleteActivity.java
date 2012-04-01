@@ -29,7 +29,7 @@ public class DatabaseDeleteActivity extends Activity {
 			v.append("success!");
 			v.append("\n\nPLEASE RESTART APPLICATION.");
 		} catch (Exception e) {
-			Log.d("COWEBSERV", e.getMessage());
+			Log.d(GeneralAdapter.TAG, e.getMessage());
 			v.append("error: copy error!");
 		}
 

@@ -49,7 +49,7 @@ public class DatabaseRestoreActivity extends Activity {
 					content.append("success!");
 					content.append("\n\nDatabase restored from\n" + path_source);
 				} catch (IOException e) {
-					Log.d("COWEBSERV", e.getMessage());
+					Log.d(GeneralAdapter.TAG, e.getMessage());
 					content.append("error: copy error!");
 
 				}
