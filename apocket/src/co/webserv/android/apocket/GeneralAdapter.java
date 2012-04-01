@@ -75,28 +75,33 @@ public class GeneralAdapter {
 		switch (item.getItemId()) {
 
 		case R.id.pocket_list:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					PocketListActivity.class), RESULT_CLOSE_ALL);
+			Intent ip = new Intent(mActivity, PocketListActivity.class);
+			ip.putExtra(msKeyUserId, mUserId);
+			mActivity.startActivityForResult(ip, RESULT_CLOSE_ALL);
 			return true;
 
 		case R.id.pocket_add:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					PocketDetailsActivity.class), RESULT_CLOSE_ALL);
+			Intent ipa = new Intent(mActivity, PocketDetailsActivity.class);
+			ipa.putExtra(msKeyUserId, mUserId);
+			mActivity.startActivityForResult(ipa, RESULT_CLOSE_ALL);
 			return true;
 
 		case R.id.operation_list:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					OperationListActivity.class), RESULT_CLOSE_ALL);
+			Intent io = new Intent(mActivity, OperationListActivity.class);
+			io.putExtra(msKeyUserId, mUserId);
+			mActivity.startActivityForResult(io, RESULT_CLOSE_ALL);
 			return true;
 
 		case R.id.operation_add:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					OperationDetailsActivity.class), RESULT_CLOSE_ALL);
+			Intent iod = new Intent(mActivity, OperationDetailsActivity.class);
+			iod.putExtra(msKeyUserId, mUserId);
+			mActivity.startActivityForResult(iod, RESULT_CLOSE_ALL);
 			return true;
 
 		case R.id.about:
-			mActivity.startActivityForResult(new Intent(mActivity,
-					AboutActivity.class), RESULT_CLOSE_ALL);
+			Intent ia = new Intent(mActivity, AboutActivity.class);
+			ia.putExtra(msKeyUserId, mUserId);
+			mActivity.startActivityForResult(ia, RESULT_CLOSE_ALL);
 			return true;
 
 		case R.id.exit:
