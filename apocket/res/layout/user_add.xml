@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/aPocketTheme" >
+    style="@style/aPocketTheme.Pattern" >
 
-    <RelativeLayout style="@style/aPocketTheme" >
+    <RelativeLayout style="@style/aPocketTheme.Pattern" >
 
         <TextView
             android:id="@+id/user_tt"
@@ -17,7 +17,7 @@
 
         <RelativeLayout
             android:id="@+id/user_form"
-            style="@style/aPocketTheme"
+            style="@style/aPocketTheme.Pattern"
             android:layout_below="@+id/user_add" >
 
             <EditText
