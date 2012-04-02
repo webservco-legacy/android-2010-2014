@@ -15,7 +15,9 @@ public class DatabaseDeleteActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
 
 		setContentView(R.layout.main);
 
@@ -26,10 +28,13 @@ public class DatabaseDeleteActivity extends Activity {
 
 		try {
 			deleteDatabase(getString(R.string.app_name).toLowerCase());
+			mGeneralAdapter.mSharedPreferences.edit().clear().commit();
 			v.append("success!");
 			v.append("\n\nPLEASE RESTART APPLICATION.");
 		} catch (Exception e) {
-			Log.e(GeneralAdapter.TAG, e.getMessage());
+			if (GeneralAdapter.LOG) {
+				Log.e(GeneralAdapter.TAG, e.getMessage());
+			}
 			v.append("error: copy error!");
 		}
 

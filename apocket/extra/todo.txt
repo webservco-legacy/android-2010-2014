@@ -1,0 +1,4 @@
+fix - don't allow operation add when pocket list is empty;
+fix - use general method to clear shared preferences
+fix - need user id in other tables than pocket
+fix - database errors because of new field user_id

@@ -22,7 +22,9 @@ public class DatabaseImportActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
 
 		setContentView(R.layout.main);
 
@@ -49,7 +51,9 @@ public class DatabaseImportActivity extends Activity {
 					content.append("success!");
 					content.append("\n\nDatabase restored from\n" + path_source);
 				} catch (IOException e) {
-					Log.e(GeneralAdapter.TAG, e.getMessage());
+					if (GeneralAdapter.LOG) {
+						Log.e(GeneralAdapter.TAG, e.getMessage());
+					}
 					content.append("error: copy error!");
 
 				}

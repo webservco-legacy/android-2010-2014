@@ -28,7 +28,9 @@ public class AboutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
 
 		setContentView(R.layout.main);
 
@@ -75,27 +77,27 @@ public class AboutActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.dev_db_import:
 			Intent idi = new Intent(this, DatabaseImportActivity.class);
+			idi.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			startActivityForResult(idi, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		case R.id.dev_db_backup:
 			Intent idb = new Intent(this, DatabaseBackupActivity.class);
+			idb.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			startActivityForResult(idb, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		case R.id.dev_db_restore:
 			Intent idr = new Intent(this, DatabaseRestoreActivity.class);
+			idr.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			startActivityForResult(idr, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		case R.id.dev_db_delete:
 			Intent idd = new Intent(this, DatabaseDeleteActivity.class);
+			idd.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			startActivityForResult(idd, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		default:
 			return super.onContextItemSelected(item);

@@ -26,6 +26,11 @@ public class PocketDetailsActivity extends Activity {
 	private Spinner mCurrency;
 	private EditText mDescription;
 
+	private String mPocketTitle;
+	private String mPocketType;
+	private String mPocketCurrency;
+	private String mPocketDescription;
+
 	private PocketDbAdapter mPocketDbAdapter;
 
 	private GeneralAdapter mGeneralAdapter;
@@ -35,11 +40,13 @@ public class PocketDetailsActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
+		mGeneralAdapter = new GeneralAdapter(this);
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
+
 		mPocketDbAdapter = new PocketDbAdapter(this);
 		mPocketDbAdapter.open();
-
-		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.pocket_form);
 
@@ -55,7 +62,7 @@ public class PocketDetailsActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			mId = extras.getLong(PocketDbAdapter.msKeyId);
+			mId = extras.getLong(PocketDbAdapter.msKeyId, 0);
 		}
 
 		showPocket();
@@ -73,7 +80,9 @@ public class PocketDetailsActivity extends Activity {
 
 		super.onDestroy();
 
-		mPocketDbAdapter.close();
+		if (mPocketDbAdapter != null) {
+			mPocketDbAdapter.close();
+		}
 	}
 
 	@Override
@@ -98,35 +107,41 @@ public class PocketDetailsActivity extends Activity {
 	}
 
 	private void showPocket() {
-		if (mId != null) {
+		if (mId > 0) {
 			Cursor pocket = mPocketDbAdapter.getPocket(mId);
 			startManagingCursor(pocket);
-			String title = pocket.getString(pocket
-					.getColumnIndexOrThrow(PocketDbAdapter.msKeyTitle));
-			String type = pocket.getString(pocket
-					.getColumnIndexOrThrow(PocketDbAdapter.msKeyType));
-			String currency = pocket.getString(pocket
-					.getColumnIndexOrThrow(PocketDbAdapter.msKeyCurrency));
-			String description = pocket.getString(pocket
-					.getColumnIndexOrThrow(PocketDbAdapter.msKeyDescription));
 
-			mTitle.setText(title);
+			if (pocket.moveToFirst()) {
+
+				mPocketTitle = pocket.getString(pocket
+						.getColumnIndexOrThrow(PocketDbAdapter.msKeyTitle));
+				mPocketType = pocket.getString(pocket
+						.getColumnIndexOrThrow(PocketDbAdapter.msKeyType));
+				mPocketCurrency = pocket.getString(pocket
+						.getColumnIndexOrThrow(PocketDbAdapter.msKeyCurrency));
+				mPocketDescription = pocket
+						.getString(pocket
+								.getColumnIndexOrThrow(PocketDbAdapter.msKeyDescription));
+
+			}
+
+			mTitle.setText(mPocketTitle);
 
 			for (int i = 0; i < mType.getCount(); i++) {
 				String s = (String) mType.getItemAtPosition(i);
-				if (s.equalsIgnoreCase(type)) {
+				if (s.equalsIgnoreCase(mPocketType)) {
 					mType.setSelection(i);
 				}
 			}
 
 			for (int j = 0; j < mCurrency.getCount(); j++) {
 				String s = (String) mCurrency.getItemAtPosition(j);
-				if (s.equalsIgnoreCase(currency)) {
+				if (s.equalsIgnoreCase(mPocketCurrency)) {
 					mCurrency.setSelection(j);
 				}
 			}
 
-			mDescription.setText(description);
+			mDescription.setText(mPocketDescription);
 
 			stopManagingCursor(pocket);
 			pocket.close();
@@ -148,7 +163,7 @@ public class PocketDetailsActivity extends Activity {
 			TextView errorField = (TextView) findViewById(R.id.pocket_error);
 			errorField.setText(errorMessage);
 		} else {
-			if (mId == null) {
+			if (mId == 0) {
 				long id = mPocketDbAdapter.createPocket(title, type, currency,
 						description);
 				if (id > 0) {

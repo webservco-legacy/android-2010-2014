@@ -65,11 +65,13 @@ public class OperationDetailsActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
+		mGeneralAdapter = new GeneralAdapter(this);
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
+
 		mOperationDbAdapter = new OperationDbAdapter(this);
 		mOperationDbAdapter.open();
-
-		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.operation_form);
 
@@ -87,15 +89,9 @@ public class OperationDetailsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 
-			long id = extras.getLong(OperationDbAdapter.msKeyId);
-			if (id > 0) {
-				mId = id;
-			}
+			mId = extras.getLong(OperationDbAdapter.msKeyId, 0);
 
-			long pocket = extras.getLong(OperationDbAdapter.msKeyPocket);
-			if (pocket > 0) {
-				mPocketId = pocket;
-			}
+			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket, 0);
 		}
 
 		mPocketDbAdapter = new PocketDbAdapter(this);
@@ -141,10 +137,17 @@ public class OperationDetailsActivity extends Activity {
 
 		super.onDestroy();
 
-		mPockets.close();
+		if (mPockets != null) {
+			mPockets.close();
+		}
 
-		mOperationDbAdapter.close();
-		mPocketDbAdapter.close();
+		if (mOperationDbAdapter != null) {
+			mOperationDbAdapter.close();
+		}
+
+		if (mPocketDbAdapter != null) {
+			mPocketDbAdapter.close();
+		}
 	}
 
 	@Override
@@ -194,7 +197,7 @@ public class OperationDetailsActivity extends Activity {
 	}
 
 	private void showOperation() {
-		if (mId != null) {
+		if (mId > 0) {
 			Cursor operation = mOperationDbAdapter.getOperation(mId);
 			startManagingCursor(operation);
 
@@ -235,7 +238,7 @@ public class OperationDetailsActivity extends Activity {
 			stopManagingCursor(operation);
 			operation.close();
 		}
-		if (mPocketId != null) {
+		if (mPocketId > 0) {
 			for (int i = 0; i < mPocket.getCount(); i++) {
 				long id = mPocket.getItemIdAtPosition(i);
 				if (id == mPocketId) {
@@ -277,7 +280,7 @@ public class OperationDetailsActivity extends Activity {
 			TextView errorField = (TextView) findViewById(R.id.operation_error);
 			errorField.setText(errorMessage);
 		} else {
-			if (mId == null) {
+			if (mId == 0) {
 				long id = mOperationDbAdapter.addOperation(pocket, date,
 						amount, notes);
 				if (id > 0) {

@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +25,8 @@ public class GeneralAdapter {
 
 	protected static final int RESULT_CLOSE_ALL = 1;
 
+	protected static final boolean LOG = true;
+
 	protected static final String TAG = "COWEBSERVANDROID";
 
 	public static final String msKeyUserId = "user_id";
@@ -31,37 +35,165 @@ public class GeneralAdapter {
 
 	private Activity mActivity;
 
-	SharedPreferences mSharedPreferences;
+	protected SharedPreferences mSharedPreferences;
 
 	public GeneralAdapter(Activity a) {
 		mActivity = a;
 	}
 
-	public void onCreate() {
+	public boolean onCreate() {
 
 		mActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+		if (LOG) {
+			Log.d(TAG, mActivity.getLocalClassName()
+					+ ": loading shared preferences.");
+		}
+
 		mSharedPreferences = mActivity.getSharedPreferences(
 				mActivity.getPackageName(), Activity.MODE_PRIVATE);
+
+		if (LOG) {
+			Log.d(TAG, mActivity.getLocalClassName()
+					+ ": checking saved version number.");
+		}
 
 		int saved_version = mSharedPreferences.getInt("version", 0);
 
 		if (saved_version == 0) {
 
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": saved version number is 0, must be first run.");
+			}
+
 			int version = GeneralAdapter.getVersionCode(mActivity);
+
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": detected version number " + version + ".");
+			}
+
 			mSharedPreferences.edit().putInt("version", version).commit();
+
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": saved version number to shared preferencess.");
+				Log.d(TAG,
+						mActivity.getLocalClassName()
+								+ ": being first run, we load the new account activity.");
+			}
 
 			Intent iu = new Intent(mActivity, UserAddActivity.class);
 			mActivity.startActivityForResult(iu, RESULT_CLOSE_ALL);
 			exit();
+
+			return false;
+
+		} else {
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName() + ": not first run.");
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": saved version number is " + saved_version + ".");
+			}
 		}
+
+		if (LOG) {
+			Log.d(TAG, mActivity.getLocalClassName()
+					+ ": checking current activity.");
+		}
+
+		if (mActivity instanceof UserActivity) {
+
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": current activity is user login.");
+			}
+
+		} else if (mActivity instanceof UserAddActivity) {
+
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": current activity is new account.");
+			}
+
+		} else {
+
+			if (LOG) {
+				Log.d(TAG,
+						mActivity.getLocalClassName()
+								+ ": current activity is not user login or new account.");
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": checking user login status.");
+			}
+
+			Bundle extras = mActivity.getIntent().getExtras();
+
+			if (extras != null) {
+
+				mUserId = extras.getLong(msKeyUserId, 0);
+
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": got bundle extras user id: " + mUserId + ".");
+				}
+
+			} else {
+
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": bundle extras is empty.");
+				}
+			}
+
+			if (mUserId == 0) {
+
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": bundle extras user id empty or non existent.");
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": starting user login activity.");
+				}
+
+				Intent iu = new Intent(mActivity, UserActivity.class);
+				mActivity.startActivityForResult(iu, RESULT_CLOSE_ALL);
+				exit();
+				return false;
+
+			} else {
+
+				// XXX WORK
+
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": checking bundle extras user id.");
+				}
+
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": bundle extras user id check failed. XXX");
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": starting user login activity. XXX");
+				}
+
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": bundle extras user id check successfull. XXX");
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": setting user name. XXX");
+				}
+			}
+
+		}
+
+		return true;
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (resultCode) {
 		case RESULT_CLOSE_ALL:
-			mActivity.setResult(RESULT_CLOSE_ALL);
-			mActivity.finish();
+			exit();
 		}
 	}
 
@@ -105,8 +237,7 @@ public class GeneralAdapter {
 			return true;
 
 		case R.id.exit:
-			mActivity.setResult(RESULT_CLOSE_ALL);
-			mActivity.finish();
+			exit();
 			return true;
 		default:
 			return mActivity.getParent().onOptionsItemSelected(item);
@@ -136,8 +267,9 @@ public class GeneralAdapter {
 			exit();
 		} else {
 			exit();
-			mActivity.startActivityForResult(new Intent(mActivity,
-					PocketListActivity.class), RESULT_CLOSE_ALL);
+			Intent ip = new Intent(mActivity, PocketListActivity.class);
+			ip.putExtra(msKeyUserId, mUserId);
+			mActivity.startActivityForResult(ip, RESULT_CLOSE_ALL);
 		}
 	}
 

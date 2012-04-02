@@ -40,17 +40,19 @@ public class OperationListActivity extends ListActivity {
 
 		super.onCreate(savedInstanceState);
 
+		mGeneralAdapter = new GeneralAdapter(this);
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
+
 		mOperationDbAdapter = new OperationDbAdapter(this);
 		mOperationDbAdapter.open();
-
-		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.operation_list);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket);
+			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket, 0);
 		}
 
 		mMessageEmpty = (TextView) findViewById(R.id.empty);
@@ -67,7 +69,10 @@ public class OperationListActivity extends ListActivity {
 
 		super.onDestroy();
 
-		mOperationDbAdapter.close();
+		if (mOperationDbAdapter != null) {
+			mOperationDbAdapter.close();
+		}
+
 		if (mPocketDbAdapter != null) {
 			mPocketDbAdapter.close();
 		}
@@ -106,10 +111,10 @@ public class OperationListActivity extends ListActivity {
 		switch (item.getItemId()) {
 		case R.id.operation_context_edit:
 			Intent i = new Intent(this, OperationDetailsActivity.class);
+			i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			i.putExtra(OperationDbAdapter.msKeyId, info.id);
 			startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		case R.id.operation_context_delete:
 			mOperationDbAdapter.deleteOperation(info.id);
@@ -133,10 +138,10 @@ public class OperationListActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 
 		Intent i = new Intent(this, OperationDetailsActivity.class);
+		i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 		i.putExtra(OperationDbAdapter.msKeyId, id);
 		startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
-		setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-		finish();
+		mGeneralAdapter.exit();
 	}
 
 	private void showOperations() {
@@ -162,7 +167,7 @@ public class OperationListActivity extends ListActivity {
 
 		Cursor cursor;
 
-		if (mPocketId != null) {
+		if (mPocketId > 0) {
 			cursor = mOperationDbAdapter.getPocketOperations(mPocketId);
 		} else {
 			cursor = mOperationDbAdapter.getOperations();

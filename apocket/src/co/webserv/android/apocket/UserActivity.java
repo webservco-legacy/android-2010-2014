@@ -27,11 +27,11 @@ public class UserActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		mUserDbAdapter = new UserDbAdapter(this);
-		mUserDbAdapter.open();
-
 		mGeneralAdapter = new GeneralAdapter(this);
 		mGeneralAdapter.onCreate();
+
+		mUserDbAdapter = new UserDbAdapter(this);
+		mUserDbAdapter.open();
 
 		setContentView(R.layout.user);
 
@@ -55,7 +55,9 @@ public class UserActivity extends Activity {
 
 		super.onDestroy();
 
-		mUserDbAdapter.close();
+		if (mUserDbAdapter != null) {
+			mUserDbAdapter.close();
+		}
 	}
 
 	@Override
@@ -67,8 +69,7 @@ public class UserActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		/**
-		 * No menu
-		 * return mGeneralAdapter.onCreateOptionsMenu(menu);
+		 * No menu return mGeneralAdapter.onCreateOptionsMenu(menu);
 		 */
 		return false;
 	}
@@ -76,8 +77,7 @@ public class UserActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		/**
-		 * No menu
-		 * return mGeneralAdapter.onOptionsItemSelected(item);
+		 * No menu return mGeneralAdapter.onOptionsItemSelected(item);
 		 */
 		return false;
 	}
@@ -85,8 +85,7 @@ public class UserActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		/**
-		 * Exit application if back is pressed
-		 * mGeneralAdapter.onBackPressed();
+		 * Exit application if back is pressed mGeneralAdapter.onBackPressed();
 		 */
 		mGeneralAdapter.exit();
 	}
@@ -118,8 +117,7 @@ public class UserActivity extends Activity {
 				Intent ip = new Intent(this, PocketListActivity.class);
 				ip.putExtra(GeneralAdapter.msKeyUserId, id);
 				startActivityForResult(ip, GeneralAdapter.RESULT_CLOSE_ALL);
-				setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-				finish();
+				mGeneralAdapter.exit();
 			} else {
 				mErrorMeessage.setText(getString(R.string.user_login_error));
 			}

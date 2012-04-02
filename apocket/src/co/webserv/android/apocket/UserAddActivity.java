@@ -29,11 +29,11 @@ public class UserAddActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		mUserDbAdapter = new UserDbAdapter(this);
-		mUserDbAdapter.open();
-
 		mGeneralAdapter = new GeneralAdapter(this);
 		mGeneralAdapter.onCreate();
+
+		mUserDbAdapter = new UserDbAdapter(this);
+		mUserDbAdapter.open();
 
 		setContentView(R.layout.user_add);
 
@@ -59,7 +59,9 @@ public class UserAddActivity extends Activity {
 
 		super.onDestroy();
 
-		mUserDbAdapter.close();
+		if (mUserDbAdapter != null) {
+			mUserDbAdapter.close();
+		}
 	}
 
 	@Override
@@ -86,6 +88,13 @@ public class UserAddActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
+
+		/**
+		 * If back is pressed during new account creation, we must clear the
+		 * shared preferences!
+		 */
+		mGeneralAdapter.mSharedPreferences.edit().clear().commit();
+
 		/**
 		 * Exit application if back is pressed mGeneralAdapter.onBackPressed();
 		 */
@@ -127,8 +136,7 @@ public class UserAddActivity extends Activity {
 			if (id > 0) {
 				Intent iu = new Intent(this, UserActivity.class);
 				startActivityForResult(iu, GeneralAdapter.RESULT_CLOSE_ALL);
-				setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-				finish();
+				mGeneralAdapter.exit();
 			} else {
 				mErrorMeessage.setText(getString(R.string.user_add_error));
 			}

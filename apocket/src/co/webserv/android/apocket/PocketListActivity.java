@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,33 +37,24 @@ public class PocketListActivity extends ListActivity {
 
 		super.onCreate(savedInstanceState);
 
+		mGeneralAdapter = new GeneralAdapter(this);
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
+
+		if (GeneralAdapter.LOG) {
+			Log.d(GeneralAdapter.TAG, getLocalClassName()
+					+ ": finished initialization.");
+		}
+
 		mPocketDbAdapter = new PocketDbAdapter(this);
 		mPocketDbAdapter.open();
-
-		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
 
 		setContentView(R.layout.pocket_list);
 
 		mMessageEmpty = (TextView) findViewById(R.id.empty);
 
 		mList = (ListView) getListView();
-		
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			mGeneralAdapter.mUserId = extras.getLong(GeneralAdapter.msKeyUserId);
-		}
-		
-		if (mGeneralAdapter.mUserId == 0) {
-			
-			Intent iu = new Intent(this, UserActivity.class);
-			startActivityForResult(iu, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
-			
-		} else {
-			// XXX set user name to use in activities
-		}
 
 		showPockets();
 
@@ -74,7 +66,10 @@ public class PocketListActivity extends ListActivity {
 
 		super.onDestroy();
 
-		mPocketDbAdapter.close();
+		if (mPocketDbAdapter != null) {
+			mPocketDbAdapter.close();
+		}
+
 	}
 
 	@Override
@@ -109,10 +104,10 @@ public class PocketListActivity extends ListActivity {
 		switch (item.getItemId()) {
 		case R.id.pocket_context_edit:
 			Intent i = new Intent(this, PocketDetailsActivity.class);
+			i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			i.putExtra(PocketDbAdapter.msKeyId, info.id);
 			startActivityForResult(i, 1);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		case R.id.pocket_context_delete:
 			mPocketDbAdapter.deletePocket(info.id);
@@ -122,17 +117,17 @@ public class PocketListActivity extends ListActivity {
 			return true;
 		case R.id.pocket_context_operation_add:
 			Intent i1 = new Intent(this, OperationDetailsActivity.class);
+			i1.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			i1.putExtra(OperationDbAdapter.msKeyPocket, info.id);
 			startActivityForResult(i1, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		case R.id.pocket_context_operation_list:
 			Intent i2 = new Intent(this, OperationListActivity.class);
+			i2.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 			i2.putExtra(OperationDbAdapter.msKeyPocket, info.id);
 			startActivityForResult(i2, GeneralAdapter.RESULT_CLOSE_ALL);
-			setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-			finish();
+			mGeneralAdapter.exit();
 			return true;
 		default:
 			return super.onContextItemSelected(item);
@@ -145,10 +140,10 @@ public class PocketListActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 
 		Intent i = new Intent(this, OperationDetailsActivity.class);
+		i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
 		i.putExtra(OperationDbAdapter.msKeyPocket, id);
 		startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
-		setResult(GeneralAdapter.RESULT_CLOSE_ALL);
-		finish();
+		mGeneralAdapter.exit();
 	}
 
 	@Override

@@ -22,7 +22,9 @@ public class DatabaseBackupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
+		if (!mGeneralAdapter.onCreate()) {
+			return;
+		}
 
 		setContentView(R.layout.main);
 
@@ -56,15 +58,17 @@ public class DatabaseBackupActivity extends Activity {
 					if (!backup_dir.exists()) {
 
 						copy = backup_dir.mkdirs();
-						Log.d(GeneralAdapter.TAG, "Creating directory "
-								+ path_storage);
 					} else {
 						copy = true;
 					}
 
 					if (!copy) {
-						Log.e(GeneralAdapter.TAG, "Error creating directory "
-								+ path_storage);
+						if (GeneralAdapter.LOG) {
+							Log.e(GeneralAdapter.TAG,
+									"Error creating directory " + path_storage);
+						}
+
+						content.append("error: error while creating directory!");
 					} else {
 						mGeneralAdapter.copyFile(source, destination);
 						content.append("success!");
@@ -72,7 +76,9 @@ public class DatabaseBackupActivity extends Activity {
 								+ path_destination);
 					}
 				} catch (IOException e) {
-					Log.e(GeneralAdapter.TAG, e.getMessage());
+					if (GeneralAdapter.LOG) {
+						Log.e(GeneralAdapter.TAG, e.getMessage());
+					}
 					content.append("error: copy error!");
 
 				}
