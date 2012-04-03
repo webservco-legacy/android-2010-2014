@@ -88,7 +88,7 @@ public class GeneralAdapter {
 
 			if (LOG) {
 				Log.d(TAG, mActivity.getLocalClassName()
-						+ ": saved version number to shared preferencess.");
+						+ ": saved version number to shared preferences.");
 				Log.d(TAG,
 						mActivity.getLocalClassName()
 								+ ": being first run, we load the new account activity.");
@@ -116,11 +116,12 @@ public class GeneralAdapter {
 			if (version > saved_version) {
 
 				if (LOG) {
-					Log.d(TAG,
-							mActivity.getLocalClassName()
-									+ ": current version () is greater than saved version ().");
 					Log.d(TAG, mActivity.getLocalClassName()
-							+ ": update must be fresh installed!");
+							+ ": current version (" + version
+							+ ") is greater than saved version ("
+							+ saved_version + ").");
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": we have a fresh installed update!");
 				}
 
 				mSharedPreferences.edit().putInt("version", version).commit();
@@ -128,12 +129,17 @@ public class GeneralAdapter {
 				if (LOG) {
 					Log.d(TAG,
 							mActivity.getLocalClassName()
-									+ ": saved new version number to shared preferencess.");
+									+ ": saved new version number to shared preferences.");
 				}
 
 				Toast.makeText(mActivity,
 						mActivity.getString(R.string.update_message),
 						Toast.LENGTH_LONG).show();
+			} else {
+				if (LOG) {
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": no version update.");
+				}
 			}
 
 		}
