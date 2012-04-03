@@ -195,7 +195,7 @@ public class OperationListActivity extends ListActivity {
 				startManagingCursor(pocket);
 
 				operations.add(new Operation(cursor.getLong(0), pocket
-						.getString(1), cursor.getString(2),
+						.getString(2), cursor.getString(2),
 						cursor.getString(3), cursor.getString(4)));
 
 				stopManagingCursor(pocket);

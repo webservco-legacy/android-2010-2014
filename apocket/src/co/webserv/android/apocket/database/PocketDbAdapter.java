@@ -86,7 +86,7 @@ public class PocketDbAdapter {
 		return mDb
 				.rawQuery(
 						"SELECT pockets._id, user_id, title, type, currency, description,"
-								+ " ROUND(SUM(amount),2) AS total"
+								+ " COALESCE(ROUND(SUM(amount),2), 0) AS total"
 								+ " FROM pockets"
 								+ " LEFT OUTER JOIN operations ON pockets._id = operations.pocket"
 								+ " WHERE pockets.user_id = '" + user_id + "'"

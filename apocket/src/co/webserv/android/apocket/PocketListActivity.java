@@ -186,9 +186,10 @@ public class PocketListActivity extends ListActivity {
 			cursor.moveToFirst();
 
 			while (cursor.isAfterLast() == false) {
-				pockets.add(new Pocket(cursor.getLong(0), cursor.getString(1),
+				pockets.add(new Pocket(cursor.getLong(0), cursor.getLong(1),
 						cursor.getString(2), cursor.getString(3), cursor
-								.getString(4), cursor.getString(5)));
+								.getString(4), cursor.getString(5), cursor
+								.getString(6)));
 				cursor.moveToNext();
 			}
 		}
