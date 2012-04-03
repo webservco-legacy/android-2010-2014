@@ -32,6 +32,7 @@ public class GeneralAdapter {
 	public static final String msKeyUserId = "user_id";
 
 	public long mUserId;
+	public String mUserName;
 
 	private Activity mActivity;
 

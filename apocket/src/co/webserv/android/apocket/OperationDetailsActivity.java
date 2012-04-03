@@ -97,7 +97,7 @@ public class OperationDetailsActivity extends Activity {
 		mPocketDbAdapter = new PocketDbAdapter(this);
 		mPocketDbAdapter.open();
 
-		mPockets = mPocketDbAdapter.getPockets();
+		mPockets = mPocketDbAdapter.getUserPockets(mGeneralAdapter.mUserId);
 
 		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
 		int[] to = new int[] { android.R.id.text1 };

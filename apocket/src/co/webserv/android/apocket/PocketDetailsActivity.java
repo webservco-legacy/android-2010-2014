@@ -164,7 +164,7 @@ public class PocketDetailsActivity extends Activity {
 			errorField.setText(errorMessage);
 		} else {
 			if (mId == 0) {
-				long id = mPocketDbAdapter.createPocket(title, type, currency,
+				long id = mPocketDbAdapter.createPocket(mGeneralAdapter.mUserId, title, type, currency,
 						description);
 				if (id > 0) {
 					mId = id;
@@ -172,7 +172,7 @@ public class PocketDetailsActivity extends Activity {
 					mLayoutResult.setVisibility(View.VISIBLE);
 				}
 			} else {
-				mPocketDbAdapter.updatePocket(mId, title, type, currency,
+				mPocketDbAdapter.updatePocket(mId, mGeneralAdapter.mUserId, title, type, currency,
 						description);
 				showPocket();
 				mLayoutForm.setVisibility(View.GONE);

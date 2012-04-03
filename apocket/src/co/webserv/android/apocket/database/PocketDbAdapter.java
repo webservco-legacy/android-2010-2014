@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class PocketDbAdapter {
 
 	public static final String msKeyId = "_id";
+	public static final String msKeyUserId = "user_id";
 	public static final String msKeyTitle = "title";
 	public static final String msKeyType = "type";
 	public static final String msKeyCurrency = "currency";
@@ -37,23 +38,24 @@ public class PocketDbAdapter {
 		mHelper.close();
 	}
 
-	public long createPocket(String title, String type, String currency,
-			String description) {
+	public long createPocket(long user_id, String title, String type,
+			String currency, String description) throws SQLException {
 
-		ContentValues values = createContentValues(title, type, currency,
-				description);
+		ContentValues values = createContentValues(user_id, title, type,
+				currency, description);
 		return mDb.insert(msDbTable, null, values);
 	}
 
-	public boolean updatePocket(long id, String title, String type,
-			String currency, String description) {
+	public boolean updatePocket(long id, long user_id, String title,
+			String type, String currency, String description)
+			throws SQLException {
 
-		ContentValues values = createContentValues(title, type, currency,
-				description);
+		ContentValues values = createContentValues(user_id, title, type,
+				currency, description);
 		return mDb.update(msDbTable, values, msKeyId + "=" + id, null) > 0;
 	}
 
-	public boolean deletePocket(long id) {
+	public boolean deletePocket(long id) throws SQLException {
 
 		return mDb.delete(msDbTable, msKeyId + "=" + id, null) > 0;
 	}
@@ -68,17 +70,22 @@ public class PocketDbAdapter {
 		return cursor;
 	}
 
-	public Cursor getPockets() {
+	public Cursor getPockets() throws SQLException {
 
-		return mDb.query(msDbTable, new String[] { msKeyId, msKeyTitle,
-				msKeyType, msKeyCurrency, msKeyDescription }, null, null, null,
-				null, null);
+		return mDb.query(msDbTable, new String[] { msKeyId, msKeyUserId,
+				msKeyTitle, msKeyType, msKeyCurrency, msKeyDescription }, null,
+				null, null, null, null);
 	}
 
-	public Cursor getPocketList(long user_id) {
+	public Cursor getUserPockets(long user_id) throws SQLException {
+		return mDb.rawQuery("SELECT _id, title, type, currency, description,"
+				+ " FROM pockets WHERE user_id = '" + user_id + "'", null);
+	}
+
+	public Cursor getPocketList(long user_id) throws SQLException {
 		return mDb
 				.rawQuery(
-						"SELECT pockets._id, title, type, currency, description,"
+						"SELECT pockets._id, user_id, title, type, currency, description,"
 								+ " ROUND(SUM(amount),2) AS total"
 								+ " FROM pockets"
 								+ " LEFT OUTER JOIN operations ON pockets._id = operations.pocket"
@@ -86,10 +93,11 @@ public class PocketDbAdapter {
 								+ " GROUP BY pockets._id", null);
 	}
 
-	private ContentValues createContentValues(String title, String type,
-			String currency, String description) {
+	private ContentValues createContentValues(long user_id, String title,
+			String type, String currency, String description) {
 
 		ContentValues values = new ContentValues();
+		values.put(msKeyUserId, user_id);
 		values.put(msKeyTitle, title);
 		values.put(msKeyType, type);
 		values.put(msKeyCurrency, currency);

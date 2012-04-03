@@ -73,7 +73,22 @@ public class UserDbAdapter {
 		return cursor;
 	}
 
-	public long getUserId(String username, String password) {
+	public String getUserName(long id) throws SQLException {
+		Cursor cursor = mDb.rawQuery("SELECT users.name" + " FROM users"
+				+ " WHERE _id = '" + id + "' LIMIT 1", null);
+		if (cursor != null) {
+			if (cursor.moveToFirst()) {
+				String name = cursor.getString(cursor
+						.getColumnIndexOrThrow(msKeyName));
+				cursor.close();
+				return name;
+			}
+		}
+
+		return null;
+	}
+
+	public long getUserId(String username, String password) throws SQLException {
 
 		String password_md5 = GeneralAdapter.md5(password);
 
