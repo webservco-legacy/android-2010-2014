@@ -78,7 +78,7 @@ public class PocketDbAdapter {
 	}
 
 	public Cursor getUserPockets(long user_id) throws SQLException {
-		return mDb.rawQuery("SELECT _id, title, type, currency, description,"
+		return mDb.rawQuery("SELECT _id, title, type, currency, description"
 				+ " FROM pockets WHERE user_id = '" + user_id + "'", null);
 	}
 
