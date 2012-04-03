@@ -1,4 +1,7 @@
 fix - don't allow operation add when pocket list is empty;
 fix - use general method to clear shared preferences
-fix - need user id in other tables than pocket
-fix - database errors because of new field user_id
+fix - need user id in other tables than pocket?
+
+new - currency list in db (default: EUR, USD, RON, HUF)
+new - pocket types in db (default: Cash, Bank)
+new - press again to exit

@@ -25,6 +25,8 @@ public class OperationListActivity extends ListActivity {
 
 	private Long mPocketId;
 
+	private String mPocketName;
+
 	private OperationDbAdapter mOperationDbAdapter;
 
 	private PocketDbAdapter mPocketDbAdapter;
@@ -34,6 +36,8 @@ public class OperationListActivity extends ListActivity {
 	private TextView mMessageEmpty;
 
 	private ListView mList;
+
+	private String[] from;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,12 @@ public class OperationListActivity extends ListActivity {
 		mOperationDbAdapter = new OperationDbAdapter(this);
 		mOperationDbAdapter.open();
 
+		mPocketDbAdapter = new PocketDbAdapter(this);
+		mPocketDbAdapter.open();
+
 		setContentView(R.layout.operation_list);
+
+		mGeneralAdapter.mActivityTitle = (TextView) findViewById(R.id.title);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -60,6 +69,18 @@ public class OperationListActivity extends ListActivity {
 		mList = (ListView) getListView();
 
 		showOperations();
+
+		if (mPocketId > 0) {
+			mPocketName = mPocketDbAdapter.getPocketName(mPocketId);
+
+			mGeneralAdapter.mActivityTitle.setText(mPocketName
+					+ GeneralAdapter.TITLE_SEP
+					+ getString(R.string.operation_list));
+		} else {
+			mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
+					+ GeneralAdapter.TITLE_SEP
+					+ getString(R.string.operation_list));
+		}
 
 		registerForContextMenu(getListView());
 	}
@@ -154,10 +175,19 @@ public class OperationListActivity extends ListActivity {
 			mMessageEmpty.setVisibility(View.GONE);
 		}
 
-		String[] from = new String[] { Operation.msKeyPocket,
-				Operation.msKeyDate, Operation.msKeyAmount,
-				Operation.msKeyNotes };
-		int[] to = new int[] { R.id.pocket, R.id.date, R.id.amount, R.id.notes };
+		if (mPocketId > 0) {
+			from = new String[] { null, Operation.msKeyDate,
+					Operation.msKeyAmount, Operation.msKeyCurrency,
+					Operation.msKeyNotes };
+
+		} else {
+			from = new String[] { Operation.msKeyPocket, Operation.msKeyDate,
+					Operation.msKeyAmount, Operation.msKeyCurrency,
+					Operation.msKeyNotes };
+		}
+
+		int[] to = new int[] { R.id.pocket, R.id.date, R.id.amount,
+				R.id.currency, R.id.notes };
 		ListAdapter adapter = new OperationListAdapter(this, operations,
 				R.layout.operation_list_item, from, to);
 		setListAdapter(adapter);
@@ -196,7 +226,8 @@ public class OperationListActivity extends ListActivity {
 
 				operations.add(new Operation(cursor.getLong(0), pocket
 						.getString(2), cursor.getString(2),
-						cursor.getString(3), cursor.getString(4)));
+						cursor.getString(3), pocket.getString(4), cursor
+								.getString(4)));
 
 				stopManagingCursor(pocket);
 				pocket.close();

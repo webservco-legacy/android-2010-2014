@@ -6,16 +6,22 @@
         android:id="@+id/amount"
         style="@style/aPocketTheme.ListItemTitle"
         android:text="@string/operation_amount" />
+    
+    <TextView
+        android:id="@+id/currency"
+        style="@style/aPocketTheme.ListItemTitle"
+        android:layout_toRightOf="@+id/amount"
+        android:text="@string/operation_currency" />
 
     <TextView
         android:id="@+id/pocket"
-        style="@style/aPocketTheme.ListItemTitle"
-        android:layout_toRightOf="@+id/amount"
+        style="@style/aPocketTheme.ListItemTitle.Simple"
+        android:layout_toRightOf="@+id/currency"
         android:text="@string/operation_pocket_form" />
 
     <TextView
         android:id="@+id/date"
-        style="@style/aPocketTheme.ListItemSubtitle"
+        style="@style/aPocketTheme.ListItemSubtitle.Strong"
         android:layout_below="@+id/amount"
         android:text="@string/operation_date" />
 

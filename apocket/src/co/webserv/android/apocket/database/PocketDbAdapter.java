@@ -93,6 +93,21 @@ public class PocketDbAdapter {
 								+ " GROUP BY pockets._id", null);
 	}
 
+	public String getPocketName(long id) throws SQLException {
+		Cursor cursor = mDb.rawQuery("SELECT title" + " FROM pockets"
+				+ " WHERE _id = '" + id + "' LIMIT 1", null);
+		if (cursor != null) {
+			if (cursor.moveToFirst()) {
+				String title = cursor.getString(cursor
+						.getColumnIndexOrThrow(msKeyTitle));
+				cursor.close();
+				return title;
+			}
+		}
+
+		return null;
+	}
+
 	private ContentValues createContentValues(long user_id, String title,
 			String type, String currency, String description) {
 

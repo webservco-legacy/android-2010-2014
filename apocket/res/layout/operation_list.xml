@@ -3,19 +3,19 @@
     style="@style/aPocketTheme.Pattern" >
 
     <TextView
-        android:id="@+id/operation_list_title"
+        android:id="@+id/title"
         style="@style/aPocketTheme.Title"
         android:text="@string/operation_list" />
 
     <View
         android:id="@+id/force_divider"
         style="@style/aPocketTheme.ListDivider"
-        android:layout_below="@+id/operation_list_title" />
+        android:layout_below="@+id/title" />
 
     <TextView
         android:id="@+id/empty"
         style="@style/aPocketTheme.Text.Margin"
-        android:layout_below="@+id/operation_list_title"
+        android:layout_below="@+id/title"
         android:text="@string/no_operations" />
 
     <ListView

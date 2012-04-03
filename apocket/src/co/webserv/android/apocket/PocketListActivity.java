@@ -51,6 +51,10 @@ public class PocketListActivity extends ListActivity {
 		mPocketDbAdapter.open();
 
 		setContentView(R.layout.pocket_list);
+		
+		mGeneralAdapter.mActivityTitle = (TextView) findViewById(R.id.title);
+		
+		mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName + GeneralAdapter.TITLE_SEP + getString(R.string.pocket_list));
 
 		mMessageEmpty = (TextView) findViewById(R.id.empty);
 

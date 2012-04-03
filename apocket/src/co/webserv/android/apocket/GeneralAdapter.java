@@ -10,6 +10,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import co.webserv.android.apocket.database.UserDbAdapter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,12 +22,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class GeneralAdapter {
 
 	protected static final int RESULT_CLOSE_ALL = 1;
 
 	protected static final boolean LOG = true;
+
+	protected static final String TITLE_SEP = ": ";
 
 	protected static final String TAG = "COWEBSERVANDROID";
 
@@ -34,7 +40,11 @@ public class GeneralAdapter {
 	public long mUserId;
 	public String mUserName;
 
+	protected TextView mActivityTitle;
+
 	private Activity mActivity;
+
+	private UserDbAdapter mUserDbAdapter;
 
 	protected SharedPreferences mSharedPreferences;
 
@@ -60,6 +70,7 @@ public class GeneralAdapter {
 		}
 
 		int saved_version = mSharedPreferences.getInt("version", 0);
+		int version = GeneralAdapter.getVersionCode(mActivity);
 
 		if (saved_version == 0) {
 
@@ -67,8 +78,6 @@ public class GeneralAdapter {
 				Log.d(TAG, mActivity.getLocalClassName()
 						+ ": saved version number is 0, must be first run.");
 			}
-
-			int version = GeneralAdapter.getVersionCode(mActivity);
 
 			if (LOG) {
 				Log.d(TAG, mActivity.getLocalClassName()
@@ -92,11 +101,41 @@ public class GeneralAdapter {
 			return false;
 
 		} else {
+
 			if (LOG) {
 				Log.d(TAG, mActivity.getLocalClassName() + ": not first run.");
 				Log.d(TAG, mActivity.getLocalClassName()
 						+ ": saved version number is " + saved_version + ".");
 			}
+
+			if (LOG) {
+				Log.d(TAG, mActivity.getLocalClassName()
+						+ ": checking version update.");
+			}
+
+			if (version > saved_version) {
+
+				if (LOG) {
+					Log.d(TAG,
+							mActivity.getLocalClassName()
+									+ ": current version () is greater than saved version ().");
+					Log.d(TAG, mActivity.getLocalClassName()
+							+ ": update must be fresh installed!");
+				}
+
+				mSharedPreferences.edit().putInt("version", version).commit();
+
+				if (LOG) {
+					Log.d(TAG,
+							mActivity.getLocalClassName()
+									+ ": saved new version number to shared preferencess.");
+				}
+
+				Toast.makeText(mActivity,
+						mActivity.getString(R.string.update_message),
+						Toast.LENGTH_LONG).show();
+			}
+
 		}
 
 		if (LOG) {
@@ -163,28 +202,41 @@ public class GeneralAdapter {
 
 			} else {
 
-				// XXX WORK
-
 				if (LOG) {
 					Log.d(TAG, mActivity.getLocalClassName()
 							+ ": checking bundle extras user id.");
 				}
 
-				if (LOG) {
-					Log.d(TAG, mActivity.getLocalClassName()
-							+ ": bundle extras user id check failed. XXX");
-					Log.d(TAG, mActivity.getLocalClassName()
-							+ ": starting user login activity. XXX");
-				}
+				mUserDbAdapter = new UserDbAdapter(mActivity);
+				mUserDbAdapter.open();
+				mUserName = mUserDbAdapter.getUserName(mUserId);
+				mUserDbAdapter.close();
 
-				if (LOG) {
-					Log.d(TAG, mActivity.getLocalClassName()
-							+ ": bundle extras user id check successfull. XXX");
-					Log.d(TAG, mActivity.getLocalClassName()
-							+ ": setting user name. XXX");
+				if (mUserName == null) {
+
+					if (LOG) {
+						Log.d(TAG, mActivity.getLocalClassName()
+								+ ": bundle extras user id check failed.");
+						Log.d(TAG, mActivity.getLocalClassName()
+								+ ": starting user login activity.");
+					}
+
+					Intent iu = new Intent(mActivity, UserActivity.class);
+					mActivity.startActivityForResult(iu, RESULT_CLOSE_ALL);
+					exit();
+					return false;
+
+				} else {
+
+					if (LOG) {
+						Log.d(TAG, mActivity.getLocalClassName()
+								+ ": bundle extras user id check successfull.");
+						Log.d(TAG, mActivity.getLocalClassName()
+								+ ": setting user name: " + mUserName + ".");
+					}
+
 				}
 			}
-
 		}
 
 		return true;

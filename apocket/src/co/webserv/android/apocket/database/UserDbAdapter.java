@@ -74,7 +74,7 @@ public class UserDbAdapter {
 	}
 
 	public String getUserName(long id) throws SQLException {
-		Cursor cursor = mDb.rawQuery("SELECT users.name" + " FROM users"
+		Cursor cursor = mDb.rawQuery("SELECT name" + " FROM users"
 				+ " WHERE _id = '" + id + "' LIMIT 1", null);
 		if (cursor != null) {
 			if (cursor.moveToFirst()) {

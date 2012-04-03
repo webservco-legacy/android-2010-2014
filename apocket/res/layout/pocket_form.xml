@@ -5,14 +5,14 @@
     <RelativeLayout style="@style/aPocketTheme.Pattern" >
 
         <TextView
-            android:id="@+id/pocket_form_tt"
+            android:id="@+id/title"
             style="@style/aPocketTheme.Title"
             android:text="@string/pocket_add" />
 
         <RelativeLayout
             android:id="@+id/pocket_form"
             style="@style/aPocketTheme.Pattern"
-            android:layout_below="@+id/pocket_form_tt" >
+            android:layout_below="@+id/title" >
 
             <EditText
                 android:id="@+id/pocket_title"
@@ -63,7 +63,7 @@
         <RelativeLayout
             android:id="@+id/pocket_result"
             style="@style/aPocketTheme.Pattern.Hidden"
-            android:layout_below="@+id/pocket_form_tt" >
+            android:layout_below="@+id/title" >
 
             <TextView
                 android:id="@+id/pocket_success"
