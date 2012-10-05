@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">Android Id</string>
+
+    <!-- general -->
+    <string name="app_name">Android ID</string>
+    <string name="blank"></string>
+    <!-- android id -->
+    <string name="send">Send Android Id</string>
+    <string name="id_content">Your Android Id is:</string>
+    <string name="id_id">1d1d1d1d1d1d1d1d</string>
+    <string name="id_info"><![CDATA[The Android Id of your device is now in your clipboard!<br />You can paste it in any application, or use the button below to send it dirrectly.]]></string>
+    <string name="id_warning"><![CDATA[<strong>Warning</strong>: It seems you are running the application in an emulator or are affected by a known bug in older Android versions.<br />You can find more about this in the "Info" Section.]]></string>
+    <!-- sections -->
+    <string name="section1_title">Android Id</string>
+    <string name="send_title">Send Android Id</string>
+    <string name="send_subject">My Android Id</string>
+    <string name="send_text">My Android Id is: </string>
+    <string name="section2_title">Info</string>
+    <string name="section2_content"><![CDATA[<p>ANDROID_ID is a value used to uniquely identify your Android installation.</p>
+<p>It is generated automatically when you start your device for the first time, and it remains constant for the lifetime of the device.</p>
+<p>Because the value of ANDROID_ID is re-generated on the device factory reset, it can not be used to reliably identify a certain device.</p>
+<p>The value of ANDROID_ID can be also easily changed on rooted devices.</p>
+<p>When running in emulator ANDROID_ID has usually the same value: "9774d56d682e549c" (on older SDK emulators the ANDROID_ID value is empty).</p>
+<p>On some devices running Android 2.2 there is a bug that makes the ANDROID_ID to be the same for every installation.</p>]]></string>
+    <string name="section3_title">Credits</string>
+    <string name="section3_content">Copyright &#169; 2012 <![CDATA[<a href="http://radu.webserv.co">Radu Maier</a>]]></string>
+    <string name="section4_title">Section 4</string>
+    <string name="section5_title">Section 5</string>
+    <string name="exit">Exit</string>
+
 </resources>
