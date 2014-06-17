@@ -5,10 +5,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -18,6 +20,8 @@ public class GcmMessageHandler extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
 
 	private static NotificationManager mNotificationManager;
+
+	private SharedPreferences mSharedPreferences;
 
 	public GcmMessageHandler() {
 		super("GcmMessageHandler");
@@ -44,34 +48,44 @@ public class GcmMessageHandler extends IntentService {
 
 		if (!extras.isEmpty()) {
 
-			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
-					.equals(messageType)) {
+			Context context = getApplicationContext();
 
-				showNotification(getApplicationContext(), "Send error: "
-						+ extras.toString());
+			mSharedPreferences = context.getSharedPreferences(
+					context.getPackageName(), ActionBarActivity.MODE_PRIVATE);
 
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
-					.equals(messageType)) {
+			boolean is_active = mSharedPreferences.getBoolean("active", false);
 
-				showNotification(getApplicationContext(),
-						"Deleted messages on server: " + extras.toString());
+			if (!is_active) {
 
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
-					.equals(messageType)) {
+				if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
+						.equals(messageType)) {
 
-				for (int i = 0; i < 3; i++) {
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
+					showNotification(context,
+							"Send error: " + extras.toString());
+
+				} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
+						.equals(messageType)) {
+
+					showNotification(context, "Deleted messages on server: "
+							+ extras.toString());
+
+				} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
+						.equals(messageType)) {
+
+					for (int i = 0; i < 3; i++) {
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+						}
 					}
+
+					showNotification(context,
+							"Message Received from Google GCM Server: "
+									+ extras.get("gcm_title"));
 				}
 
-				showNotification(
-						getApplicationContext(),
-						"Message Received from Google GCM Server: "
-								+ extras.get("gcm_title"));
-
 			}
+
 		}
 
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
@@ -104,5 +118,4 @@ public class GcmMessageHandler extends IntentService {
 
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}
-
 }

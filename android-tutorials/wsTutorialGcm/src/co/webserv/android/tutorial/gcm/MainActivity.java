@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener {
+	
+	private static boolean IS_ACTIVE = false;
+	
+	private SharedPreferences mSharedPreferences;
 
 	protected static final String LOG_TAG = "COWEBSERVANDROID";
 
@@ -118,4 +123,28 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		}.execute(null, null, null);
 	}
 
+	@Override
+	protected void onPause() {
+		
+		super.onPause();
+		
+		IS_ACTIVE = false;
+	}
+	
+	@Override
+	protected void onResume() {
+		
+		super.onResume();
+		
+		IS_ACTIVE = true;
+	}
+	
+	public void SetActive(boolean active) {
+		
+		mSharedPreferences = getSharedPreferences(
+				getPackageName(), ActionBarActivity.MODE_PRIVATE);
+		
+		mSharedPreferences.edit().putBoolean("active", active);
+	}
+	
 }
