@@ -1,0 +1,122 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="co.webserv.android.s"
+    android:versionCode="10"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="22" />
+
+    <!-- Internet Access -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Geolocation -->
+    <!-- Disable if not used. See also config.xml -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- GoogleCloudMessaging -->
+    <!-- Disable if not used. See also config.xml -->
+    <!--
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="co.webserv.android.s.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="co.webserv.android.s.permission.C2D_MESSAGE" />
+    -->
+
+    <!-- Use vibration for notifications. -->
+    <!-- Disable if not used. See also config.xml -->
+    <!--
+    <uses-permission android:name="android.permission.VIBRATE" />
+    -->
+
+    <!-- Camera capture, KitKat file upload -->
+    <!-- write needed for camera (optionally create missing folders) -->
+    <!-- Disable if not used. See also config.xml -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- SPLASH -->
+        <activity
+            android:name="co.webserv.android.s.AppSplash"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- BROWSER -->
+        <activity
+            android:name="co.webserv.android.s.AppBrowser"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
+            android:exported="true"
+            android:imeOptions="actionDone"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <action android:name=".AppBrowser" />
+                
+				<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+            <!-- AppLinks -->
+            <!-- Disable if not used. See config.xml -->
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                
+                <data android:scheme="applinks" />
+            </intent-filter>
+            --> 
+        </activity>
+
+        <!-- Google Play Services -->
+        <!-- Needed for Ads, Analytics, Cloud Messaging -->
+        <!-- Also check library dependency -->
+        <!-- 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+ 		-->
+        <!-- GoogleAds -->
+        <!-- Disable if not used. See config.xml -->
+        <!--
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        -->
+
+        <!-- GoogleCloudMessaging -->
+        <!-- Disable if not used. See config.xml -->
+        <!--
+        <receiver
+            android:name=".SysGcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="co.webserv.android.s" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".SysGcmMessageHandler" />
+        -->
+        
+        <!-- Facebook native SDK -->
+        <!-- Disable if not used. See config.xml -->
+        <activity android:name="com.facebook.LoginActivity"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+    </application>
+
+</manifest>

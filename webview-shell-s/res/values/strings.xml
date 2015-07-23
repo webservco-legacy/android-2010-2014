@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- general -->
+    <string name="app_name">S</string> <!-- EDIT -->
+    <!-- actions -->
+    <string name="action_done_ok">Action completed successfully!</string>
+    <string name="action_done_ko">Action completed with errors!</string>
+    <string name="action_cancelled">Action was cancelled.</string>
+    <!-- network -->
+    <string name="progress_title">Loading</string>
+    <string name="progress_message">Please wait..</string>
+    <string name="connection_error_epipe">Network connection error! Please try again using a stable connection.</string>
+    <!-- file upload -->
+    <string name="file_upload">Upload file</string>
+    <string name="file_upload_complete">File upload complete</string>
+    <string name="progress_uploading">Uploading..</string>
+    <!-- share -->
+    <string name="share_title">Share</string>
+    <string name="share_subject">Install</string>
+    <string name="share_text">Use the following link to install</string>
+    <!-- facebook -->
+    <string name="facebook_error_noemail">Error: email not available. Please validate your email account on Facebook.</string>
+</resources>

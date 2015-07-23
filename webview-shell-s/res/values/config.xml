@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- publishing settings -->
+    <string name="devel">1</string> <!-- developer mode: make sure is blank when exporting the live app! -->
+
+    <!-- base URL of the app. be sure to add the slash -->
+    <string name="app_url">http://s.webserv.co/</string> <!-- EDIT -->
+    <!-- home page PATH -->
+    <string name="app_home_page">Users/App/Account</string> <!-- EDIT -->
+
+    <!-- app settings -->
+    <!-- Use Geolocation. See also manifest. -->
+    <string name="set_use_geolocation">1</string> <!-- EDIT -->
+    <!-- Use Offline app (data is loaded from cache when possible). -->
+    <!-- needs also cache -->
+    <string name="set_use_offline"></string> <!-- EDIT -->
+    <!-- Use Cache (needed for offline functionality). -->
+    <string name="set_use_cache"></string> <!-- EDIT -->
+    <!-- Use Google Cloud Messaging. See also manifest. -->
+    <string name="set_use_gcm"></string> <!-- EDIT -->
+    <!-- Use Google Ads. See also manifest. -->
+    <string name="set_use_gads"></string> <!-- EDIT -->
+    <!-- Use vibration for notifications. See also manifest. -->
+    <string name="set_use_vibrate"></string> <!-- EDIT -->
+    <!-- Use JavaScript interface -->
+    <string name="set_use_js">1</string> <!-- EDIT -->
+    <!-- Use App Version in UserAgent string -->
+    <string name="set_use_ua_version">1</string> <!-- EDIT -->
+    <!-- Use Facebook Web API in the html5 app -->
+    <string name="set_use_facebook_api_web"></string> <!-- EDIT -->
+    <!-- Kitkat file upload field name -->
+    <string name="set_upload_field_name">userfile</string> <!-- EDIT -->
+    <string-array name="upload_image_tasks">
+        <item>item</item>
+    </string-array>
+    <string name="set_upload_result_load_url">1</string> <!-- EDIT -->
+    <string name="set_upload_result_show_notification"></string> <!-- EDIT -->
+    <!-- Use Facebook native SDK. See also manifest -->
+    <string name="set_use_facebook_native_sdk">1</string> <!-- EDIT -->
+    <!-- Facebook native SDK - facebook app id -->
+    <string name="facebook_app_id">1415423112054950</string>
+    <string name="facebook_hash_prefix">md</string>
+    <string name="facebook_hash_suffix">sss2015</string>
+    <!-- Use AppLinks. See also manifest. -->
+    <string name="set_use_applinks"></string>
+    <string name="set_applinks_process_url"></string>
+    <!-- Show tutorial on first load? -->
+	<string name="set_use_tutorial"></string>
+    
+    <!-- gcm -->
+    <string name="gcm_project_number"></string> <!-- EDIT -->
+    <string name="gcm_also_if_not_active">1</string> <!-- EDIT -->
+
+    <!-- google ads -->
+    <string name="gads_id_banner"></string> <!-- EDIT -->
+    <string name="gads_id_interstitial"></string> <!-- EDIT -->
+    <string-array name="gads_test_devices">
+        <item>9a2017d01dbd0885</item> <!-- Radu 4.4.2 -->
+        <item>f5741c7085ede418</item> <!-- Radu 2.3.4 -->
+        <!-- Add test devices -->
+    </string-array>
+
+    <!-- splash -->
+    <string name="splash_time">5000</string>
+    
+    <!-- httpd authentication -->
+    <string name="httpd_auth_user"></string>
+    <string name="httpd_auth_password"></string>
+
+</resources>
