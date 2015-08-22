@@ -39,7 +39,7 @@
     <!-- Use Facebook native SDK. See also manifest -->
     <string name="set_use_facebook_native_sdk">1</string> <!-- EDIT -->
     <!-- Facebook native SDK - facebook app id -->
-    <string name="facebook_app_id">1415423112054950</string>
+    <string name="facebook_app_id">834943203240677</string>
     <string name="facebook_hash_prefix">md</string>
     <string name="facebook_hash_suffix">sss2015</string>
     <!-- Use AppLinks. See also manifest. -->

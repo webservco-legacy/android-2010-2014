@@ -73,7 +73,7 @@ public class SysGcmMessageHandler extends IntentService {
 				String title = extras.getString("gcm_title");
 				String message = extras.getString("gcm_message");
 
-				if (title.length() > 0 && message.length() > 0) {
+				if (title != null && message != null) {
 
 					UtilsAndroid.logDebug(getApplicationContext(),
 							"SysGcmMessageHandler: onHandleIntent: title: "

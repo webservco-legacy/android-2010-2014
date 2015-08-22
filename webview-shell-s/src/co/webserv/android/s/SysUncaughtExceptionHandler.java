@@ -21,11 +21,10 @@ public class SysUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	public void uncaughtException(Thread thread, Throwable ex) {
 
 		UtilsAndroid.logDebug(mContext,
-				"SysUncaughtExceptionHandler: uncaughtException");
+				"SysUncaughtExceptionHandler: uncaughtException: " + ex.getMessage());
 
 		UtilsSharedPreferences.putBoolean(mContext, "app_is_active", false);
 
 		mUncaughtExceptionHandler.uncaughtException(thread, ex);
 	}
-
 }

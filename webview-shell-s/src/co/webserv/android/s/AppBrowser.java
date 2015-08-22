@@ -1,13 +1,13 @@
 package co.webserv.android.s;
 
+import com.facebook.FacebookSdk;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import bolts.AppLinks;
-
-import com.facebook.Settings;
 
 public class AppBrowser extends Activity implements SysAsyncResponse {
 
@@ -35,45 +35,36 @@ public class AppBrowser extends Activity implements SysAsyncResponse {
 
 		mSysActivity.webBrowserInit();
 
-		String home_url = getString(R.string.app_url)
-				+ getString(R.string.app_home_page);
+		String home_url = getString(R.string.app_url) + getString(R.string.app_home_page);
 
 		if (getString(R.string.set_use_tutorial).length() > 0) {
 
-			Boolean show_tutorial = UtilsSharedPreferences.getBoolean(
-					getApplicationContext(), "show_tutorial", true);
+			Boolean show_tutorial = UtilsSharedPreferences.getBoolean(getApplicationContext(), "show_tutorial", true);
 
-			UtilsAndroid.logDebug(this, "AppBrowser: onCreate: show_tutorial: "
-					+ show_tutorial);
+			UtilsAndroid.logDebug(this, "AppBrowser: onCreate: show_tutorial: " + show_tutorial);
 
 			if (show_tutorial) {
 
 				home_url = getString(R.string.app_url) + "tutorial";
 
-				UtilsSharedPreferences.putBoolean(getApplicationContext(),
-						"show_tutorial", false);
+				UtilsSharedPreferences.putBoolean(getApplicationContext(), "show_tutorial", false);
 			}
 		}
 
-		UtilsAndroid.logDebug(this, "AppBrowser: onCreate: home_url: "
-				+ home_url);
+		UtilsAndroid.logDebug(this, "AppBrowser: onCreate: home_url: " + home_url);
 
 		if (getString(R.string.set_use_applinks).length() > 0) {
 
-			UtilsAndroid
-					.logDebug(
-							this,
-							"AppBrowser: onCreate: AppLinks enabled in configuration, initializing Facebook SDK.");
+			UtilsAndroid.logDebug(this,
+					"AppBrowser: onCreate: AppLinks enabled in configuration, initializing Facebook SDK.");
 
-			Settings.sdkInitialize(this);
+			FacebookSdk.sdkInitialize(this.getApplicationContext());
 
-			Uri applinks_url = AppLinks.getTargetUrlFromInboundIntent(this,
-					getIntent());
+			Uri applinks_url = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
 
 			if (applinks_url != null) {
 
-				UtilsAndroid.logDebug(this,
-						"AppBrowser: onCreate: AppLinks url: " + applinks_url);
+				UtilsAndroid.logDebug(this, "AppBrowser: onCreate: AppLinks url: " + applinks_url);
 
 				home_url = applinks_url.toString();
 
@@ -81,14 +72,10 @@ public class AppBrowser extends Activity implements SysAsyncResponse {
 
 					home_url = home_url.replace("Preview", "");
 
-					UtilsAndroid.logDebug(this,
-							"AppBrowser: onCreate: AppLinks processed url: "
-									+ home_url);
+					UtilsAndroid.logDebug(this, "AppBrowser: onCreate: AppLinks processed url: " + home_url);
 				}
 
-				UtilsAndroid
-						.logDebug(this,
-								"AppBrowser: onCreate: loading AppLinks url instead of homepage");
+				UtilsAndroid.logDebug(this, "AppBrowser: onCreate: loading AppLinks url instead of homepage");
 			}
 		}
 
@@ -145,9 +132,7 @@ public class AppBrowser extends Activity implements SysAsyncResponse {
 	@Override
 	public void asyncTaskFinishFileUpload(String uploadResultCode) {
 
-		UtilsAndroid.logDebug(this,
-				"AppBrowser: asyncTaskFinishFileUpload: result: "
-						+ uploadResultCode);
+		UtilsAndroid.logDebug(this, "AppBrowser: asyncTaskFinishFileUpload: result: " + uploadResultCode);
 
 		mSysActivity.handleFileUploadResult(uploadResultCode);
 

@@ -11,7 +11,6 @@ import android.view.Window;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebView;
 
-import com.facebook.Session;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
 /**
@@ -77,11 +76,9 @@ public class SysActivity {
 
 		if (mActivity.getString(R.string.set_use_facebook_native_sdk).length() > 0) {
 
-			Session.getActiveSession().onActivityResult(mActivity, requestCode,
-					resultCode, data);
-
 			SysFacebook.onActivityResult(requestCode, resultCode, data);
 		}
+
 	}
 
 	protected void OnCreate(Bundle savedInstanceState) {
@@ -120,6 +117,7 @@ public class SysActivity {
 
 			SysFacebook.onCreate(savedInstanceState, mActivity);
 		}
+
 	}
 
 	protected void OnDestroy() {
@@ -128,11 +126,6 @@ public class SysActivity {
 
 		if (mWebBrowser instanceof SysWebBrowser) {
 			mWebBrowser.onDestroy();
-		}
-
-		if (mActivity.getString(R.string.set_use_facebook_native_sdk).length() > 0) {
-
-			SysFacebook.onDestroy();
 		}
 	}
 
@@ -146,11 +139,6 @@ public class SysActivity {
 
 			mWebBrowser.onPause();
 		}
-
-		if (mActivity.getString(R.string.set_use_facebook_native_sdk).length() > 0) {
-
-			SysFacebook.onPause();
-		}
 	}
 
 	protected void onResume() {
@@ -163,19 +151,9 @@ public class SysActivity {
 
 			mWebBrowser.onResume();
 		}
-
-		if (mActivity.getString(R.string.set_use_facebook_native_sdk).length() > 0) {
-
-			SysFacebook.onResume();
-		}
 	}
 
 	protected void onSaveInstanceState(Bundle outState) {
-
-		if (mActivity.getString(R.string.set_use_facebook_native_sdk).length() > 0) {
-
-			SysFacebook.onSaveInstanceState(outState);
-		}
 
 	}
 

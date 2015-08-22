@@ -1,43 +1,46 @@
 package co.webserv.android.s;
 
 import java.util.Arrays;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookOperationCanceledException;
-import com.facebook.Request;
-import com.facebook.Request.GraphUserCallback;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.Session.StatusCallback;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphPlace;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.FacebookDialog;
-import com.facebook.widget.WebDialog;
-import com.facebook.widget.WebDialog.OnCompleteListener;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 public class SysFacebook {
 
 	private static Activity mActivity;
 
-	private static UiLifecycleHelper uiHelper;
+	private static CallbackManager mCallbackManager;
+	
+	private static ShareDialog mShareDialog;
 
-	protected static void onCreate(Bundle savedInstanceState, Activity a) {
+	protected static void onCreate(Bundle savedInstanceState, final Activity a) {
 
 		mActivity = a;
 
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: onCreate");
 
-		uiHelper = new UiLifecycleHelper(mActivity, null);
-		uiHelper.onCreate(savedInstanceState);
+		FacebookSdk.sdkInitialize(a.getApplicationContext());
+
+		mCallbackManager = CallbackManager.Factory.create();
 	}
 
 	protected static void onActivityResult(int requestCode, int resultCode,
@@ -45,277 +48,209 @@ public class SysFacebook {
 
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: onActivityResult");
 
-		uiHelper.onActivityResult(requestCode, resultCode, data,
-				new FacebookDialog.Callback() {
-					@Override
-					public void onError(FacebookDialog.PendingCall pendingCall,
-							Exception error, Bundle data) {
-
-						UtilsAndroid.logDebug(mActivity,
-								"SysFacebook: onActivityResult: onError");
-
-						Log.e(UtilsAndroid.LOG_TAG,
-								"SysFacebook: onActivityResult: "
-										+ error.getMessage(), error);
-					}
-
-					@Override
-					public void onComplete(
-							FacebookDialog.PendingCall pendingCall, Bundle data) {
-
-						UtilsAndroid.logDebug(mActivity,
-								"SysFacebook: onActivityResult: onComplete");
-					}
-				});
+		mCallbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	protected static void onResume() {
 
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: onResume");
-
-		uiHelper.onResume();
 	}
 
 	protected static void onSaveInstanceState(Bundle outState) {
 
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: onSaveInstanceState");
-
-		uiHelper.onSaveInstanceState(outState);
 	}
 
 	public static void onPause() {
 
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: onPause");
-
-		uiHelper.onPause();
 	}
 
 	public static void onDestroy() {
 
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: onDestroy");
-
-		uiHelper.onDestroy();
-	}
-
-	public static void openSession(Activity a, final Runnable postExecute) {
-
-		UtilsAndroid.logDebug(mActivity, "SysFacebook: openSession");
-
-		mActivity = a;
-
-		StatusCallback statusCallback = new Session.StatusCallback() {
-
-			@Override
-			public void call(Session session, SessionState state,
-					Exception exception) {
-				UtilsAndroid.logDebug(mActivity,
-						"SysFacebook: openSession: statusCallback: call");
-
-				UtilsAndroid.logDebug(mActivity,
-						"SysFacebook: openSession: statusCallback: call: state: "
-								+ state);
-
-				if (session.isOpened() && postExecute != null) {
-
-					UtilsAndroid
-							.logDebug(mActivity,
-									"SysFacebook: openSession: statusCallback: running postExecute");
-
-					postExecute.run();
-				}
-			}
-		};
-
-		Session.OpenRequest openRequest = new Session.OpenRequest(mActivity);
-
-		openRequest.setPermissions(Arrays.asList("email", "public_profile",
-				"user_friends"));
-
-		openRequest.setCallback(statusCallback);
-
-		Session session = Session.getActiveSession();
-
-		if (session == null || !session.isOpened()) {
-
-			UtilsAndroid.logDebug(mActivity,
-					"SysFacebook: openSession: opening session");
-
-			session = new Session(mActivity);
-
-			Session.setActiveSession(session);
-
-			session.openForRead(openRequest);
-
-		} else {
-
-			UtilsAndroid.logDebug(mActivity,
-					"SysFacebook: openSession: session already opened");
-
-			if (postExecute != null) {
-
-				UtilsAndroid.logDebug(mActivity,
-						"SysFacebook: openSession: running postExecute");
-
-				postExecute.run();
-			}
-		}
 	}
 
 	public static void hybridLogin(final Activity a, final WebView wv) {
+		
+		mActivity = a;
 
-		UtilsAndroid.logDebug(a, "SysFacebook: hybridLogin");
+		UtilsAndroid.logDebug(mActivity, "SysFacebook: hybridLogin");
 
-		Session session = Session.getActiveSession();
+		List<String> permissionNeeds = Arrays.asList("email", "public_profile",
+				"user_friends");
+		LoginManager.getInstance().logInWithReadPermissions(mActivity, permissionNeeds);
 
-		if (session.isOpened()) {
+		LoginManager.getInstance().registerCallback(mCallbackManager,
+				new FacebookCallback<LoginResult>() {
 
-			UtilsAndroid.logDebug(a,
-					"SysFacebook: hybridLogin: session is opened");
+					@Override
+					public void onSuccess(LoginResult result) {
 
-			GraphUserCallback graphUserCallback = new Request.GraphUserCallback() {
+						UtilsAndroid.logDebug(
+								mActivity,
+								"SysFacebook: onCreate: onSuccess: "
+										+ result.toString());
 
-				@Override
-				public void onCompleted(GraphUser user, Response response) {
+						GraphRequest mGraphRequest = GraphRequest.newMeRequest(
+								result.getAccessToken(),
+								new GraphRequest.GraphJSONObjectCallback() {
 
-					UtilsAndroid
-							.logDebug(a,
-									"SysFacebook: hybridLogin: graphUserCallback: onCompleted");
+									@Override
+									public void onCompleted(JSONObject object,
+											GraphResponse response) {
 
-					if (user != null) {
+										if (response.getError() != null) {
 
-						String user_id = user.getId();
+											UtilsAndroid
+													.logDebug(
+															mActivity,
+															"SysFacebook: hybridLogin: GraphRequest error: "
+																	+ response
+																			.getError()
+																			.getErrorMessage());
+										} else {
 
-						UtilsAndroid.logDebug(a,
-								"SysFacebook:hybridLogin: graphUserCallback: onCompleted: user id: "
-										+ user_id);
+											try {
 
-						Object email = user.getProperty("email");
-						
-						//XXX
-						//Object test = response.getGraphObject().getProperty("email");
-						//UtilsAndroid.logDebug(a, "XXXXXXXXXX: " + test);
-						
-						//XXX
-						
-						if (email != null) { //XXX
-							
-							
+												String user_email = object
+														.getString("email");
 
-							String user_email = user.getProperty("email")
-									.toString();
+												if (user_email != null
+														&& !user_email
+																.isEmpty()) {
 
-							UtilsAndroid.logDebug(a,
-									"SysFacebook: hybridLogin: graphUserCallback: onCompleted: user email: "
-											+ user_email);
+													UtilsAndroid
+															.logDebug(
+																	mActivity,
+																	"SysFacebook: hybridLogin: GraphRequest: user email: "
+																			+ user_email);
 
-							String hash = UtilsString
-									.getMd5Hash(mActivity
-											.getString(R.string.facebook_hash_prefix)
-											+ user_email
-											+ mActivity
-													.getString(R.string.facebook_hash_suffix));
+													String hash = UtilsString.getMd5Hash(mActivity
+															.getString(R.string.facebook_hash_prefix)
+															+ user_email
+															+ mActivity
+																	.getString(R.string.facebook_hash_suffix));
 
-							String user_name = user.getName();
+													String user_id = object
+															.getString("id");
 
-							UtilsAndroid.logDebug(a,
-									"SysFacebook:hybridLogin: graphUserCallback: onCompleted: user name: "
-											+ user_name);
+													UtilsAndroid.logDebug(mActivity,
+															"SysFacebook:hybridLogin: GraphRequest: user name: "
+																	+ user_id);
 
-							GraphPlace location = user.getLocation();
+													String user_name = object
+															.getString("name");
 
-							String location_qs = "";
+													UtilsAndroid
+															.logDebug(
+																	mActivity,
+																	"SysFacebook:hybridLogin: GraphRequest: user name: "
+																			+ user_name);
 
-							if (location != null) {
+													String url = mActivity
+															.getString(R.string.app_url)
+															+ "fbdroid/"
+															+ user_email
+															+ "/"
+															+ hash
+															+ "/"
+															+ user_id
+															+ "/"
+															+ user_name;
 
-								location_qs = "/" + location.getName();
+													UtilsAndroid.logDebug(mActivity,
+															"SysFacebook: hybridLogin: GraphRequest: url: "
+																	+ url);
 
-								UtilsAndroid.logDebug(a,
-										"SysFacebook:hybridLogin: graphUserCallback: onCompleted: user location qs: "
-												+ location_qs);
-							} else {
+													String parsed_url = Uri
+															.parse(url)
+															.toString();
 
-								UtilsAndroid
-										.logDebug(
-												a,
-												"SysFacebook:hybridLogin: graphUserCallback: onCompleted: user location not available");
-							}
+													UtilsAndroid
+															.logDebug(
+																	mActivity,
+																	"SysFacebook: hybridLogin: GraphRequest: parsed_url: "
+																			+ parsed_url);
 
-							String url = mActivity.getString(R.string.app_url)
-									+ "fbdroid/" + user_email + "/" + hash
-									+ "/" + user_id + "/" + user_name
-									+ location_qs;
+													final class LoadUrlRunnable
+															implements Runnable {
 
-							UtilsAndroid.logDebug(a,
-									"SysFacebook: hybridLogin: graphUserCallback: onCompleted: url: "
-											+ url);
+														private WebView mWebView;
+														private String mUrl;
 
-							String parsed_url = Uri.parse(url).toString();
+														public LoadUrlRunnable(
+																final WebView vw,
+																String url) {
 
-							UtilsAndroid.logDebug(a,
-									"SysFacebook: hybridLogin: graphUserCallback: onCompleted: parsed_url: "
-											+ parsed_url);
+															this.mWebView = wv;
+															this.mUrl = url;
+														}
 
-							final class LoadUrlRunnable implements Runnable {
+														@Override
+														public void run() {
 
-								private WebView mWebView;
-								private String mUrl;
+															this.mWebView
+																	.loadUrl(this.mUrl);
 
-								public LoadUrlRunnable(final WebView vw,
-										String url) {
+														}
+													}
 
-									this.mWebView = wv;
-									this.mUrl = url;
-								}
+													LoadUrlRunnable loadUrlRunnable = new LoadUrlRunnable(
+															wv, url);
+													wv.post(loadUrlRunnable);
 
-								@Override
-								public void run() {
+												} else {
 
-									this.mWebView.loadUrl(this.mUrl);
+													UtilsAndroid
+															.logDebug(mActivity,
+																	"SysFacebook: hybridLogin: GraphRequest error: user email not available");
 
-								}
-							}
+													UtilsAndroid.showToast(
+															mActivity,
+															mActivity.getString(R.string.facebook_error_noemail));
+												}
 
-							LoadUrlRunnable loadUrlRunnable = new LoadUrlRunnable(
-									wv, url);
-							wv.post(loadUrlRunnable);
+											} catch (JSONException e) {
 
-						} else {
+												UtilsAndroid
+														.logDebug(
+																mActivity,
+																"SysFacebook: hybridLogin: meRequest JSONException: "
+																		+ e.getMessage());
+											}
+										}
 
-							UtilsAndroid
-									.logDebug(
-											a,
-											"SysFacebook: hybridLogin: graphUserCallback: onCompleted: user email not available");
+										UtilsAndroid.logDebug(mActivity,
+												"SysFacebook: onCreate: onSuccess: "
+														+ response.toString());
 
-							UtilsAndroid
-									.logDebug(mActivity,
-											"SysJavaScriptInterface: facebookLogout: closing session");
+									}
+								});
 
-							Session session = Session.getActiveSession();
+						Bundle parameters = new Bundle();
+						parameters.putString("fields", "id,name,email");
+						mGraphRequest.setParameters(parameters);
+						mGraphRequest.executeAsync();
 
-							session.closeAndClearTokenInformation();
-
-							UtilsAndroid
-									.showToast(
-											a,
-											a.getString(R.string.facebook_error_noemail));
-						}
 					}
-				}
-			};
 
-			Request request = Request.newMeRequest(session, graphUserCallback);
+					@Override
+					public void onError(FacebookException error) {
+						UtilsAndroid.logDebug(
+								mActivity,
+								"SysFacebook: hybridLogin: onError: "
+										+ error.getMessage());
+					}
 
-			Bundle parameters = request.getParameters();
+					@Override
+					public void onCancel() {
 
-			request.setParameters(parameters);
+						UtilsAndroid.logDebug(mActivity,
+								"SysFacebook: hybridLogin: onCancel");
 
-			request.executeAsync();
-
-		} else {
-
-			UtilsAndroid.logDebug(a,
-					"SysFacebook: hybridLogin: session not opened");
-		}
+					}
+				});
 	}
 
 	public static void share(Activity a, String shareName, String shareCaption,
@@ -324,117 +259,45 @@ public class SysFacebook {
 		UtilsAndroid.logDebug(mActivity, "SysFacebook: share");
 
 		mActivity = a;
+		
+		mShareDialog = new ShareDialog(mActivity);
+		
+		mShareDialog.registerCallback(mCallbackManager, new FacebookCallback<Sharer.Result>() {
+			
+			@Override
+			public void onSuccess(com.facebook.share.Sharer.Result result) {
+				UtilsAndroid.showToast(
+						mActivity,
+						mActivity.getString(R.string.action_done_ok));
+			}
 
-		Session session = Session.getActiveSession();
+			@Override
+			public void onCancel() {
+				UtilsAndroid.logDebug(mActivity, "SysFacebook: share: onCancel");
+				
+			}
 
-		if (session == null || session.isClosed()) {
-
-			UtilsAndroid.logDebug(mActivity,
-					"SysFacebook: share: session not available!");
-
+			@Override
+			public void onError(FacebookException error) {
+				UtilsAndroid.logDebug(mActivity, "SysFacebook: share: onError:" + error.getMessage());
+				
+			}
+		});
+		
+		if (ShareDialog.canShow(ShareLinkContent.class)) {
+			
+			ShareLinkContent linkContent = new ShareLinkContent.Builder()
+            .setContentTitle(shareName)
+            .setImageUrl(Uri.parse(shareImageUrl))
+            .setContentDescription(shareDescription)
+            .setContentUrl(Uri.parse(shareLink))
+            .build();
+			
+			ShareDialog.show(mActivity, linkContent);
+			
 		} else {
-
-			Bundle params = new Bundle();
-
-			if (shareName != null) {
-
-				params.putString("name", shareName);
-
-				UtilsAndroid.logDebug(mActivity, "SysFacebook: share: name: "
-						+ shareName);
-			}
-
-			if (shareCaption != null) {
-
-				params.putString("caption", shareCaption);
-
-				UtilsAndroid.logDebug(mActivity,
-						"SysFacebook: share: caption: " + shareCaption);
-			}
-
-			if (shareDescription != null) {
-
-				params.putString("description", shareDescription);
-
-				UtilsAndroid.logDebug(mActivity,
-						"SysFacebook: share: description: " + shareDescription);
-			}
-
-			if (shareLink != null) {
-
-				params.putString("link", shareLink);
-
-				UtilsAndroid.logDebug(mActivity, "SysFacebook: share: link: "
-						+ shareLink);
-			}
-
-			if (shareImageUrl != null) {
-
-				params.putString("picture", shareImageUrl);
-
-				UtilsAndroid.logDebug(mActivity,
-						"SysFacebook: share: picture: " + shareImageUrl);
-			}
-
-			WebDialog feedDialog = (new WebDialog.FeedDialogBuilder(mActivity,
-					session, params)).setOnCompleteListener(
-					new OnCompleteListener() {
-
-						@Override
-						public void onComplete(Bundle values,
-								FacebookException error) {
-
-							UtilsAndroid.logDebug(mActivity,
-									"SysFacebook: share: onComplete");
-
-							if (error == null) {
-
-								final String post_id = values
-										.getString("post_id");
-
-								if (post_id != null) {
-
-									UtilsAndroid.logDebug(mActivity,
-											"SysFacebook: share: onComplete: post_id: "
-													+ post_id);
-
-									UtilsAndroid.showToast(mActivity, mActivity
-											.getString(R.string.action_done_ok));
-
-								} else {
-
-									UtilsAndroid
-											.logDebug(mActivity,
-													"SysFacebook: share: onComplete: CANCELED");
-
-									UtilsAndroid.showToast(
-											mActivity,
-											mActivity
-													.getString(R.string.action_cancelled));
-								}
-
-							} else if (error instanceof FacebookOperationCanceledException) {
-
-								UtilsAndroid
-										.logDebug(mActivity,
-												"SysFacebook: share: onComplete: CANCELED (FB)");
-
-								UtilsAndroid.showToast(mActivity, mActivity
-										.getString(R.string.action_cancelled));
-
-							} else {
-
-								UtilsAndroid
-										.logDebug(mActivity,
-												"SysFacebook: share: onComplete: ERROR");
-
-								UtilsAndroid.showToast(mActivity, mActivity
-										.getString(R.string.action_done_ko));
-							}
-						}
-					}).build();
-
-			feedDialog.show();
+			
+			UtilsAndroid.logDebug(mActivity, "SysFacebook: share: can't show ShareDialog");
 		}
 	}
 }

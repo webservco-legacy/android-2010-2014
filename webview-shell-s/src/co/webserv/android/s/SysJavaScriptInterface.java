@@ -10,8 +10,6 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
-import com.facebook.Session;
-
 /**
  * JavaScript Interface.
  * 
@@ -131,9 +129,10 @@ public class SysJavaScriptInterface {
 	public void facebookLogin() {
 
 		UtilsAndroid.logDebug(mActivity,
-				"SysJavaScriptInterface: facebookLogin");
+				"SysJavaScriptInterface: facebookLogin NOT_IMPLEMENTED please use facebookHybridLogin");
 
-		SysFacebook.openSession(mActivity, null);
+		UtilsAndroid.showToast(mActivity, "facebookLogin NOT_IMPLEMENTED please sue facebookHybridLogin");
+
 	}
 
 	@JavascriptInterface
@@ -142,42 +141,16 @@ public class SysJavaScriptInterface {
 		UtilsAndroid.logDebug(mActivity,
 				"SysJavaScriptInterface: facebookHybridLogin");
 
-		Runnable runHybridLogin = new Runnable() {
-
-			@Override
-			public void run() {
-
-				UtilsAndroid
-						.logDebug(mActivity,
-								"SysJavaScriptInterface: facebookHybridLogin: Runnable(): run()");
-
-				SysFacebook.hybridLogin(mActivity, mWebView);
-			}
-		};
-
-		SysFacebook.openSession(mActivity, runHybridLogin);
+		SysFacebook.hybridLogin(mActivity, mWebView);
 	}
 
 	@JavascriptInterface
 	public void facebookLogout() {
 
 		UtilsAndroid.logDebug(mActivity,
-				"SysJavaScriptInterface: facebookLogout");
+				"SysJavaScriptInterface: facebookLogout NOT_IMPLEMENTED");
 
-		Session session = Session.getActiveSession();
-
-		if (session == null || session.isClosed()) {
-
-			UtilsAndroid.logDebug(mActivity,
-					"SysJavaScriptInterface: facebookLogout: nothing to do");
-
-		} else {
-
-			UtilsAndroid.logDebug(mActivity,
-					"SysJavaScriptInterface: facebookLogout: closing session");
-
-			session.closeAndClearTokenInformation();
-		}
+		UtilsAndroid.showToast(mActivity, "facebookLogout NOT_IMPLEMENTED");
 	}
 
 	@JavascriptInterface
@@ -187,46 +160,7 @@ public class SysJavaScriptInterface {
 
 		UtilsAndroid.logDebug(mActivity,
 				"SysJavaScriptInterface: facebookShare");
-
-		Runnable runShare = new Runnable() {
-
-			@Override
-			public void run() {
-
-				mActivity.runOnUiThread(new Runnable() {
-
-					@Override
-					public void run() {
-
-						UtilsAndroid
-								.logDebug(mActivity,
-										"SysJavaScriptInterface: facebookShare: Runnable(): run()");
-
-						SysFacebook.share(mActivity, shareName, shareCaption,
-								shareDescription, shareLink, shareImageUrl);
-
-					}
-				});
-			}
-		};
-
-		Session session = Session.getActiveSession();
-
-		if (session.isOpened()) {
-
-			UtilsAndroid
-					.logDebug(mActivity,
-							"SysJavaScriptInterface: facebookShare: session already opened");
-
-			runShare.run();
-
-		} else {
-
-			UtilsAndroid.logDebug(mActivity,
-					"SysJavaScriptInterface: facebookShare: opening session");
-
-			SysFacebook.openSession(mActivity, runShare);
-
-		}
+		
+		SysFacebook.share(mActivity, shareName, shareCaption, shareDescription, shareLink, shareImageUrl);
 	}
 }
