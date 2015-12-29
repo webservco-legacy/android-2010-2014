@@ -3,9 +3,12 @@ package co.webserv.android.s;
 import java.io.File;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.WebBackForwardList;
@@ -107,7 +110,7 @@ public class SysActivity {
 		 * Placeholder: network connection check - show message if no connection
 		 * (todo tutorial).
 		 */
-
+		
 		/**
 		 * Hide title bar
 		 */

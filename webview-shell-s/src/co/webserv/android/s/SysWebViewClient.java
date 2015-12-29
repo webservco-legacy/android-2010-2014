@@ -57,13 +57,11 @@ public class SysWebViewClient extends WebViewClient {
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: shouldOverrideUrlLoading: url: " + url);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: shouldOverrideUrlLoading: url: " + url);
 
 		if (url.endsWith(".mp4")) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebViewClient: shouldOverrideUrlLoading: mp4 intent");
+			UtilsAndroid.logDebug(mActivity, "SysWebViewClient: shouldOverrideUrlLoading: mp4 intent");
 
 			Uri uri = Uri.parse(url);
 
@@ -77,8 +75,7 @@ public class SysWebViewClient extends WebViewClient {
 
 		} else if (url.endsWith(".mp3")) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebViewClient: shouldOverrideUrlLoading: mp3 intent");
+			UtilsAndroid.logDebug(mActivity, "SysWebViewClient: shouldOverrideUrlLoading: mp3 intent");
 
 			Uri uri = Uri.parse(url);
 
@@ -91,31 +88,16 @@ public class SysWebViewClient extends WebViewClient {
 			return true;
 
 		} else if (url.startsWith(mActivity.getString(R.string.app_url))
-				|| (mActivity.getString(R.string.set_use_facebook_api_web)
-						.length() > 0 && url.contains("facebook.com"))) {
+				|| (mActivity.getString(R.string.set_use_facebook_api_web).length() > 0
+						&& url.contains("facebook.com"))) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebViewClient: shouldOverrideUrlLoading: in-app url");
-
-			if (mProgressDialog.isShowing()) {
-
-				mHandler = new CustomHandler(mProgressDialog);
-
-				mHandler.sendEmptyMessage(0);
-
-			} else {
-
-				mProgressDialog = ProgressDialog.show((Context) mActivity,
-						mActivity.getString(R.string.progress_title),
-						mActivity.getString(R.string.progress_message), true);
-			}
+			UtilsAndroid.logDebug(mActivity, "SysWebViewClient: shouldOverrideUrlLoading: in-app url");
 
 			return false;
 
 		} else {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebViewClient: shouldOverrideUrlLoading: external url");
+			UtilsAndroid.logDebug(mActivity, "SysWebViewClient: shouldOverrideUrlLoading: external url");
 
 			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 
@@ -128,14 +110,12 @@ public class SysWebViewClient extends WebViewClient {
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: onPageStarted: url: " + url);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onPageStarted: url: " + url);
 
 		if (mActivity.getString(R.string.set_use_facebook_api_web).length() > 0
 				&& url.equals("https://m.facebook.com/dialog/feed")) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebViewClient: onPageStarted: facebook url handling");
+			UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onPageStarted: facebook url handling");
 
 			SysWebBrowser.loadLastAppUrl(view, mActivity, "");
 
@@ -144,9 +124,22 @@ public class SysWebViewClient extends WebViewClient {
 
 		if (mProgressDialog == null) {
 
-			mProgressDialog = ProgressDialog.show((Context) mActivity,
-					mActivity.getString(R.string.progress_title),
+			// pd is null. show
+
+			mProgressDialog = ProgressDialog.show((Context) mActivity, mActivity.getString(R.string.progress_title),
 					mActivity.getString(R.string.progress_message), true);
+
+		} else {
+
+			if (mProgressDialog.isShowing()) {
+
+			} else {
+
+				// pd not null, but not showing. show
+
+				mProgressDialog = ProgressDialog.show((Context) mActivity, mActivity.getString(R.string.progress_title),
+						mActivity.getString(R.string.progress_message), true);
+			}
 		}
 
 		super.onLoadResource(view, url);
@@ -155,18 +148,16 @@ public class SysWebViewClient extends WebViewClient {
 	@Override
 	public void onPageFinished(WebView view, String url) {
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: onPageFinished: url: " + url);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onPageFinished: url: " + url);
 
 		if (mProgressDialog != null) {
 
 			mHandler = new CustomHandler(mProgressDialog);
+
 			mHandler.sendEmptyMessage(0);
 		}
 
-		UtilsAndroid
-				.logDebug(mActivity,
-						"SysWebViewClient: onPageFinished: CookieSyncManager manual syc");
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onPageFinished: CookieSyncManager manual syc");
 
 		CookieSyncManager.getInstance().sync();
 
@@ -182,21 +173,16 @@ public class SysWebViewClient extends WebViewClient {
 	}
 
 	@Override
-	public void onReceivedError(WebView view, int errorCode,
-			String description, String failingUrl) {
+	public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: onReceivedError: description: "
-						+ description);
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: onReceivedError: failingUrl: " + failingUrl);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onReceivedError: description: " + description);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onReceivedError: failingUrl: " + failingUrl);
 
 		String asset_path = "file:///android_asset/";
 
 		String language = Locale.getDefault().getLanguage();
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: onReceivedError: language: " + language);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onReceivedError: language: " + language);
 
 		String asset_name = "webview_error_" + language + ".html";
 
@@ -209,16 +195,14 @@ public class SysWebViewClient extends WebViewClient {
 			asset_path = asset_path.concat("webview_error_en.html");
 		}
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebViewClient: onReceivedError: asset_path: " + asset_path);
+		UtilsAndroid.logDebug(mActivity, "SysWebViewClient: onReceivedError: asset_path: " + asset_path);
 
 		view.loadUrl(asset_path);
 	}
 
 	@Override
-	public void onReceivedHttpAuthRequest(WebView view,
-			HttpAuthHandler handler, String host, String realm) {
-		
+	public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+
 		String httpd_auth_user = mActivity.getString(R.string.httpd_auth_user);
 
 		if (httpd_auth_user.length() > 0) {

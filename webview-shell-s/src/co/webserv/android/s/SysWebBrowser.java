@@ -152,7 +152,7 @@ public class SysWebBrowser {
 			String user_agent_string = UtilsApp.getCustomUserAgentString(
 					mActivity, mWebSettings.getUserAgentString());
 
-			mWebSettings.setUserAgentString(user_agent_string + " WebApp/99");
+			mWebSettings.setUserAgentString(user_agent_string);
 		}
 
 		/**

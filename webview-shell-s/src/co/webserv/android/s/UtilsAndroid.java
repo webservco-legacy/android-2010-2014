@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -185,6 +186,22 @@ public class UtilsAndroid {
 		UtilsAndroid.logDebug(c, "UtilsAndroid: networkIsConnected: result: "
 				+ result);
 
+		return result;
+	}
+	
+	public static boolean gpsIsConnected(Context c) {
+		
+		UtilsAndroid.logDebug(c, "UtilsAndroid: gpsIsConnected");
+		
+		boolean result;
+		
+		LocationManager location_manager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
+		
+		result = location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		
+		UtilsAndroid.logDebug(c, "UtilsAndroid: gpsIsConnected: result: "
+				+ result);
+		
 		return result;
 	}
 

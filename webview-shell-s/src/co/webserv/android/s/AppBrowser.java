@@ -3,9 +3,12 @@ package co.webserv.android.s;
 import com.facebook.FacebookSdk;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.KeyEvent;
 import bolts.AppLinks;
 
@@ -80,6 +83,31 @@ public class AppBrowser extends Activity implements SysAsyncResponse {
 		}
 
 		mSysActivity.webBrowserLoadUrl(home_url);
+
+		if (!UtilsAndroid.gpsIsConnected(AppBrowser.this)) {
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(AppBrowser.this);
+			builder.setIcon(R.drawable.ic_launcher).setTitle(AppBrowser.this.getString(R.string.gpserr_title))
+					.setMessage(AppBrowser.this.getString(R.string.gpserr_message)).setCancelable(false)
+					.setPositiveButton(AppBrowser.this.getString(R.string.gpserr_opensettings),
+							new DialogInterface.OnClickListener() {
+
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+									Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+									AppBrowser.this.startActivity(myIntent);
+								}
+							})
+					.setNegativeButton(AppBrowser.this.getString(R.string.gpserr_cancel),
+							new DialogInterface.OnClickListener() {
+
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+
+								}
+							})
+					.create().show();
+		}
 	}
 
 	@Override

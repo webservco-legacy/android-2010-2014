@@ -5,9 +5,9 @@
     <string name="devel">1</string> <!-- developer mode: make sure is blank when exporting the live app! -->
 
     <!-- base URL of the app. be sure to add the slash -->
-    <string name="app_url">http://s.webserv.co/</string> <!-- EDIT -->
+    <string name="app_url">http://app.example.com/</string> <!-- EDIT -->
     <!-- home page PATH -->
-    <string name="app_home_page">Users/App/Account</string> <!-- EDIT -->
+    <string name="app_home_page"></string> <!-- EDIT -->
 
     <!-- app settings -->
     <!-- Use Geolocation. See also manifest. -->
