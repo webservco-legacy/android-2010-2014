@@ -7,36 +7,36 @@ import android.widget.TextView;
 
 public class DatabaseDeleteActivity extends Activity {
 
-	GeneralAdapter mGeneralAdapter;
+    GeneralAdapter mGeneralAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		if (!mGeneralAdapter.onCreate()) {
-			return;
-		}
+        mGeneralAdapter = new GeneralAdapter(this);
+        if (!mGeneralAdapter.onCreate()) {
+            return;
+        }
 
-		setContentView(R.layout.main);
+        setContentView(R.layout.main);
 
-		TextView v = (TextView) findViewById(R.id.content);
+        TextView v = (TextView) findViewById(R.id.content);
 
-		v.setText("Delete database:");
-		v.append("\n\n");
+        v.setText("Delete database:");
+        v.append("\n\n");
 
-		try {
-			deleteDatabase(getString(R.string.app_name).toLowerCase());
-			mGeneralAdapter.mSharedPreferences.edit().clear().commit();
-			v.append("success!");
-			v.append("\n\nPLEASE RESTART APPLICATION.");
-		} catch (Exception e) {
-			if (GeneralAdapter.LOG) {
-				Log.e(GeneralAdapter.TAG, e.getMessage());
-			}
-			v.append("error: copy error!");
-		}
+        try {
+            deleteDatabase(getString(R.string.app_name).toLowerCase());
+            mGeneralAdapter.mSharedPreferences.edit().clear().commit();
+            v.append("success!");
+            v.append("\n\nPLEASE RESTART APPLICATION.");
+        } catch (Exception e) {
+            if (GeneralAdapter.LOG) {
+                Log.e(GeneralAdapter.TAG, e.getMessage());
+            }
+            v.append("error: copy error!");
+        }
 
-	}
+    }
 }

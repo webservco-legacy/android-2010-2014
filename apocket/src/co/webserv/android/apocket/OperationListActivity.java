@@ -23,223 +23,223 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class OperationListActivity extends ListActivity {
 
-	private Long mPocketId;
+    private Long mPocketId;
 
-	private String mPocketName;
+    private String mPocketName;
 
-	private OperationDbAdapter mOperationDbAdapter;
+    private OperationDbAdapter mOperationDbAdapter;
 
-	private PocketDbAdapter mPocketDbAdapter;
+    private PocketDbAdapter mPocketDbAdapter;
 
-	private GeneralAdapter mGeneralAdapter;
+    private GeneralAdapter mGeneralAdapter;
 
-	private TextView mMessageEmpty;
+    private TextView mMessageEmpty;
 
-	private ListView mList;
+    private ListView mList;
 
-	private String[] from;
+    private String[] from;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		if (!mGeneralAdapter.onCreate()) {
-			return;
-		}
+        mGeneralAdapter = new GeneralAdapter(this);
+        if (!mGeneralAdapter.onCreate()) {
+            return;
+        }
 
-		mOperationDbAdapter = new OperationDbAdapter(this);
-		mOperationDbAdapter.open();
+        mOperationDbAdapter = new OperationDbAdapter(this);
+        mOperationDbAdapter.open();
 
-		mPocketDbAdapter = new PocketDbAdapter(this);
-		mPocketDbAdapter.open();
+        mPocketDbAdapter = new PocketDbAdapter(this);
+        mPocketDbAdapter.open();
 
-		setContentView(R.layout.operation_list);
+        setContentView(R.layout.operation_list);
 
-		mGeneralAdapter.mActivityTitle = (TextView) findViewById(R.id.title);
+        mGeneralAdapter.mActivityTitle = (TextView) findViewById(R.id.title);
 
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket, 0);
-		}
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket, 0);
+        }
 
-		mMessageEmpty = (TextView) findViewById(R.id.empty);
+        mMessageEmpty = (TextView) findViewById(R.id.empty);
 
-		mList = (ListView) getListView();
+        mList = (ListView) getListView();
 
-		showOperations();
+        showOperations();
 
-		if (mPocketId > 0) {
-			mPocketName = mPocketDbAdapter.getPocketName(mPocketId);
+        if (mPocketId > 0) {
+            mPocketName = mPocketDbAdapter.getPocketName(mPocketId);
 
-			mGeneralAdapter.mActivityTitle.setText(mPocketName
-					+ GeneralAdapter.TITLE_SEP
-					+ getString(R.string.operation_list));
-		} else {
-			mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
-					+ GeneralAdapter.TITLE_SEP
-					+ getString(R.string.operation_list));
-		}
+            mGeneralAdapter.mActivityTitle.setText(mPocketName
+                    + GeneralAdapter.TITLE_SEP
+                    + getString(R.string.operation_list));
+        } else {
+            mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
+                    + GeneralAdapter.TITLE_SEP
+                    + getString(R.string.operation_list));
+        }
 
-		registerForContextMenu(getListView());
-	}
+        registerForContextMenu(getListView());
+    }
 
-	@Override
-	protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 
-		super.onDestroy();
+        super.onDestroy();
 
-		if (mOperationDbAdapter != null) {
-			mOperationDbAdapter.close();
-		}
+        if (mOperationDbAdapter != null) {
+            mOperationDbAdapter.close();
+        }
 
-		if (mPocketDbAdapter != null) {
-			mPocketDbAdapter.close();
-		}
-	}
+        if (mPocketDbAdapter != null) {
+            mPocketDbAdapter.close();
+        }
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return mGeneralAdapter.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return mGeneralAdapter.onCreateOptionsMenu(menu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return mGeneralAdapter.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mGeneralAdapter.onOptionsItemSelected(item);
+    }
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		menu.setHeaderIcon(R.drawable.icon);
-		menu.setHeaderTitle(R.string.operation_context);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.operation_context, menu);
-	}
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
+        menu.setHeaderIcon(R.drawable.icon);
+        menu.setHeaderTitle(R.string.operation_context);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.operation_context, menu);
+    }
 
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+                .getMenuInfo();
 
-		switch (item.getItemId()) {
-		case R.id.operation_context_edit:
-			Intent i = new Intent(this, OperationDetailsActivity.class);
-			i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
-			i.putExtra(OperationDbAdapter.msKeyId, info.id);
-			startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
-			mGeneralAdapter.exit();
-			return true;
-		case R.id.operation_context_delete:
-			mOperationDbAdapter.deleteOperation(info.id);
-			showOperations();
-			Toast.makeText(this, getString(R.string.form_success),
-					Toast.LENGTH_SHORT).show();
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
+        switch (item.getItemId()) {
+        case R.id.operation_context_edit:
+            Intent i = new Intent(this, OperationDetailsActivity.class);
+            i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
+            i.putExtra(OperationDbAdapter.msKeyId, info.id);
+            startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
+            mGeneralAdapter.exit();
+            return true;
+        case R.id.operation_context_delete:
+            mOperationDbAdapter.deleteOperation(info.id);
+            showOperations();
+            Toast.makeText(this, getString(R.string.form_success),
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
 
-	@Override
-	public void onBackPressed() {
-		mGeneralAdapter.onBackPressed();
-	}
+    @Override
+    public void onBackPressed() {
+        mGeneralAdapter.onBackPressed();
+    }
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
 
-		super.onListItemClick(l, v, position, id);
+        super.onListItemClick(l, v, position, id);
 
-		Intent i = new Intent(this, OperationDetailsActivity.class);
-		i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
-		i.putExtra(OperationDbAdapter.msKeyId, id);
-		startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
-		mGeneralAdapter.exit();
-	}
+        Intent i = new Intent(this, OperationDetailsActivity.class);
+        i.putExtra(GeneralAdapter.msKeyUserId, mGeneralAdapter.mUserId);
+        i.putExtra(OperationDbAdapter.msKeyId, id);
+        startActivityForResult(i, GeneralAdapter.RESULT_CLOSE_ALL);
+        mGeneralAdapter.exit();
+    }
 
-	private void showOperations() {
+    private void showOperations() {
 
-		List<Operation> operations = getOperationsList();
+        List<Operation> operations = getOperationsList();
 
-		if (operations.isEmpty()) {
-			mList.setVisibility(View.GONE);
-		} else {
-			mMessageEmpty.setVisibility(View.GONE);
-		}
+        if (operations.isEmpty()) {
+            mList.setVisibility(View.GONE);
+        } else {
+            mMessageEmpty.setVisibility(View.GONE);
+        }
 
-		if (mPocketId > 0) {
-			from = new String[] { null, Operation.msKeyDate,
-					Operation.msKeyAmount, Operation.msKeyCurrency,
-					Operation.msKeyNotes };
+        if (mPocketId > 0) {
+            from = new String[] { null, Operation.msKeyDate,
+                    Operation.msKeyAmount, Operation.msKeyCurrency,
+                    Operation.msKeyNotes };
 
-		} else {
-			from = new String[] { Operation.msKeyPocket, Operation.msKeyDate,
-					Operation.msKeyAmount, Operation.msKeyCurrency,
-					Operation.msKeyNotes };
-		}
+        } else {
+            from = new String[] { Operation.msKeyPocket, Operation.msKeyDate,
+                    Operation.msKeyAmount, Operation.msKeyCurrency,
+                    Operation.msKeyNotes };
+        }
 
-		int[] to = new int[] { R.id.pocket, R.id.date, R.id.amount,
-				R.id.currency, R.id.notes };
-		ListAdapter adapter = new OperationListAdapter(this, operations,
-				R.layout.operation_list_item, from, to);
-		setListAdapter(adapter);
-	}
+        int[] to = new int[] { R.id.pocket, R.id.date, R.id.amount,
+                R.id.currency, R.id.notes };
+        ListAdapter adapter = new OperationListAdapter(this, operations,
+                R.layout.operation_list_item, from, to);
+        setListAdapter(adapter);
+    }
 
-	private List<Operation> getOperationsList() {
+    private List<Operation> getOperationsList() {
 
-		Cursor cursor;
+        Cursor cursor;
 
-		if (mPocketId > 0) {
-			cursor = mOperationDbAdapter.getPocketOperations(mPocketId);
-		} else {
-			cursor = mOperationDbAdapter.getOperations();
-		}
+        if (mPocketId > 0) {
+            cursor = mOperationDbAdapter.getPocketOperations(mPocketId);
+        } else {
+            cursor = mOperationDbAdapter.getOperations();
+        }
 
-		startManagingCursor(cursor);
+        startManagingCursor(cursor);
 
-		int opnum = cursor.getCount();
+        int opnum = cursor.getCount();
 
-		List<Operation> operations = new ArrayList<Operation>();
+        List<Operation> operations = new ArrayList<Operation>();
 
-		if (opnum > 0) {
+        if (opnum > 0) {
 
-			if (mPocketDbAdapter == null) {
-				mPocketDbAdapter = new PocketDbAdapter(this);
-				mPocketDbAdapter.open();
-			}
+            if (mPocketDbAdapter == null) {
+                mPocketDbAdapter = new PocketDbAdapter(this);
+                mPocketDbAdapter.open();
+            }
 
-			cursor.moveToFirst();
+            cursor.moveToFirst();
 
-			while (cursor.isAfterLast() == false) {
+            while (cursor.isAfterLast() == false) {
 
-				Cursor pocket = mPocketDbAdapter.getPocket(cursor.getLong(1));
+                Cursor pocket = mPocketDbAdapter.getPocket(cursor.getLong(1));
 
-				startManagingCursor(pocket);
+                startManagingCursor(pocket);
 
-				operations.add(new Operation(cursor.getLong(0), pocket
-						.getString(2), cursor.getString(2),
-						cursor.getString(3), pocket.getString(4), cursor
-								.getString(4)));
+                operations.add(new Operation(cursor.getLong(0), pocket
+                        .getString(2), cursor.getString(2),
+                        cursor.getString(3), pocket.getString(4), cursor
+                                .getString(4)));
 
-				stopManagingCursor(pocket);
-				pocket.close();
+                stopManagingCursor(pocket);
+                pocket.close();
 
-				cursor.moveToNext();
-			}
-		}
+                cursor.moveToNext();
+            }
+        }
 
-		stopManagingCursor(cursor);
-		cursor.close();
+        stopManagingCursor(cursor);
+        cursor.close();
 
-		return operations;
-	}
+        return operations;
+    }
 }
 /* $Id$ */

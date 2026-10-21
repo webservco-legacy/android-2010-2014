@@ -23,278 +23,278 @@ import android.widget.TextView;
 
 public class OperationDetailsActivity extends Activity {
 
-	private Long mId;
-	private Long mPocketId;
+    private Long mId;
+    private Long mPocketId;
 
-	private RelativeLayout mLayoutForm;
-	private RelativeLayout mLayoutResult;
+    private RelativeLayout mLayoutForm;
+    private RelativeLayout mLayoutResult;
 
-	private Spinner mType;
-	private Spinner mPocket;
-	private EditText mDate;
-	private EditText mAmount;
-	private EditText mNotes;
+    private Spinner mType;
+    private Spinner mPocket;
+    private EditText mDate;
+    private EditText mAmount;
+    private EditText mNotes;
 
-	private int mYear;
-	private int mMonth;
-	private int mDay;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
-	static final int DATE_DIALOG_ID = 0;
+    static final int DATE_DIALOG_ID = 0;
 
-	private OperationDbAdapter mOperationDbAdapter;
-	private PocketDbAdapter mPocketDbAdapter;
-	private Cursor mPockets;
+    private OperationDbAdapter mOperationDbAdapter;
+    private PocketDbAdapter mPocketDbAdapter;
+    private Cursor mPockets;
 
-	private GeneralAdapter mGeneralAdapter;
+    private GeneralAdapter mGeneralAdapter;
 
-	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                int dayOfMonth) {
 
-			mYear = year;
-			mMonth = monthOfYear;
-			mDay = dayOfMonth;
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
 
-			setDateField();
-		}
-	};
+            setDateField();
+        }
+    };
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		if (!mGeneralAdapter.onCreate()) {
-			return;
-		}
+        mGeneralAdapter = new GeneralAdapter(this);
+        if (!mGeneralAdapter.onCreate()) {
+            return;
+        }
 
-		mOperationDbAdapter = new OperationDbAdapter(this);
-		mOperationDbAdapter.open();
+        mOperationDbAdapter = new OperationDbAdapter(this);
+        mOperationDbAdapter.open();
 
-		setContentView(R.layout.operation_form);
+        setContentView(R.layout.operation_form);
 
-		mLayoutForm = (RelativeLayout) findViewById(R.id.operation_form);
-		mLayoutResult = (RelativeLayout) findViewById(R.id.operation_result);
+        mLayoutForm = (RelativeLayout) findViewById(R.id.operation_form);
+        mLayoutResult = (RelativeLayout) findViewById(R.id.operation_result);
 
-		mType = (Spinner) findViewById(R.id.operation_type);
-		mPocket = (Spinner) findViewById(R.id.operation_pocket);
-		mDate = (EditText) findViewById(R.id.operation_date);
-		mAmount = (EditText) findViewById(R.id.operation_amount);
-		mNotes = (EditText) findViewById(R.id.operation_notes);
+        mType = (Spinner) findViewById(R.id.operation_type);
+        mPocket = (Spinner) findViewById(R.id.operation_pocket);
+        mDate = (EditText) findViewById(R.id.operation_date);
+        mAmount = (EditText) findViewById(R.id.operation_amount);
+        mNotes = (EditText) findViewById(R.id.operation_notes);
 
-		Button button = (Button) findViewById(R.id.operation_button);
+        Button button = (Button) findViewById(R.id.operation_button);
 
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
 
-			mId = extras.getLong(OperationDbAdapter.msKeyId, 0);
+            mId = extras.getLong(OperationDbAdapter.msKeyId, 0);
 
-			mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket, 0);
-		}
+            mPocketId = extras.getLong(OperationDbAdapter.msKeyPocket, 0);
+        }
 
-		mPocketDbAdapter = new PocketDbAdapter(this);
-		mPocketDbAdapter.open();
+        mPocketDbAdapter = new PocketDbAdapter(this);
+        mPocketDbAdapter.open();
 
-		mPockets = mPocketDbAdapter.getUserPockets(mGeneralAdapter.mUserId);
+        mPockets = mPocketDbAdapter.getUserPockets(mGeneralAdapter.mUserId);
 
-		String[] from = new String[] { PocketDbAdapter.msKeyTitle };
-		int[] to = new int[] { android.R.id.text1 };
-		SimpleCursorAdapter pocket_list = new SimpleCursorAdapter(this,
-				android.R.layout.simple_spinner_item, mPockets, from, to);
-		pocket_list
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mPocket.setAdapter(pocket_list);
+        String[] from = new String[] { PocketDbAdapter.msKeyTitle };
+        int[] to = new int[] { android.R.id.text1 };
+        SimpleCursorAdapter pocket_list = new SimpleCursorAdapter(this,
+                android.R.layout.simple_spinner_item, mPockets, from, to);
+        pocket_list
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mPocket.setAdapter(pocket_list);
 
-		mDate.setOnClickListener(new View.OnClickListener() {
+        mDate.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				showDialog(DATE_DIALOG_ID);
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG_ID);
 
-			}
-		});
-
-		final Calendar c = Calendar.getInstance();
-		mYear = c.get(Calendar.YEAR);
-		mMonth = c.get(Calendar.MONTH);
-		mDay = c.get(Calendar.DAY_OF_MONTH);
+            }
+        });
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-		setDateField();
-
-		showOperation();
-
-		button.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				insertOperation();
-			}
-		});
-	}
-
-	@Override
-	protected void onDestroy() {
-
-		super.onDestroy();
-
-		if (mPockets != null) {
-			mPockets.close();
-		}
-
-		if (mOperationDbAdapter != null) {
-			mOperationDbAdapter.close();
-		}
-
-		if (mPocketDbAdapter != null) {
-			mPocketDbAdapter.close();
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return mGeneralAdapter.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return mGeneralAdapter.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onBackPressed() {
-		mGeneralAdapter.onBackPressed();
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-
-		switch (id) {
-		case DATE_DIALOG_ID:
-			return new DatePickerDialog(this, mDateSetListener, mYear, mMonth,
-					mDay);
-		}
-		return null;
-	}
-
-	private void setDateField() {
-		StringBuilder stringbilder = new StringBuilder();
-		stringbilder.append(mYear).append("-");
-		if (mMonth < 9) {
-			stringbilder.append("0");
-		}
-		stringbilder.append(mMonth + 1).append("-");
-		if (mDay < 10) {
-			stringbilder.append("0");
-		}
-		stringbilder.append(mDay);
-		mDate.setText(stringbilder);
-	}
-
-	private void showOperation() {
-		if (mId > 0) {
-			Cursor operation = mOperationDbAdapter.getOperation(mId);
-			startManagingCursor(operation);
-
-			if (operation != null && operation.getCount() > 0) {
-				if (operation.moveToFirst()) {
-
-					long pocket = operation
-							.getLong(operation
-									.getColumnIndexOrThrow(OperationDbAdapter.msKeyPocket));
-					String date = operation
-							.getString(operation
-									.getColumnIndexOrThrow(OperationDbAdapter.msKeyDate));
-					double amount = operation
-							.getDouble(operation
-									.getColumnIndexOrThrow(OperationDbAdapter.msKeyAmount));
-					String notes = operation
-							.getString(operation
-									.getColumnIndexOrThrow(OperationDbAdapter.msKeyNotes));
-
-					mType.setSelection((amount > 0) ? 1 : 0);
-
-					for (int i = 0; i < mPocket.getCount(); i++) {
-						long id = mPocket.getItemIdAtPosition(i);
-						if (id == pocket) {
-							mPocket.setSelection(i);
-						}
-					}
-
-					mDate.setText(date);
-
-					mAmount.setText(Math.abs(amount) + "");
-
-					mNotes.setText(notes);
-
-				}
-			}
-
-			stopManagingCursor(operation);
-			operation.close();
-		}
-		if (mPocketId > 0) {
-			for (int i = 0; i < mPocket.getCount(); i++) {
-				long id = mPocket.getItemIdAtPosition(i);
-				if (id == mPocketId) {
-					mPocket.setSelection(i);
-				}
-			}
-		}
-	}
-
-	public void insertOperation() {
-		String errorMessage = "";
-
-		long type = mType.getSelectedItemId();
-
-		long pocket = mPocket.getSelectedItemId();
-
-		String date = mDate.getText().toString().trim();
-
-		String amountString = mAmount.getText().toString().trim();
-
-		Double amount = (amountString.length() > 0) ? Double
-				.parseDouble(amountString) : 0;
-
-		if (type == 0) {
-			amount = 0 - amount;
-		}
-
-		String notes = mNotes.getText().toString().trim();
-
-		if (date.length() == 0) {
-			errorMessage += "\n" + getString(R.string.operation_date_error);
-		}
-
-		if (amount.doubleValue() == 0) {
-			errorMessage += "\n" + getString(R.string.operation_amount_error);
-		}
-
-		if (errorMessage.length() > 0) {
-			TextView errorField = (TextView) findViewById(R.id.operation_error);
-			errorField.setText(errorMessage);
-		} else {
-			if (mId == 0) {
-				long id = mOperationDbAdapter.addOperation(pocket, date,
-						amount, notes);
-				if (id > 0) {
-					mId = id;
-					mLayoutForm.setVisibility(View.GONE);
-					mLayoutResult.setVisibility(View.VISIBLE);
-				}
-			} else {
-				mOperationDbAdapter.updateOperation(mId, pocket, date, amount,
-						notes);
-				mLayoutForm.setVisibility(View.GONE);
-				mLayoutResult.setVisibility(View.VISIBLE);
-			}
-		}
-	}
+        setDateField();
+
+        showOperation();
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                insertOperation();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+        if (mPockets != null) {
+            mPockets.close();
+        }
+
+        if (mOperationDbAdapter != null) {
+            mOperationDbAdapter.close();
+        }
+
+        if (mPocketDbAdapter != null) {
+            mPocketDbAdapter.close();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return mGeneralAdapter.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mGeneralAdapter.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mGeneralAdapter.onBackPressed();
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+
+        switch (id) {
+        case DATE_DIALOG_ID:
+            return new DatePickerDialog(this, mDateSetListener, mYear, mMonth,
+                    mDay);
+        }
+        return null;
+    }
+
+    private void setDateField() {
+        StringBuilder stringbilder = new StringBuilder();
+        stringbilder.append(mYear).append("-");
+        if (mMonth < 9) {
+            stringbilder.append("0");
+        }
+        stringbilder.append(mMonth + 1).append("-");
+        if (mDay < 10) {
+            stringbilder.append("0");
+        }
+        stringbilder.append(mDay);
+        mDate.setText(stringbilder);
+    }
+
+    private void showOperation() {
+        if (mId > 0) {
+            Cursor operation = mOperationDbAdapter.getOperation(mId);
+            startManagingCursor(operation);
+
+            if (operation != null && operation.getCount() > 0) {
+                if (operation.moveToFirst()) {
+
+                    long pocket = operation
+                            .getLong(operation
+                                    .getColumnIndexOrThrow(OperationDbAdapter.msKeyPocket));
+                    String date = operation
+                            .getString(operation
+                                    .getColumnIndexOrThrow(OperationDbAdapter.msKeyDate));
+                    double amount = operation
+                            .getDouble(operation
+                                    .getColumnIndexOrThrow(OperationDbAdapter.msKeyAmount));
+                    String notes = operation
+                            .getString(operation
+                                    .getColumnIndexOrThrow(OperationDbAdapter.msKeyNotes));
+
+                    mType.setSelection((amount > 0) ? 1 : 0);
+
+                    for (int i = 0; i < mPocket.getCount(); i++) {
+                        long id = mPocket.getItemIdAtPosition(i);
+                        if (id == pocket) {
+                            mPocket.setSelection(i);
+                        }
+                    }
+
+                    mDate.setText(date);
+
+                    mAmount.setText(Math.abs(amount) + "");
+
+                    mNotes.setText(notes);
+
+                }
+            }
+
+            stopManagingCursor(operation);
+            operation.close();
+        }
+        if (mPocketId > 0) {
+            for (int i = 0; i < mPocket.getCount(); i++) {
+                long id = mPocket.getItemIdAtPosition(i);
+                if (id == mPocketId) {
+                    mPocket.setSelection(i);
+                }
+            }
+        }
+    }
+
+    public void insertOperation() {
+        String errorMessage = "";
+
+        long type = mType.getSelectedItemId();
+
+        long pocket = mPocket.getSelectedItemId();
+
+        String date = mDate.getText().toString().trim();
+
+        String amountString = mAmount.getText().toString().trim();
+
+        Double amount = (amountString.length() > 0) ? Double
+                .parseDouble(amountString) : 0;
+
+        if (type == 0) {
+            amount = 0 - amount;
+        }
+
+        String notes = mNotes.getText().toString().trim();
+
+        if (date.length() == 0) {
+            errorMessage += "\n" + getString(R.string.operation_date_error);
+        }
+
+        if (amount.doubleValue() == 0) {
+            errorMessage += "\n" + getString(R.string.operation_amount_error);
+        }
+
+        if (errorMessage.length() > 0) {
+            TextView errorField = (TextView) findViewById(R.id.operation_error);
+            errorField.setText(errorMessage);
+        } else {
+            if (mId == 0) {
+                long id = mOperationDbAdapter.addOperation(pocket, date,
+                        amount, notes);
+                if (id > 0) {
+                    mId = id;
+                    mLayoutForm.setVisibility(View.GONE);
+                    mLayoutResult.setVisibility(View.VISIBLE);
+                }
+            } else {
+                mOperationDbAdapter.updateOperation(mId, pocket, date, amount,
+                        notes);
+                mLayoutForm.setVisibility(View.GONE);
+                mLayoutResult.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }
 /* $Id$ */

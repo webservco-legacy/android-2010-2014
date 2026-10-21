@@ -14,78 +14,78 @@ import android.widget.TextView;
 
 public class DatabaseRestoreActivity extends Activity {
 
-	GeneralAdapter mGeneralAdapter;
+    GeneralAdapter mGeneralAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		if (!mGeneralAdapter.onCreate()) {
-			return;
-		}
+        mGeneralAdapter = new GeneralAdapter(this);
+        if (!mGeneralAdapter.onCreate()) {
+            return;
+        }
 
-		setContentView(R.layout.main);
+        setContentView(R.layout.main);
 
-		TextView content = (TextView) findViewById(R.id.content);
+        TextView content = (TextView) findViewById(R.id.content);
 
-		content.setText("Import database:");
-		content.append("\n\n");
+        content.setText("Import database:");
+        content.append("\n\n");
 
-		if (Environment.getExternalStorageState().equals("mounted")) {
+        if (Environment.getExternalStorageState().equals("mounted")) {
 
-			String path_storage = Environment.getExternalStorageDirectory()
-					.toString()
-					+ "/Android/data/"
-					+ getPackageName()
-					+ "/backups";
-			String db_name = getString(R.string.app_name).toLowerCase();
-			String path_source = path_storage + "/" + db_name;
-			String path_destination = Environment.getDataDirectory().toString()
-					+ "/data/" + getPackageName() + "/databases/" + db_name;
+            String path_storage = Environment.getExternalStorageDirectory()
+                    .toString()
+                    + "/Android/data/"
+                    + getPackageName()
+                    + "/backups";
+            String db_name = getString(R.string.app_name).toLowerCase();
+            String path_source = path_storage + "/" + db_name;
+            String path_destination = Environment.getDataDirectory().toString()
+                    + "/data/" + getPackageName() + "/databases/" + db_name;
 
-			File source = new File(path_source);
-			File destination = new File(path_destination);
+            File source = new File(path_source);
+            File destination = new File(path_destination);
 
-			if (source.exists() && source.canRead()) {
-				try {
-					mGeneralAdapter.copyFile(source, destination);
-					content.append("success!");
-					content.append("\n\nDatabase restored from\n" + path_source);
-				} catch (IOException e) {
-					if (GeneralAdapter.LOG) {
-						Log.e(GeneralAdapter.TAG, e.getMessage());
-					}
-					content.append("error: copy error!");
+            if (source.exists() && source.canRead()) {
+                try {
+                    mGeneralAdapter.copyFile(source, destination);
+                    content.append("success!");
+                    content.append("\n\nDatabase restored from\n" + path_source);
+                } catch (IOException e) {
+                    if (GeneralAdapter.LOG) {
+                        Log.e(GeneralAdapter.TAG, e.getMessage());
+                    }
+                    content.append("error: copy error!");
 
-				}
-			} else {
-				content.append("error: source not found:\n" + path_source);
-			}
+                }
+            } else {
+                content.append("error: source not found:\n" + path_source);
+            }
 
-		}
-	}
+        }
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return mGeneralAdapter.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return mGeneralAdapter.onCreateOptionsMenu(menu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return mGeneralAdapter.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mGeneralAdapter.onOptionsItemSelected(item);
+    }
 
-	@Override
-	public void onBackPressed() {
-		mGeneralAdapter.onBackPressed();
-	}
+    @Override
+    public void onBackPressed() {
+        mGeneralAdapter.onBackPressed();
+    }
 }
 /* $Id$ */
