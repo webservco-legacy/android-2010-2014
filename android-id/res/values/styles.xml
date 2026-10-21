@@ -37,33 +37,33 @@
         <item name="android:textSize">50dp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_alignParentRight">true</item>
-	</style>
+    </style>
 
     <style name="WsTheme.Text">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-		<item name="android:background">@color/transparent</item>
-		<item name="android:padding">-15dp</item>
-		<item name="android:layout_margin">-15dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:padding">-15dp</item>
+        <item name="android:layout_margin">-15dp</item>
     </style>
     
-	<style name="WsTheme.Text.Margin">
-	    <item name="android:layout_marginTop">3dp</item>
-	    <item name="android:layout_marginLeft">15dp</item>
-	    <item name="android:layout_marginRight">15dp</item>
-	    <item name="android:layout_marginBottom">3dp</item>
-	</style>
-	
-	<style name="WsTheme.Text.Margin.Hidden">
-	    <item name="android:visibility">gone</item>
-	</style>
+    <style name="WsTheme.Text.Margin">
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+    </style>
+    
+    <style name="WsTheme.Text.Margin.Hidden">
+        <item name="android:visibility">gone</item>
+    </style>
 
     <style name="WsTheme.TextResult">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
-		<item name="android:background">@color/transparent</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
     <style name="WsTheme.TextResult.Error">
@@ -110,7 +110,7 @@
     <style name="WsTheme.ListItemTitle.Simple">
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:textStyle">normal</item>
-	</style>
+    </style>
 
     <style name="WsTheme.ListItemSubtitle">
         <item name="android:layout_width">wrap_content</item>
@@ -122,7 +122,7 @@
     
     <style name="WsTheme.ListItemSubtitle.Strong">
         <item name="android:textStyle">bold</item>
-	</style>
+    </style>
 
 </resources>
 

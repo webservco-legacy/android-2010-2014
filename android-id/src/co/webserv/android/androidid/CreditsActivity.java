@@ -9,86 +9,86 @@ import android.view.MenuItem;
 
 public class CreditsActivity extends Activity {
 
-	private GeneralAdapter mGeneralAdapter;
+    private GeneralAdapter mGeneralAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		/**
-		 * General Adapter
-		 */
-		mGeneralAdapter = new GeneralAdapter(this);
+        /**
+         * General Adapter
+         */
+        mGeneralAdapter = new GeneralAdapter(this);
 
-		/**
-		 * General functionality.
-		 */
-		mGeneralAdapter.onCreate();
+        /**
+         * General functionality.
+         */
+        mGeneralAdapter.onCreate();
 
-		/**
-		 * Set browser layout.
-		 */
-		setContentView(R.layout.main);
+        /**
+         * Set browser layout.
+         */
+        setContentView(R.layout.main);
 
-		mGeneralAdapter.initActivity(3);
+        mGeneralAdapter.initActivity(3);
 
-	}
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+        mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
 
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	@Override
-	protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 
-		mGeneralAdapter.onDestroy();
+        mGeneralAdapter.onDestroy();
 
-		super.onDestroy();
-	}
+        super.onDestroy();
+    }
 
-	@Override
-	protected void onPause() {
+    @Override
+    protected void onPause() {
 
-		mGeneralAdapter.onPause();
+        mGeneralAdapter.onPause();
 
-		super.onPause();
-	}
+        super.onPause();
+    }
 
-	@Override
-	protected void onResume() {
+    @Override
+    protected void onResume() {
 
-		super.onResume();
+        super.onResume();
 
-		mGeneralAdapter.onResume();
-	}
+        mGeneralAdapter.onResume();
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-			mGeneralAdapter.onBackPressed();
+            mGeneralAdapter.onBackPressed();
 
-			return true;
-		}
+            return true;
+        }
 
-		return super.onKeyDown(keyCode, event);
-	}
+        return super.onKeyDown(keyCode, event);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-		return mGeneralAdapter.onCreateOptionsMenu(menu);
-	}
+        return mGeneralAdapter.onCreateOptionsMenu(menu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-		return mGeneralAdapter.onOptionsItemSelected(item);
-	}
+        return mGeneralAdapter.onOptionsItemSelected(item);
+    }
 }
