@@ -18,303 +18,303 @@ import android.widget.TextView;
 
 public class GeneralAdapter implements OnClickListener {
 
-	protected static final String LOG_TAG = "COWEBSERVANDROID";
-	protected static final int REQUEST_CODE = 10;
-	protected static final int RESULT_CLOSE_ALL = 1;
+    protected static final String LOG_TAG = "COWEBSERVANDROID";
+    protected static final int REQUEST_CODE = 10;
+    protected static final int RESULT_CLOSE_ALL = 1;
 
-	private Activity mActivity;
+    private Activity mActivity;
 
-	/**
-	 * Custom app members.
-	 */
+    /**
+     * Custom app members.
+     */
 
-	protected String mAndroidId;
+    protected String mAndroidId;
 
-	protected int mSdkVersion;
+    protected int mSdkVersion;
 
-	protected TextView mTitle;
+    protected TextView mTitle;
 
-	protected TextView mContent;
+    protected TextView mContent;
 
-	protected TextView mId;
+    protected TextView mId;
 
-	protected TextView mInfo;
+    protected TextView mInfo;
 
-	protected RelativeLayout mSendContainer;
+    protected RelativeLayout mSendContainer;
 
-	protected Button mSend;
+    protected Button mSend;
 
-	protected TextView mWarning;
+    protected TextView mWarning;
 
-	public GeneralAdapter(Activity a) {
-		mActivity = a;
-	}
+    public GeneralAdapter(Activity a) {
+        mActivity = a;
+    }
 
-	protected void onCreate() {
+    protected void onCreate() {
 
-		/**
-		 * Force certain language - see tutorial.
-		 */
+        /**
+         * Force certain language - see tutorial.
+         */
 
-		/**
-		 * Hide title bar.
-		 */
-		mActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /**
+         * Hide title bar.
+         */
+        mActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		/**
-		 * Network connection check - cache check - see tutorial.
-		 */
+        /**
+         * Network connection check - cache check - see tutorial.
+         */
 
-		/**
-		 * Network connection check - show message if no connection - see
-		 * tutorial.
-		 */
+        /**
+         * Network connection check - show message if no connection - see
+         * tutorial.
+         */
 
-		/**
-		 * Custom app functionality.
-		 */
-		mSdkVersion = getSdkVersion();
+        /**
+         * Custom app functionality.
+         */
+        mSdkVersion = getSdkVersion();
 
-	}
+    }
 
-	protected void initActivity(int section_id) {
+    protected void initActivity(int section_id) {
 
-		mTitle = (TextView) mActivity.findViewById(R.id.title);
+        mTitle = (TextView) mActivity.findViewById(R.id.title);
 
-		mContent = (TextView) mActivity.findViewById(R.id.content);
+        mContent = (TextView) mActivity.findViewById(R.id.content);
 
-		switch (section_id) {
+        switch (section_id) {
 
-		case 5:
+        case 5:
 
-			break;
+            break;
 
-		case 4:
+        case 4:
 
-			break;
+            break;
 
-		case 3:
+        case 3:
 
-			mTitle.setText(R.string.section3_title);
-			mContent.setText(Html.fromHtml(mActivity
-					.getString(R.string.section3_content)));
-			mContent.setMovementMethod(LinkMovementMethod.getInstance());
+            mTitle.setText(R.string.section3_title);
+            mContent.setText(Html.fromHtml(mActivity
+                    .getString(R.string.section3_content)));
+            mContent.setMovementMethod(LinkMovementMethod.getInstance());
 
-			break;
+            break;
 
-		case 2:
+        case 2:
 
-			mTitle.setText(R.string.section2_title);
-			mContent.setText(Html.fromHtml(mActivity
-					.getString(R.string.section2_content)));
+            mTitle.setText(R.string.section2_title);
+            mContent.setText(Html.fromHtml(mActivity
+                    .getString(R.string.section2_content)));
 
-			break;
+            break;
 
-		case 1:
-		default:
+        case 1:
+        default:
 
-			mId = (TextView) mActivity.findViewById(R.id.id);
+            mId = (TextView) mActivity.findViewById(R.id.id);
 
-			mInfo = (TextView) mActivity.findViewById(R.id.info);
+            mInfo = (TextView) mActivity.findViewById(R.id.info);
 
-			mSendContainer = (RelativeLayout) mActivity
-					.findViewById(R.id.send_container);
+            mSendContainer = (RelativeLayout) mActivity
+                    .findViewById(R.id.send_container);
 
-			mSend = (Button) mActivity.findViewById(R.id.send);
+            mSend = (Button) mActivity.findViewById(R.id.send);
 
-			mSend.setOnClickListener(this);
+            mSend.setOnClickListener(this);
 
-			mWarning = (TextView) mActivity.findViewById(R.id.warning);
+            mWarning = (TextView) mActivity.findViewById(R.id.warning);
 
-			mTitle.setText(R.string.section1_title);
+            mTitle.setText(R.string.section1_title);
 
-			mContent.setText(R.string.id_content);
+            mContent.setText(R.string.id_content);
 
-			break;
-		}
-	}
+            break;
+        }
+    }
 
-	protected void onDestroy() {
+    protected void onDestroy() {
 
-	}
+    }
 
-	protected void onPause() {
+    protected void onPause() {
 
-	}
+    }
 
-	protected void onResume() {
+    protected void onResume() {
 
-	}
+    }
 
-	protected void onBackPressed() {
+    protected void onBackPressed() {
 
-		mActivity.finish();
-	}
+        mActivity.finish();
+    }
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		switch (resultCode) {
+        switch (resultCode) {
 
-		case RESULT_CLOSE_ALL:
+        case RESULT_CLOSE_ALL:
 
-			exit();
+            exit();
 
-			break;
-		}
-	}
+            break;
+        }
+    }
 
-	protected boolean onCreateOptionsMenu(Menu menu) {
+    protected boolean onCreateOptionsMenu(Menu menu) {
 
-		mActivity.getMenuInflater().inflate(R.menu.application, menu);
+        mActivity.getMenuInflater().inflate(R.menu.application, menu);
 
-		return true;
-	}
+        return true;
+    }
 
-	protected boolean onOptionsItemSelected(MenuItem item) {
+    protected boolean onOptionsItemSelected(MenuItem item) {
 
-		switch (item.getItemId()) {
+        switch (item.getItemId()) {
 
-		case R.id.menu_section1:
+        case R.id.menu_section1:
 
-			mActivity.startActivityForResult(new Intent(mActivity,
-					IdActivity.class), RESULT_CLOSE_ALL);
+            mActivity.startActivityForResult(new Intent(mActivity,
+                    IdActivity.class), RESULT_CLOSE_ALL);
 
-			return true;
+            return true;
 
-		case R.id.menu_section2:
+        case R.id.menu_section2:
 
-			mActivity.startActivityForResult(new Intent(mActivity,
-					InfoActivity.class), RESULT_CLOSE_ALL);
+            mActivity.startActivityForResult(new Intent(mActivity,
+                    InfoActivity.class), RESULT_CLOSE_ALL);
 
-			return true;
+            return true;
 
-		case R.id.menu_section3:
+        case R.id.menu_section3:
 
-			mActivity.startActivityForResult(new Intent(mActivity,
-					CreditsActivity.class), RESULT_CLOSE_ALL);
+            mActivity.startActivityForResult(new Intent(mActivity,
+                    CreditsActivity.class), RESULT_CLOSE_ALL);
 
-			return true;
+            return true;
 
-		case R.id.menu_exit:
+        case R.id.menu_exit:
 
-			exit();
+            exit();
 
-			return true;
+            return true;
 
-		default:
+        default:
 
-			return mActivity.getParent().onOptionsItemSelected(item);
-		}
-	}
+            return mActivity.getParent().onOptionsItemSelected(item);
+        }
+    }
 
-	protected void exit() {
+    protected void exit() {
 
-		mActivity.setResult(RESULT_CLOSE_ALL);
-		mActivity.finish();
-	}
+        mActivity.setResult(RESULT_CLOSE_ALL);
+        mActivity.finish();
+    }
 
-	public void onClick(View v) {
+    public void onClick(View v) {
 
-		int button_id = v.getId();
+        int button_id = v.getId();
 
-		switch (button_id) {
+        switch (button_id) {
 
-		case R.id.send:
+        case R.id.send:
 
-			Intent si = new Intent();
+            Intent si = new Intent();
 
-			si.setAction(Intent.ACTION_SEND);
+            si.setAction(Intent.ACTION_SEND);
 
-			si.putExtra(Intent.EXTRA_SUBJECT,
-					mActivity.getString(R.string.send_subject));
+            si.putExtra(Intent.EXTRA_SUBJECT,
+                    mActivity.getString(R.string.send_subject));
 
-			si.putExtra(Intent.EXTRA_TEXT,
-					mActivity.getString(R.string.send_text) + mAndroidId);
+            si.putExtra(Intent.EXTRA_TEXT,
+                    mActivity.getString(R.string.send_text) + mAndroidId);
 
-			si.setType("text/plain");
+            si.setType("text/plain");
 
-			mActivity.startActivity(Intent.createChooser(si,
-					mActivity.getString(R.string.send_title)));
+            mActivity.startActivity(Intent.createChooser(si,
+                    mActivity.getString(R.string.send_title)));
 
-			break;
+            break;
 
-		default:
-			break;
+        default:
+            break;
 
-		}
-	}
+        }
+    }
 
-	public boolean isEmulator() {
+    public boolean isEmulator() {
 
-		return (Build.PRODUCT.contains("sdk"));
-	}
+        return (Build.PRODUCT.contains("sdk"));
+    }
 
-	public int getSdkVersion() {
+    public int getSdkVersion() {
 
-		return android.os.Build.VERSION.SDK_INT;
-	}
+        return android.os.Build.VERSION.SDK_INT;
+    }
 
-	@SuppressLint("NewApi")
-	@SuppressWarnings("deprecation")
-	public boolean setClipboard(String label, String text) {
+    @SuppressLint("NewApi")
+    @SuppressWarnings("deprecation")
+    public boolean setClipboard(String label, String text) {
 
-		if (mSdkVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
+        if (mSdkVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
 
-			android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mActivity
-					.getSystemService(Context.CLIPBOARD_SERVICE);
-			clipboard.setText(text);
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mActivity
+                    .getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
 
-		} else {
+        } else {
 
-			android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mActivity
-					.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mActivity
+                    .getSystemService(Context.CLIPBOARD_SERVICE);
 
-			android.content.ClipData clip = android.content.ClipData
-					.newPlainText(label, text);
+            android.content.ClipData clip = android.content.ClipData
+                    .newPlainText(label, text);
 
-			clipboard.setPrimaryClip(clip);
-		}
+            clipboard.setPrimaryClip(clip);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	@SuppressLint("NewApi")
-	@SuppressWarnings("deprecation")
-	public String getClipboard() {
+    @SuppressLint("NewApi")
+    @SuppressWarnings("deprecation")
+    public String getClipboard() {
 
-		if (mSdkVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
+        if (mSdkVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
 
-			android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mActivity
-					.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mActivity
+                    .getSystemService(Context.CLIPBOARD_SERVICE);
 
-			if (clipboard.hasText()) {
+            if (clipboard.hasText()) {
 
-				return (String) clipboard.getText();
+                return (String) clipboard.getText();
 
-			} else {
+            } else {
 
-				return "";
-			}
+                return "";
+            }
 
-		} else {
+        } else {
 
-			android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mActivity
-					.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mActivity
+                    .getSystemService(Context.CLIPBOARD_SERVICE);
 
-			if (clipboard.hasPrimaryClip()) {
+            if (clipboard.hasPrimaryClip()) {
 
-				if (clipboard.getPrimaryClipDescription().hasMimeType(
-						android.content.ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                if (clipboard.getPrimaryClipDescription().hasMimeType(
+                        android.content.ClipDescription.MIMETYPE_TEXT_PLAIN)) {
 
-					android.content.ClipData.Item item = clipboard
-							.getPrimaryClip().getItemAt(0);
+                    android.content.ClipData.Item item = clipboard
+                            .getPrimaryClip().getItemAt(0);
 
-					return (String) item.getText();
-				}
-			}
+                    return (String) item.getText();
+                }
+            }
 
-			return "";
-		}
+            return "";
+        }
 
-	}
+    }
 }
