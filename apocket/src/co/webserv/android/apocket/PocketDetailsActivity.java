@@ -16,180 +16,180 @@ import android.widget.TextView;
 
 public class PocketDetailsActivity extends Activity {
 
-	private Long mId;
+    private Long mId;
 
-	private RelativeLayout mLayoutForm;
-	private RelativeLayout mLayoutResult;
+    private RelativeLayout mLayoutForm;
+    private RelativeLayout mLayoutResult;
 
-	private EditText mTitle;
-	private Spinner mType;
-	private Spinner mCurrency;
-	private EditText mDescription;
+    private EditText mTitle;
+    private Spinner mType;
+    private Spinner mCurrency;
+    private EditText mDescription;
 
-	private String mPocketTitle;
-	private String mPocketType;
-	private String mPocketCurrency;
-	private String mPocketDescription;
+    private String mPocketTitle;
+    private String mPocketType;
+    private String mPocketCurrency;
+    private String mPocketDescription;
 
-	private PocketDbAdapter mPocketDbAdapter;
+    private PocketDbAdapter mPocketDbAdapter;
 
-	private GeneralAdapter mGeneralAdapter;
+    private GeneralAdapter mGeneralAdapter;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		if (!mGeneralAdapter.onCreate()) {
-			return;
-		}
+        mGeneralAdapter = new GeneralAdapter(this);
+        if (!mGeneralAdapter.onCreate()) {
+            return;
+        }
 
-		mPocketDbAdapter = new PocketDbAdapter(this);
-		mPocketDbAdapter.open();
+        mPocketDbAdapter = new PocketDbAdapter(this);
+        mPocketDbAdapter.open();
 
-		setContentView(R.layout.pocket_form);
+        setContentView(R.layout.pocket_form);
 
-		mGeneralAdapter.mActivityTitle = (TextView) findViewById(R.id.title);
+        mGeneralAdapter.mActivityTitle = (TextView) findViewById(R.id.title);
 
-		mLayoutForm = (RelativeLayout) findViewById(R.id.pocket_form);
-		mLayoutResult = (RelativeLayout) findViewById(R.id.pocket_result);
+        mLayoutForm = (RelativeLayout) findViewById(R.id.pocket_form);
+        mLayoutResult = (RelativeLayout) findViewById(R.id.pocket_result);
 
-		mTitle = (EditText) findViewById(R.id.pocket_title);
-		mType = (Spinner) findViewById(R.id.pocket_type);
-		mCurrency = (Spinner) findViewById(R.id.pocket_currency);
-		mDescription = (EditText) findViewById(R.id.pocket_description);
+        mTitle = (EditText) findViewById(R.id.pocket_title);
+        mType = (Spinner) findViewById(R.id.pocket_type);
+        mCurrency = (Spinner) findViewById(R.id.pocket_currency);
+        mDescription = (EditText) findViewById(R.id.pocket_description);
 
-		Button button = (Button) findViewById(R.id.pocket_button);
+        Button button = (Button) findViewById(R.id.pocket_button);
 
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			mId = extras.getLong(PocketDbAdapter.msKeyId, 0);
-		}
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mId = extras.getLong(PocketDbAdapter.msKeyId, 0);
+        }
 
-		showPocket();
+        showPocket();
 
-		if (mId > 0) {
-			mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
-					+ GeneralAdapter.TITLE_SEP + mPocketTitle);
-		} else {
-			mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
-					+ GeneralAdapter.TITLE_SEP + getString(R.string.pocket_add));
-		}
+        if (mId > 0) {
+            mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
+                    + GeneralAdapter.TITLE_SEP + mPocketTitle);
+        } else {
+            mGeneralAdapter.mActivityTitle.setText(mGeneralAdapter.mUserName
+                    + GeneralAdapter.TITLE_SEP + getString(R.string.pocket_add));
+        }
 
-		button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				savePocket();
-			}
-		});
-	}
+            public void onClick(View v) {
+                savePocket();
+            }
+        });
+    }
 
-	@Override
-	protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 
-		super.onDestroy();
+        super.onDestroy();
 
-		if (mPocketDbAdapter != null) {
-			mPocketDbAdapter.close();
-		}
-	}
+        if (mPocketDbAdapter != null) {
+            mPocketDbAdapter.close();
+        }
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return mGeneralAdapter.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return mGeneralAdapter.onCreateOptionsMenu(menu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return mGeneralAdapter.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mGeneralAdapter.onOptionsItemSelected(item);
+    }
 
-	@Override
-	public void onBackPressed() {
-		mGeneralAdapter.onBackPressed();
-	}
+    @Override
+    public void onBackPressed() {
+        mGeneralAdapter.onBackPressed();
+    }
 
-	private void showPocket() {
-		if (mId > 0) {
-			Cursor pocket = mPocketDbAdapter.getPocket(mId);
-			startManagingCursor(pocket);
+    private void showPocket() {
+        if (mId > 0) {
+            Cursor pocket = mPocketDbAdapter.getPocket(mId);
+            startManagingCursor(pocket);
 
-			if (pocket.moveToFirst()) {
+            if (pocket.moveToFirst()) {
 
-				mPocketTitle = pocket.getString(pocket
-						.getColumnIndexOrThrow(PocketDbAdapter.msKeyTitle));
-				mPocketType = pocket.getString(pocket
-						.getColumnIndexOrThrow(PocketDbAdapter.msKeyType));
-				mPocketCurrency = pocket.getString(pocket
-						.getColumnIndexOrThrow(PocketDbAdapter.msKeyCurrency));
-				mPocketDescription = pocket
-						.getString(pocket
-								.getColumnIndexOrThrow(PocketDbAdapter.msKeyDescription));
+                mPocketTitle = pocket.getString(pocket
+                        .getColumnIndexOrThrow(PocketDbAdapter.msKeyTitle));
+                mPocketType = pocket.getString(pocket
+                        .getColumnIndexOrThrow(PocketDbAdapter.msKeyType));
+                mPocketCurrency = pocket.getString(pocket
+                        .getColumnIndexOrThrow(PocketDbAdapter.msKeyCurrency));
+                mPocketDescription = pocket
+                        .getString(pocket
+                                .getColumnIndexOrThrow(PocketDbAdapter.msKeyDescription));
 
-			}
+            }
 
-			mTitle.setText(mPocketTitle);
+            mTitle.setText(mPocketTitle);
 
-			for (int i = 0; i < mType.getCount(); i++) {
-				String s = (String) mType.getItemAtPosition(i);
-				if (s.equalsIgnoreCase(mPocketType)) {
-					mType.setSelection(i);
-				}
-			}
+            for (int i = 0; i < mType.getCount(); i++) {
+                String s = (String) mType.getItemAtPosition(i);
+                if (s.equalsIgnoreCase(mPocketType)) {
+                    mType.setSelection(i);
+                }
+            }
 
-			for (int j = 0; j < mCurrency.getCount(); j++) {
-				String s = (String) mCurrency.getItemAtPosition(j);
-				if (s.equalsIgnoreCase(mPocketCurrency)) {
-					mCurrency.setSelection(j);
-				}
-			}
+            for (int j = 0; j < mCurrency.getCount(); j++) {
+                String s = (String) mCurrency.getItemAtPosition(j);
+                if (s.equalsIgnoreCase(mPocketCurrency)) {
+                    mCurrency.setSelection(j);
+                }
+            }
 
-			mDescription.setText(mPocketDescription);
+            mDescription.setText(mPocketDescription);
 
-			stopManagingCursor(pocket);
-			pocket.close();
-		}
-	}
+            stopManagingCursor(pocket);
+            pocket.close();
+        }
+    }
 
-	public void savePocket() {
-		String errorMessage = "";
-		String title = mTitle.getText().toString().trim();
-		String type = mType.getSelectedItem().toString();
-		String currency = mCurrency.getSelectedItem().toString();
-		String description = mDescription.getText().toString().trim();
+    public void savePocket() {
+        String errorMessage = "";
+        String title = mTitle.getText().toString().trim();
+        String type = mType.getSelectedItem().toString();
+        String currency = mCurrency.getSelectedItem().toString();
+        String description = mDescription.getText().toString().trim();
 
-		if (title.length() == 0) {
-			errorMessage += "\n" + getString(R.string.pocket_title_error);
-		}
+        if (title.length() == 0) {
+            errorMessage += "\n" + getString(R.string.pocket_title_error);
+        }
 
-		if (errorMessage.length() > 0) {
-			TextView errorField = (TextView) findViewById(R.id.pocket_error);
-			errorField.setText(errorMessage);
-		} else {
-			if (mId == 0) {
-				long id = mPocketDbAdapter.createPocket(
-						mGeneralAdapter.mUserId, title, type, currency,
-						description);
-				if (id > 0) {
-					mId = id;
-					mLayoutForm.setVisibility(View.GONE);
-					mLayoutResult.setVisibility(View.VISIBLE);
-				}
-			} else {
-				mPocketDbAdapter.updatePocket(mId, mGeneralAdapter.mUserId,
-						title, type, currency, description);
-				showPocket();
-				mLayoutForm.setVisibility(View.GONE);
-				mLayoutResult.setVisibility(View.VISIBLE);
-			}
-		}
-	}
+        if (errorMessage.length() > 0) {
+            TextView errorField = (TextView) findViewById(R.id.pocket_error);
+            errorField.setText(errorMessage);
+        } else {
+            if (mId == 0) {
+                long id = mPocketDbAdapter.createPocket(
+                        mGeneralAdapter.mUserId, title, type, currency,
+                        description);
+                if (id > 0) {
+                    mId = id;
+                    mLayoutForm.setVisibility(View.GONE);
+                    mLayoutResult.setVisibility(View.VISIBLE);
+                }
+            } else {
+                mPocketDbAdapter.updatePocket(mId, mGeneralAdapter.mUserId,
+                        title, type, currency, description);
+                showPocket();
+                mLayoutForm.setVisibility(View.GONE);
+                mLayoutResult.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }
 /* $Id$ */

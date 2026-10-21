@@ -13,115 +13,115 @@ import android.widget.TextView;
 
 public class UserActivity extends Activity {
 
-	private TextView mErrorMeessage;
+    private TextView mErrorMeessage;
 
-	private EditText mUsername;
-	private EditText mPassword;
+    private EditText mUsername;
+    private EditText mPassword;
 
-	private UserDbAdapter mUserDbAdapter;
+    private UserDbAdapter mUserDbAdapter;
 
-	private GeneralAdapter mGeneralAdapter;
+    private GeneralAdapter mGeneralAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.onCreate();
+        mGeneralAdapter = new GeneralAdapter(this);
+        mGeneralAdapter.onCreate();
 
-		mUserDbAdapter = new UserDbAdapter(this);
-		mUserDbAdapter.open();
+        mUserDbAdapter = new UserDbAdapter(this);
+        mUserDbAdapter.open();
 
-		setContentView(R.layout.user);
+        setContentView(R.layout.user);
 
-		mUsername = (EditText) findViewById(R.id.user_username);
-		mPassword = (EditText) findViewById(R.id.user_password);
+        mUsername = (EditText) findViewById(R.id.user_username);
+        mPassword = (EditText) findViewById(R.id.user_password);
 
-		mErrorMeessage = (TextView) findViewById(R.id.user_error);
+        mErrorMeessage = (TextView) findViewById(R.id.user_error);
 
-		Button button = (Button) findViewById(R.id.user_button);
+        Button button = (Button) findViewById(R.id.user_button);
 
-		button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				loginUser();
-			}
-		});
-	}
+            public void onClick(View v) {
+                loginUser();
+            }
+        });
+    }
 
-	@Override
-	protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 
-		super.onDestroy();
+        super.onDestroy();
 
-		if (mUserDbAdapter != null) {
-			mUserDbAdapter.close();
-		}
-	}
+        if (mUserDbAdapter != null) {
+            mUserDbAdapter.close();
+        }
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mGeneralAdapter.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		/**
-		 * No menu return mGeneralAdapter.onCreateOptionsMenu(menu);
-		 */
-		return false;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /**
+         * No menu return mGeneralAdapter.onCreateOptionsMenu(menu);
+         */
+        return false;
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		/**
-		 * No menu return mGeneralAdapter.onOptionsItemSelected(item);
-		 */
-		return false;
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /**
+         * No menu return mGeneralAdapter.onOptionsItemSelected(item);
+         */
+        return false;
+    }
 
-	@Override
-	public void onBackPressed() {
-		/**
-		 * Exit application if back is pressed mGeneralAdapter.onBackPressed();
-		 */
-		mGeneralAdapter.exit();
-	}
+    @Override
+    public void onBackPressed() {
+        /**
+         * Exit application if back is pressed mGeneralAdapter.onBackPressed();
+         */
+        mGeneralAdapter.exit();
+    }
 
-	private void loginUser() {
+    private void loginUser() {
 
-		String errorMessage = "";
+        String errorMessage = "";
 
-		String username = mUsername.getText().toString().trim();
+        String username = mUsername.getText().toString().trim();
 
-		String password = mPassword.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
 
-		if (username.length() == 0) {
-			errorMessage += "\n" + getString(R.string.user_username_error);
-		}
+        if (username.length() == 0) {
+            errorMessage += "\n" + getString(R.string.user_username_error);
+        }
 
-		if (password.length() == 0) {
-			errorMessage += "\n" + getString(R.string.user_password_error);
-		}
+        if (password.length() == 0) {
+            errorMessage += "\n" + getString(R.string.user_password_error);
+        }
 
-		if (errorMessage.length() > 0) {
+        if (errorMessage.length() > 0) {
 
-			mErrorMeessage.setText(errorMessage);
-		} else {
+            mErrorMeessage.setText(errorMessage);
+        } else {
 
-			long id = mUserDbAdapter.getUserId(username, password);
+            long id = mUserDbAdapter.getUserId(username, password);
 
-			if (id > 0) {
-				Intent ip = new Intent(this, PocketListActivity.class);
-				ip.putExtra(GeneralAdapter.msKeyUserId, id);
-				startActivityForResult(ip, GeneralAdapter.RESULT_CLOSE_ALL);
-				mGeneralAdapter.exit();
-			} else {
-				mErrorMeessage.setText(getString(R.string.user_login_error));
-			}
-		}
-	}
+            if (id > 0) {
+                Intent ip = new Intent(this, PocketListActivity.class);
+                ip.putExtra(GeneralAdapter.msKeyUserId, id);
+                startActivityForResult(ip, GeneralAdapter.RESULT_CLOSE_ALL);
+                mGeneralAdapter.exit();
+            } else {
+                mErrorMeessage.setText(getString(R.string.user_login_error));
+            }
+        }
+    }
 }
 /* $Id$ */
