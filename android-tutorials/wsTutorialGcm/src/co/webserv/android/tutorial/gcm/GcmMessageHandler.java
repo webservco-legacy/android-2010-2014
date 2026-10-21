@@ -17,105 +17,105 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class GcmMessageHandler extends IntentService {
 
-	public static final int NOTIFICATION_ID = 1;
+    public static final int NOTIFICATION_ID = 1;
 
-	private static NotificationManager mNotificationManager;
+    private static NotificationManager mNotificationManager;
 
-	private SharedPreferences mSharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
-	public GcmMessageHandler() {
-		super("GcmMessageHandler");
-	}
+    public GcmMessageHandler() {
+        super("GcmMessageHandler");
+    }
 
-	@Override
-	public void onCreate() {
-		// TODO Auto-generated method stub
-		super.onCreate();
-	}
+    @Override
+    public void onCreate() {
+        // TODO Auto-generated method stub
+        super.onCreate();
+    }
 
-	@Override
-	protected void onHandleIntent(Intent intent) {
-		Bundle extras = intent.getExtras();
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
 
-		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-		// The getMessageType() intent parameter must be the intent you received
-		// in your BroadcastReceiver.
-		String messageType = gcm.getMessageType(intent);
+        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+        // The getMessageType() intent parameter must be the intent you received
+        // in your BroadcastReceiver.
+        String messageType = gcm.getMessageType(intent);
 
-		Log.i("GCM",
-				"Received : (" + messageType + ")  "
-						+ extras.getString("title"));
+        Log.i("GCM",
+                "Received : (" + messageType + ")  "
+                        + extras.getString("title"));
 
-		if (!extras.isEmpty()) {
+        if (!extras.isEmpty()) {
 
-			Context context = getApplicationContext();
+            Context context = getApplicationContext();
 
-			mSharedPreferences = context.getSharedPreferences(
-					context.getPackageName(), ActionBarActivity.MODE_PRIVATE);
+            mSharedPreferences = context.getSharedPreferences(
+                    context.getPackageName(), ActionBarActivity.MODE_PRIVATE);
 
-			boolean is_active = mSharedPreferences.getBoolean("active", false);
+            boolean is_active = mSharedPreferences.getBoolean("active", false);
 
-			if (!is_active) {
+            if (!is_active) {
 
-				if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
-						.equals(messageType)) {
+                if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
+                        .equals(messageType)) {
 
-					showNotification(context,
-							"Send error: " + extras.toString());
+                    showNotification(context,
+                            "Send error: " + extras.toString());
 
-				} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
-						.equals(messageType)) {
+                } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
+                        .equals(messageType)) {
 
-					showNotification(context, "Deleted messages on server: "
-							+ extras.toString());
+                    showNotification(context, "Deleted messages on server: "
+                            + extras.toString());
 
-				} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
-						.equals(messageType)) {
+                } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
+                        .equals(messageType)) {
 
-					for (int i = 0; i < 3; i++) {
-						try {
-							Thread.sleep(5000);
-						} catch (InterruptedException e) {
-						}
-					}
+                    for (int i = 0; i < 3; i++) {
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                        }
+                    }
 
-					showNotification(context,
-							"Message Received from Google GCM Server: "
-									+ extras.get("gcm_title"));
-				}
+                    showNotification(context,
+                            "Message Received from Google GCM Server: "
+                                    + extras.get("gcm_title"));
+                }
 
-			}
+            }
 
-		}
+        }
 
-		GcmBroadcastReceiver.completeWakefulIntent(intent);
-	}
+        GcmBroadcastReceiver.completeWakefulIntent(intent);
+    }
 
-	public static void showNotification(Context context, String msg) {
+    public static void showNotification(Context context, String msg) {
 
-		mNotificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent notificationIntent = new Intent(context, MainActivity.class);
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-				notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                notificationIntent, 0);
 
-		Uri alarmSound = RingtoneManager
-				.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri alarmSound = RingtoneManager
+                .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				context).setSmallIcon(R.drawable.ic_launcher)
-				.setTicker("Notification!")
-				.setContentTitle(context.getString(R.string.app_name))
-				.setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-				.setContentText(msg).setSound(alarmSound)
-				.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                context).setSmallIcon(R.drawable.ic_launcher)
+                .setTicker("Notification!")
+                .setContentTitle(context.getString(R.string.app_name))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                .setContentText(msg).setSound(alarmSound)
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
 
-		mBuilder.setContentIntent(contentIntent);
+        mBuilder.setContentIntent(contentIntent);
 
-		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-	}
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
 }
