@@ -6,25 +6,25 @@ import android.content.Context;
 
 public class SysUncaughtExceptionHandler implements UncaughtExceptionHandler {
 
-	private UncaughtExceptionHandler mUncaughtExceptionHandler;
+    private UncaughtExceptionHandler mUncaughtExceptionHandler;
 
-	private Context mContext;
+    private Context mContext;
 
-	public SysUncaughtExceptionHandler(Context c) {
+    public SysUncaughtExceptionHandler(Context c) {
 
-		mContext = c;
+        mContext = c;
 
-		mUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
-	}
+        mUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+    }
 
-	@Override
-	public void uncaughtException(Thread thread, Throwable ex) {
+    @Override
+    public void uncaughtException(Thread thread, Throwable ex) {
 
-		UtilsAndroid.logDebug(mContext,
-				"SysUncaughtExceptionHandler: uncaughtException: " + ex.getMessage());
+        UtilsAndroid.logDebug(mContext,
+                "SysUncaughtExceptionHandler: uncaughtException: " + ex.getMessage());
 
-		UtilsSharedPreferences.putBoolean(mContext, "app_is_active", false);
+        UtilsSharedPreferences.putBoolean(mContext, "app_is_active", false);
 
-		mUncaughtExceptionHandler.uncaughtException(thread, ex);
-	}
+        mUncaughtExceptionHandler.uncaughtException(thread, ex);
+    }
 }

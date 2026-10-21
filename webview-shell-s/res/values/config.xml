@@ -46,7 +46,7 @@
     <string name="set_use_applinks"></string>
     <string name="set_applinks_process_url"></string>
     <!-- Show tutorial on first load? -->
-	<string name="set_use_tutorial"></string>
+    <string name="set_use_tutorial"></string>
     
     <!-- gcm -->
     <string name="gcm_project_number"></string> <!-- EDIT -->

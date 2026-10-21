@@ -11,185 +11,185 @@ import android.webkit.WebView;
 
 public class SysWebBrowser {
 
-	private Activity mActivity;
+    private Activity mActivity;
 
-	private WebView mWebView;
+    private WebView mWebView;
 
-	private WebSettings mWebSettings;
+    private WebSettings mWebSettings;
 
-	public SysWebBrowser(Activity a) {
+    public SysWebBrowser(Activity a) {
 
-		mActivity = a;
-	}
+        mActivity = a;
+    }
 
-	public Activity getActivity() {
+    public Activity getActivity() {
 
-		UtilsAndroid.logDebug(mActivity, "SysWebBrowser: getActivity");
+        UtilsAndroid.logDebug(mActivity, "SysWebBrowser: getActivity");
 
-		return mActivity;
-	}
+        return mActivity;
+    }
 
-	public void onDestroy() {
+    public void onDestroy() {
 
-		UtilsAndroid.logDebug(mActivity, "SysWebBrowser: onDestroy");
+        UtilsAndroid.logDebug(mActivity, "SysWebBrowser: onDestroy");
 
-	}
+    }
 
-	public void onPause() {
+    public void onPause() {
 
-		UtilsAndroid.logDebug(mActivity, "SysWebBrowser: onPause");
+        UtilsAndroid.logDebug(mActivity, "SysWebBrowser: onPause");
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebBrowser: CookieSyncManager stopSync");
+        UtilsAndroid.logDebug(mActivity,
+                "SysWebBrowser: CookieSyncManager stopSync");
 
-		CookieSyncManager.getInstance().stopSync();
-	}
+        CookieSyncManager.getInstance().stopSync();
+    }
 
-	public void onResume() {
+    public void onResume() {
 
-		UtilsAndroid.logDebug(mActivity, "SysWebBrowser: onResume");
+        UtilsAndroid.logDebug(mActivity, "SysWebBrowser: onResume");
 
-		UtilsAndroid.logDebug(mActivity, "SysWebBrowser: cookies init");
+        UtilsAndroid.logDebug(mActivity, "SysWebBrowser: cookies init");
 
-		CookieSyncManager.createInstance(mActivity);
+        CookieSyncManager.createInstance(mActivity);
 
-		CookieManager.getInstance().setAcceptCookie(true);
+        CookieManager.getInstance().setAcceptCookie(true);
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysWebBrowser: CookieSyncManager startSync");
+        UtilsAndroid.logDebug(mActivity,
+                "SysWebBrowser: CookieSyncManager startSync");
 
-		CookieSyncManager.getInstance().startSync();
-	}
+        CookieSyncManager.getInstance().startSync();
+    }
 
-	@SuppressLint("SetJavaScriptEnabled")
-	public void loadUrl(WebView wv, String url) {
+    @SuppressLint("SetJavaScriptEnabled")
+    public void loadUrl(WebView wv, String url) {
 
-		UtilsAndroid.logDebug(mActivity, "SysWebBrowser: loadUrl: url:" + url);
+        UtilsAndroid.logDebug(mActivity, "SysWebBrowser: loadUrl: url:" + url);
 
-		mWebView = wv;
+        mWebView = wv;
 
-		mWebSettings = mWebView.getSettings();
+        mWebSettings = mWebView.getSettings();
 
-		/**
-		 * Specifically enable JavaScript
-		 */
-		mWebSettings.setJavaScriptEnabled(true);
+        /**
+         * Specifically enable JavaScript
+         */
+        mWebSettings.setJavaScriptEnabled(true);
 
-		mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 
-		/**
-		 * Enable GPS Location.
-		 */
-		if (mActivity.getString(R.string.set_use_geolocation).length() > 0) {
+        /**
+         * Enable GPS Location.
+         */
+        if (mActivity.getString(R.string.set_use_geolocation).length() > 0) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebBrowser: loadUrl: using geolocation");
+            UtilsAndroid.logDebug(mActivity,
+                    "SysWebBrowser: loadUrl: using geolocation");
 
-			mWebSettings.setGeolocationEnabled(true);
-		}
+            mWebSettings.setGeolocationEnabled(true);
+        }
 
-		if (mActivity.getString(R.string.set_use_cache).length() > 0) {
+        if (mActivity.getString(R.string.set_use_cache).length() > 0) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebBrowser: loadUrl: using cache");
+            UtilsAndroid.logDebug(mActivity,
+                    "SysWebBrowser: loadUrl: using cache");
 
-			mWebSettings.setDomStorageEnabled(true);
+            mWebSettings.setDomStorageEnabled(true);
 
-			mWebSettings.setDatabaseEnabled(true);
+            mWebSettings.setDatabaseEnabled(true);
 
-			mWebSettings.setAppCachePath(Environment.getDataDirectory()
-					.toString()
-					+ "/data/"
-					+ mActivity.getPackageName()
-					+ "/cache");
+            mWebSettings.setAppCachePath(Environment.getDataDirectory()
+                    .toString()
+                    + "/data/"
+                    + mActivity.getPackageName()
+                    + "/cache");
 
-			mWebSettings.setAllowFileAccess(true);
+            mWebSettings.setAllowFileAccess(true);
 
-			mWebSettings.setAppCacheEnabled(true);
-		}
+            mWebSettings.setAppCacheEnabled(true);
+        }
 
-		if (mActivity.getString(R.string.set_use_offline).length() > 0) {
+        if (mActivity.getString(R.string.set_use_offline).length() > 0) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebBrowser: loadUrl: using offline");
+            UtilsAndroid.logDebug(mActivity,
+                    "SysWebBrowser: loadUrl: using offline");
 
-			mWebSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-		}
+            mWebSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
 
-		/**
-		 * Form data handling.
-		 */
-		mWebSettings.setSaveFormData(false);
+        /**
+         * Form data handling.
+         */
+        mWebSettings.setSaveFormData(false);
 
-		/**
-		 * Scroll bars.
-		 */
-		mWebView.setVerticalScrollBarEnabled(false);
+        /**
+         * Scroll bars.
+         */
+        mWebView.setVerticalScrollBarEnabled(false);
 
-		mWebView.setHorizontalScrollBarEnabled(false);
+        mWebView.setHorizontalScrollBarEnabled(false);
 
-		/**
-		 * Custom WebView Client.
-		 */
-		mWebView.setWebViewClient(new SysWebViewClient(this));
+        /**
+         * Custom WebView Client.
+         */
+        mWebView.setWebViewClient(new SysWebViewClient(this));
 
-		/**
-		 * Custom WebChrome Client.
-		 */
-		mWebView.setWebChromeClient(new SysWebChromeClient(mActivity));
+        /**
+         * Custom WebChrome Client.
+         */
+        mWebView.setWebChromeClient(new SysWebChromeClient(mActivity));
 
-		if (mActivity.getString(R.string.set_use_js).length() > 0) {
+        if (mActivity.getString(R.string.set_use_js).length() > 0) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysWebBrowser: loadUrl: using javascript interface");
+            UtilsAndroid.logDebug(mActivity,
+                    "SysWebBrowser: loadUrl: using javascript interface");
 
-			mWebView.addJavascriptInterface(new SysJavaScriptInterface(
-					mActivity, mWebView), "androidInterface");
-		}
+            mWebView.addJavascriptInterface(new SysJavaScriptInterface(
+                    mActivity, mWebView), "androidInterface");
+        }
 
-		if (mActivity.getString(R.string.set_use_ua_version).length() > 0) {
+        if (mActivity.getString(R.string.set_use_ua_version).length() > 0) {
 
-			String user_agent_string = UtilsApp.getCustomUserAgentString(
-					mActivity, mWebSettings.getUserAgentString());
+            String user_agent_string = UtilsApp.getCustomUserAgentString(
+                    mActivity, mWebSettings.getUserAgentString());
 
-			mWebSettings.setUserAgentString(user_agent_string);
-		}
+            mWebSettings.setUserAgentString(user_agent_string);
+        }
 
-		/**
-		 * Load URL
-		 */
-		mWebView.loadUrl(url);
+        /**
+         * Load URL
+         */
+        mWebView.loadUrl(url);
 
-		if (mActivity.getString(R.string.set_use_gads).length() > 0) {
+        if (mActivity.getString(R.string.set_use_gads).length() > 0) {
 
-			UtilsAndroid.logDebug(mActivity, "loadUrl: google ads enabled.");
+            UtilsAndroid.logDebug(mActivity, "loadUrl: google ads enabled.");
 
-			SysGoogleAds gads = new SysGoogleAds(mActivity);
+            SysGoogleAds gads = new SysGoogleAds(mActivity);
 
-			gads.interstitialLoadDisplay();
-		}
-	}
+            gads.interstitialLoadDisplay();
+        }
+    }
 
-	public static void loadLastAppUrl(WebView wv, Activity a, String url_append) {
+    public static void loadLastAppUrl(WebView wv, Activity a, String url_append) {
 
-		String app_url = a.getString(R.string.app_url);
+        String app_url = a.getString(R.string.app_url);
 
-		WebBackForwardList history = wv.copyBackForwardList();
+        WebBackForwardList history = wv.copyBackForwardList();
 
-		int i;
-		String next_url = null;
+        int i;
+        String next_url = null;
 
-		for (i = 1; i < history.getSize(); i++) {
+        for (i = 1; i < history.getSize(); i++) {
 
-			next_url = history.getItemAtIndex(history.getCurrentIndex() - i)
-					.getUrl();
+            next_url = history.getItemAtIndex(history.getCurrentIndex() - i)
+                    .getUrl();
 
-			if (next_url.startsWith(app_url)) {
+            if (next_url.startsWith(app_url)) {
 
-				break;
-			}
-		}
+                break;
+            }
+        }
 
-		wv.loadUrl(next_url + url_append);
-	}
+        wv.loadUrl(next_url + url_append);
+    }
 }

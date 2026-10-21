@@ -35,181 +35,181 @@ import android.widget.Toast;
  */
 public class UtilsAndroid {
 
-	/**
-	 * Log tag.
-	 */
-	public static final String LOG_TAG = "COWEBSERVANDROID";
+    /**
+     * Log tag.
+     */
+    public static final String LOG_TAG = "COWEBSERVANDROID";
 
-	protected static final int NOTIFICATION_ID = 1;
+    protected static final int NOTIFICATION_ID = 1;
 
-	/**
-	 * Splash request code.
-	 */
-	protected static final int REQUEST_CODE_SPLASH = 10;
+    /**
+     * Splash request code.
+     */
+    protected static final int REQUEST_CODE_SPLASH = 10;
 
-	/**
-	 * File upload request code.
-	 */
-	protected static final int REQUEST_CODE_FILEUPLOAD_INIT = 11;
+    /**
+     * File upload request code.
+     */
+    protected static final int REQUEST_CODE_FILEUPLOAD_INIT = 11;
 
-	/**
-	 * Application exit code.
-	 */
-	public static final int RESULT_CODE_EXIT = 1;
+    /**
+     * Application exit code.
+     */
+    public static final int RESULT_CODE_EXIT = 1;
 
-	public static final String CAMERA_CAPTURE_FILE_NAME = "capture";
+    public static final String CAMERA_CAPTURE_FILE_NAME = "capture";
 
-	public static boolean assetExists(Activity a, String asset) {
+    public static boolean assetExists(Activity a, String asset) {
 
-		UtilsAndroid.logDebug(a, "UtilsAndroid: assetExists: asset: " + asset);
+        UtilsAndroid.logDebug(a, "UtilsAndroid: assetExists: asset: " + asset);
 
-		AssetManager asset_manager;
+        AssetManager asset_manager;
 
-		List<String> asset_list = null;
+        List<String> asset_list = null;
 
-		if (asset_list == null) {
+        if (asset_list == null) {
 
-			asset_manager = a.getAssets();
+            asset_manager = a.getAssets();
 
-			try {
+            try {
 
-				asset_list = Arrays.asList(asset_manager.list(""));
+                asset_list = Arrays.asList(asset_manager.list(""));
 
-			} catch (IOException e) {
+            } catch (IOException e) {
 
-				Log.e(UtilsAndroid.LOG_TAG,
-						"UtilsAndroid: assetExists: " + e.getMessage(), e);
-			}
-		}
+                Log.e(UtilsAndroid.LOG_TAG,
+                        "UtilsAndroid: assetExists: " + e.getMessage(), e);
+            }
+        }
 
-		return asset_list.contains(asset);
-	}
+        return asset_list.contains(asset);
+    }
 
-	public static void showToast(Context c, String message) {
+    public static void showToast(Context c, String message) {
 
-		UtilsAndroid.logDebug(c, "UtilsAndroid: showToast");
+        UtilsAndroid.logDebug(c, "UtilsAndroid: showToast");
 
-		Toast.makeText(c, message, Toast.LENGTH_LONG).show();
-	}
+        Toast.makeText(c, message, Toast.LENGTH_LONG).show();
+    }
 
-	public static void showNotification(Context c, String title, String message) {
+    public static void showNotification(Context c, String title, String message) {
 
-		UtilsAndroid.logDebug(c, "UtilsAndroid: showNotification");
+        UtilsAndroid.logDebug(c, "UtilsAndroid: showNotification");
 
-		NotificationManager notification_manager = (NotificationManager) c
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notification_manager = (NotificationManager) c
+                .getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent notification_intent = new Intent(c, AppBrowser.class);
+        Intent notification_intent = new Intent(c, AppBrowser.class);
 
-		notification_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_SINGLE_TOP
-				| Notification.FLAG_SHOW_LIGHTS);
+        notification_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                | Notification.FLAG_SHOW_LIGHTS);
 
-		PendingIntent content_intent = PendingIntent.getActivity(c, 0,
-				notification_intent, 0);
+        PendingIntent content_intent = PendingIntent.getActivity(c, 0,
+                notification_intent, 0);
 
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(c)
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setTicker(title)
-				.setContentTitle(c.getString(R.string.app_name))
-				.setStyle(
-						new NotificationCompat.BigTextStyle().bigText(message))
-				.setContentText(message);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(c)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setTicker(title)
+                .setContentTitle(c.getString(R.string.app_name))
+                .setStyle(
+                        new NotificationCompat.BigTextStyle().bigText(message))
+                .setContentText(message);
 
-		Uri alarm_sound = RingtoneManager
-				.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri alarm_sound = RingtoneManager
+                .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-		builder.setSound(alarm_sound);
+        builder.setSound(alarm_sound);
 
-		if (c.getString(R.string.set_use_vibrate).length() > 0) {
+        if (c.getString(R.string.set_use_vibrate).length() > 0) {
 
-			builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-		}
+            builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+        }
 
-		builder.setLights(Color.WHITE, 500, 500);
+        builder.setLights(Color.WHITE, 500, 500);
 
-		builder.setContentIntent(content_intent);
+        builder.setContentIntent(content_intent);
 
-		builder.setAutoCancel(true);
+        builder.setAutoCancel(true);
 
-		Notification notification = builder.build();
+        Notification notification = builder.build();
 
-		notification_manager.notify(UtilsAndroid.NOTIFICATION_ID, notification);
-	}
+        notification_manager.notify(UtilsAndroid.NOTIFICATION_ID, notification);
+    }
 
-	public static Uri getAppCameraCaptureFileUri(Activity a) {
+    public static Uri getAppCameraCaptureFileUri(Activity a) {
 
-		UtilsAndroid.logDebug(a, "UtilsAndroid: getNewCameraFileUri");
+        UtilsAndroid.logDebug(a, "UtilsAndroid: getNewCameraFileUri");
 
-		File camera_dir;
+        File camera_dir;
 
-		if (android.os.Environment.getExternalStorageState().equals(
-				android.os.Environment.MEDIA_MOUNTED)) {
+        if (android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED)) {
 
-			UtilsAndroid
-					.logDebug(a,
-							"UtilsAndroid: getNewCameraFileUri: external storage present.");
+            UtilsAndroid
+                    .logDebug(a,
+                            "UtilsAndroid: getNewCameraFileUri: external storage present.");
 
-			camera_dir = Environment
-					.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-		} else {
+            camera_dir = Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        } else {
 
-			UtilsAndroid
-					.logDebug(a,
-							"UtilsAndroid: getNewCameraFileUri: external storage present.");
+            UtilsAndroid
+                    .logDebug(a,
+                            "UtilsAndroid: getNewCameraFileUri: external storage present.");
 
-			camera_dir = a.getCacheDir();
-		}
+            camera_dir = a.getCacheDir();
+        }
 
-		if (!camera_dir.exists()) {
+        if (!camera_dir.exists()) {
 
-			camera_dir.mkdirs();
-		}
+            camera_dir.mkdirs();
+        }
 
-		return Uri.fromFile(new File(camera_dir + File.separator
-				+ UtilsAndroid.CAMERA_CAPTURE_FILE_NAME + ".jpg"));
-	}
+        return Uri.fromFile(new File(camera_dir + File.separator
+                + UtilsAndroid.CAMERA_CAPTURE_FILE_NAME + ".jpg"));
+    }
 
-	public static boolean networkIsConnected(Context c) {
+    public static boolean networkIsConnected(Context c) {
 
-		UtilsAndroid.logDebug(c, "UtilsAndroid: networkIsConnected");
+        UtilsAndroid.logDebug(c, "UtilsAndroid: networkIsConnected");
 
-		boolean result;
+        boolean result;
 
-		ConnectivityManager connectivity_manager = (ConnectivityManager) c
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivity_manager = (ConnectivityManager) c
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
 
-		NetworkInfo network_info = connectivity_manager.getActiveNetworkInfo();
+        NetworkInfo network_info = connectivity_manager.getActiveNetworkInfo();
 
-		result = network_info != null && network_info.isConnectedOrConnecting();
+        result = network_info != null && network_info.isConnectedOrConnecting();
 
-		UtilsAndroid.logDebug(c, "UtilsAndroid: networkIsConnected: result: "
-				+ result);
+        UtilsAndroid.logDebug(c, "UtilsAndroid: networkIsConnected: result: "
+                + result);
 
-		return result;
-	}
-	
-	public static boolean gpsIsConnected(Context c) {
-		
-		UtilsAndroid.logDebug(c, "UtilsAndroid: gpsIsConnected");
-		
-		boolean result;
-		
-		LocationManager location_manager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
-		
-		result = location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		
-		UtilsAndroid.logDebug(c, "UtilsAndroid: gpsIsConnected: result: "
-				+ result);
-		
-		return result;
-	}
+        return result;
+    }
+    
+    public static boolean gpsIsConnected(Context c) {
+        
+        UtilsAndroid.logDebug(c, "UtilsAndroid: gpsIsConnected");
+        
+        boolean result;
+        
+        LocationManager location_manager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
+        
+        result = location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        
+        UtilsAndroid.logDebug(c, "UtilsAndroid: gpsIsConnected: result: "
+                + result);
+        
+        return result;
+    }
 
-	public static void logDebug(Context c, String msg) {
+    public static void logDebug(Context c, String msg) {
 
-		if (c.getResources().getString(R.string.devel).length() > 0) {
+        if (c.getResources().getString(R.string.devel).length() > 0) {
 
-			Log.d(UtilsAndroid.LOG_TAG, msg);
-		}
-	}
+            Log.d(UtilsAndroid.LOG_TAG, msg);
+        }
+    }
 }

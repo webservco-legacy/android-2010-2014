@@ -11,104 +11,104 @@ import com.google.android.gms.ads.InterstitialAd;
 
 public class SysGoogleAds {
 
-	private Activity mActivity;
+    private Activity mActivity;
 
-	private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd;
 
-	public SysGoogleAds(Activity a) {
+    public SysGoogleAds(Activity a) {
 
-		mActivity = a;
-	}
+        mActivity = a;
+    }
 
-	public void interstitialLoadDisplay() {
+    public void interstitialLoadDisplay() {
 
-		mInterstitialAd = new InterstitialAd(mActivity);
+        mInterstitialAd = new InterstitialAd(mActivity);
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysGoogleAds: interstitialLoad: setting ad_unit_id");
+        UtilsAndroid.logDebug(mActivity,
+                "SysGoogleAds: interstitialLoad: setting ad_unit_id");
 
-		mInterstitialAd.setAdUnitId(mActivity
-				.getString(R.string.gads_id_interstitial));
+        mInterstitialAd.setAdUnitId(mActivity
+                .getString(R.string.gads_id_interstitial));
 
-		Builder builder = new AdRequest.Builder();
+        Builder builder = new AdRequest.Builder();
 
-		if (mActivity.getString(R.string.devel).length() > 0) {
+        if (mActivity.getString(R.string.devel).length() > 0) {
 
-			UtilsAndroid
-					.logDebug(mActivity,
-							"SysGoogleAds: interstitialLoad: Debug mode: set device id: emulator");
+            UtilsAndroid
+                    .logDebug(mActivity,
+                            "SysGoogleAds: interstitialLoad: Debug mode: set device id: emulator");
 
-			builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+            builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 
-			String[] gads_test_devices = mActivity.getResources()
-					.getStringArray(R.array.gads_test_devices);
+            String[] gads_test_devices = mActivity.getResources()
+                    .getStringArray(R.array.gads_test_devices);
 
-			for (String gads_test_device : gads_test_devices) {
+            for (String gads_test_device : gads_test_devices) {
 
-				String gads_test_device_hash = UtilsString.getMd5Hash(
-						gads_test_device).toUpperCase(Locale.getDefault());
+                String gads_test_device_hash = UtilsString.getMd5Hash(
+                        gads_test_device).toUpperCase(Locale.getDefault());
 
-				UtilsAndroid.logDebug(mActivity,
-						"SysGoogleAds: interstitialLoad: Debug mode: set device id: "
-								+ gads_test_device_hash);
+                UtilsAndroid.logDebug(mActivity,
+                        "SysGoogleAds: interstitialLoad: Debug mode: set device id: "
+                                + gads_test_device_hash);
 
-				builder.addTestDevice(gads_test_device_hash);
-			}
-		}
+                builder.addTestDevice(gads_test_device_hash);
+            }
+        }
 
-		/**
-		 * Add targeting here.
-		 */
+        /**
+         * Add targeting here.
+         */
 
-		AdRequest ad_request = builder.build();
+        AdRequest ad_request = builder.build();
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysGoogleAds: interstitialLoad: loadAd");
+        UtilsAndroid.logDebug(mActivity,
+                "SysGoogleAds: interstitialLoad: loadAd");
 
-		mInterstitialAd.loadAd(ad_request);
+        mInterstitialAd.loadAd(ad_request);
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysGoogleAds: interstitialLoad: setAdListener");
+        UtilsAndroid.logDebug(mActivity,
+                "SysGoogleAds: interstitialLoad: setAdListener");
 
-		mInterstitialAd.setAdListener(new AdListener() {
+        mInterstitialAd.setAdListener(new AdListener() {
 
-			@Override
-			public void onAdLoaded() {
+            @Override
+            public void onAdLoaded() {
 
-				UtilsAndroid
-						.logDebug(mActivity,
-								"SysGoogleAds: interstitialLoad: AdListener: onAdLoaded");
+                UtilsAndroid
+                        .logDebug(mActivity,
+                                "SysGoogleAds: interstitialLoad: AdListener: onAdLoaded");
 
-				interstitialDisplay();
+                interstitialDisplay();
 
-				super.onAdLoaded();
-			}
-		});
-	}
+                super.onAdLoaded();
+            }
+        });
+    }
 
-	public void interstitialDisplay() {
+    public void interstitialDisplay() {
 
-		if (mInterstitialAd instanceof InterstitialAd) {
+        if (mInterstitialAd instanceof InterstitialAd) {
 
-			if (mInterstitialAd.isLoaded()) {
+            if (mInterstitialAd.isLoaded()) {
 
-				UtilsAndroid.logDebug(mActivity,
-						"SysGoogleAds: interstitialDisplay: Show add");
+                UtilsAndroid.logDebug(mActivity,
+                        "SysGoogleAds: interstitialDisplay: Show add");
 
-				mInterstitialAd.show();
+                mInterstitialAd.show();
 
-			} else {
+            } else {
 
-				UtilsAndroid
-						.logDebug(mActivity,
-								"SysGoogleAds: interstitialDisplay: Error: Ad not loaded");
-			}
+                UtilsAndroid
+                        .logDebug(mActivity,
+                                "SysGoogleAds: interstitialDisplay: Error: Ad not loaded");
+            }
 
-		} else {
+        } else {
 
-			UtilsAndroid
-					.logDebug(mActivity,
-							"SysGoogleAds: interstitialDisplay: Error: Interstitial instance missing.");
-		}
-	}
+            UtilsAndroid
+                    .logDebug(mActivity,
+                            "SysGoogleAds: interstitialDisplay: Error: Interstitial instance missing.");
+        }
+    }
 }

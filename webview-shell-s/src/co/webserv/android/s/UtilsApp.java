@@ -20,185 +20,185 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
  */
 public class UtilsApp {
 
-	private static GoogleCloudMessaging mGoogleCloudMessaging;
+    private static GoogleCloudMessaging mGoogleCloudMessaging;
 
-	public static boolean shouldUploadImage(final Activity a, String taskType) {
+    public static boolean shouldUploadImage(final Activity a, String taskType) {
 
-		UtilsAndroid.logDebug(a, "UtilsApp: ShouldUploadImage: taskType: "
-				+ taskType);
+        UtilsAndroid.logDebug(a, "UtilsApp: ShouldUploadImage: taskType: "
+                + taskType);
 
-		String[] image_tasks = a.getResources().getStringArray(
-				R.array.upload_image_tasks);
+        String[] image_tasks = a.getResources().getStringArray(
+                R.array.upload_image_tasks);
 
-		return Arrays.asList(image_tasks).contains(taskType) ? true : false;
-	}
+        return Arrays.asList(image_tasks).contains(taskType) ? true : false;
+    }
 
-	public static void updateGcmRegistrationId(final Activity a) {
+    public static void updateGcmRegistrationId(final Activity a) {
 
-		new AsyncTask<Void, Void, Boolean>() {
+        new AsyncTask<Void, Void, Boolean>() {
 
-			@Override
-			protected Boolean doInBackground(Void... params) {
+            @Override
+            protected Boolean doInBackground(Void... params) {
 
-				if (!UtilsAndroid.networkIsConnected(a)) {
+                if (!UtilsAndroid.networkIsConnected(a)) {
 
-					UtilsAndroid
-							.logDebug(a,
-									"UtilsApp: getGcmRegistrationId: doInBackground: no network connection.");
+                    UtilsAndroid
+                            .logDebug(a,
+                                    "UtilsApp: getGcmRegistrationId: doInBackground: no network connection.");
 
-					return false;
-				}
+                    return false;
+                }
 
-				Boolean result;
+                Boolean result;
 
-				String gcm_registration_id = UtilsSharedPreferences.getString(
-						a, "gcm_registration_id", "");
+                String gcm_registration_id = UtilsSharedPreferences.getString(
+                        a, "gcm_registration_id", "");
 
-				if (gcm_registration_id.length() == 0) {
+                if (gcm_registration_id.length() == 0) {
 
-					try {
+                    try {
 
-						if (mGoogleCloudMessaging == null) {
+                        if (mGoogleCloudMessaging == null) {
 
-							UtilsAndroid
-									.logDebug(a,
-											"UtilsApp: getGcmRegistrationId: doInBackground: init GoogleCloudMessaging");
+                            UtilsAndroid
+                                    .logDebug(a,
+                                            "UtilsApp: getGcmRegistrationId: doInBackground: init GoogleCloudMessaging");
 
-							mGoogleCloudMessaging = GoogleCloudMessaging
-									.getInstance(a.getApplicationContext());
+                            mGoogleCloudMessaging = GoogleCloudMessaging
+                                    .getInstance(a.getApplicationContext());
 
-						}
+                        }
 
-						gcm_registration_id = mGoogleCloudMessaging.register(a
-								.getString(R.string.gcm_project_number));
+                        gcm_registration_id = mGoogleCloudMessaging.register(a
+                                .getString(R.string.gcm_project_number));
 
-						UtilsAndroid.logDebug(a,
-								"UtilsApp: getGcmRegistrationId: doInBackground: gcm_registration_id: "
-										+ gcm_registration_id);
+                        UtilsAndroid.logDebug(a,
+                                "UtilsApp: getGcmRegistrationId: doInBackground: gcm_registration_id: "
+                                        + gcm_registration_id);
 
-					} catch (IOException e) {
+                    } catch (IOException e) {
 
-						Log.e(UtilsAndroid.LOG_TAG,
-								"UtilsApp: getGcmRegistrationId: doInBackground: "
-										+ e.getMessage(), e);
-					}
+                        Log.e(UtilsAndroid.LOG_TAG,
+                                "UtilsApp: getGcmRegistrationId: doInBackground: "
+                                        + e.getMessage(), e);
+                    }
 
-				} else {
+                } else {
 
-					UtilsAndroid
-							.logDebug(
-									a,
-									"UtilsApp: getGcmRegistrationId: doInBackground: gcm_registration_id already present");
-				}
+                    UtilsAndroid
+                            .logDebug(
+                                    a,
+                                    "UtilsApp: getGcmRegistrationId: doInBackground: gcm_registration_id already present");
+                }
 
-				if (gcm_registration_id.length() > 0) {
+                if (gcm_registration_id.length() > 0) {
 
-					UtilsSharedPreferences.putString(a, "gcm_registration_id",
-							gcm_registration_id);
+                    UtilsSharedPreferences.putString(a, "gcm_registration_id",
+                            gcm_registration_id);
 
-					String url = a.getString(R.string.app_url) + "droid_token/"
-							+ gcm_registration_id;
+                    String url = a.getString(R.string.app_url) + "droid_token/"
+                            + gcm_registration_id;
 
-					UtilsAndroid.logDebug(a,
-							"UtilsApp: updateGcmRegistrationId: doInBackground: url: "
-									+ url);
+                    UtilsAndroid.logDebug(a,
+                            "UtilsApp: updateGcmRegistrationId: doInBackground: url: "
+                                    + url);
 
-					String response = UtilsHttp.getStream(url, true,
-							a.getString(R.string.httpd_auth_user),
-							a.getString(R.string.httpd_auth_password), a);
+                    String response = UtilsHttp.getStream(url, true,
+                            a.getString(R.string.httpd_auth_user),
+                            a.getString(R.string.httpd_auth_password), a);
 
-					UtilsAndroid.logDebug(a,
-							"UtilsApp: updateGcmRegistrationId: doInBackground: response: "
-									+ response);
+                    UtilsAndroid.logDebug(a,
+                            "UtilsApp: updateGcmRegistrationId: doInBackground: response: "
+                                    + response);
 
-					result = true;
+                    result = true;
 
-				} else {
+                } else {
 
-					UtilsAndroid
-							.logDebug(a,
-									"UtilsApp: updateGcmRegistrationId: doInBackground: gcm_registration_id empty");
+                    UtilsAndroid
+                            .logDebug(a,
+                                    "UtilsApp: updateGcmRegistrationId: doInBackground: gcm_registration_id empty");
 
-					result = false;
-				}
+                    result = false;
+                }
 
-				return result;
-			}
+                return result;
+            }
 
-			protected void onPostExecute(Boolean result) {
+            protected void onPostExecute(Boolean result) {
 
-				UtilsAndroid.logDebug(a,
-						"UtilsApp: updateGcmRegistrationId: onPostExecute: result: "
-								+ result);
-			}
+                UtilsAndroid.logDebug(a,
+                        "UtilsApp: updateGcmRegistrationId: onPostExecute: result: "
+                                + result);
+            }
 
-		}.execute(null, null, null);
-	}
+        }.execute(null, null, null);
+    }
 
-	/**
-	 * Get user id.
-	 * 
-	 * Returns 0 if error or user is not logged in.
-	 * 
-	 * @param a
-	 * @return
-	 */
-	public static int getUserId(final Activity a) {
+    /**
+     * Get user id.
+     * 
+     * Returns 0 if error or user is not logged in.
+     * 
+     * @param a
+     * @return
+     */
+    public static int getUserId(final Activity a) {
 
-		String url = a.getString(R.string.app_url) + "Users/App/GetId";
+        String url = a.getString(R.string.app_url) + "Users/App/GetId";
 
-		UtilsAndroid.logDebug(a, "UtilsApp: getUserId: url: " + url);
+        UtilsAndroid.logDebug(a, "UtilsApp: getUserId: url: " + url);
 
-		String data = UtilsHttp.getStream(url, true,
-				a.getString(R.string.httpd_auth_user),
-				a.getString(R.string.httpd_auth_password), a);
+        String data = UtilsHttp.getStream(url, true,
+                a.getString(R.string.httpd_auth_user),
+                a.getString(R.string.httpd_auth_password), a);
 
-		if (data.length() > 0) {
+        if (data.length() > 0) {
 
-			UtilsAndroid.logDebug(a, "UtilsApp: getUserId: data: " + data);
+            UtilsAndroid.logDebug(a, "UtilsApp: getUserId: data: " + data);
 
-			return Integer.parseInt(data);
-		}
+            return Integer.parseInt(data);
+        }
 
-		UtilsAndroid.logDebug(a, "UtilsApp: getUserId: no data");
+        UtilsAndroid.logDebug(a, "UtilsApp: getUserId: no data");
 
-		return 0;
-	}
+        return 0;
+    }
 
-	public static String getAppVersionName(final Activity a) {
+    public static String getAppVersionName(final Activity a) {
 
-		String app_version_name = "";
+        String app_version_name = "";
 
-		try {
+        try {
 
-			app_version_name = a.getPackageManager().getPackageInfo(
-					a.getPackageName(), 0).versionName;
+            app_version_name = a.getPackageManager().getPackageInfo(
+                    a.getPackageName(), 0).versionName;
 
-		} catch (NameNotFoundException e) {
+        } catch (NameNotFoundException e) {
 
-			Log.e(UtilsAndroid.LOG_TAG,
-					"UtilsApp: getAppVersionName" + e.getMessage(), e);
-		}
+            Log.e(UtilsAndroid.LOG_TAG,
+                    "UtilsApp: getAppVersionName" + e.getMessage(), e);
+        }
 
-		UtilsAndroid.logDebug(a,
-				"UtilsApp: getAppVersionName: app_version_name:"
-						+ app_version_name);
+        UtilsAndroid.logDebug(a,
+                "UtilsApp: getAppVersionName: app_version_name:"
+                        + app_version_name);
 
-		return app_version_name;
-	}
+        return app_version_name;
+    }
 
-	public static String getCustomUserAgentString(final Activity a) {
+    public static String getCustomUserAgentString(final Activity a) {
 
-		String user_agent = System.getProperty("http.agent");
+        String user_agent = System.getProperty("http.agent");
 
-		return UtilsApp.getCustomUserAgentString(a, user_agent);
-	}
+        return UtilsApp.getCustomUserAgentString(a, user_agent);
+    }
 
-	public static String getCustomUserAgentString(final Activity a,
-			String userAgent) {
+    public static String getCustomUserAgentString(final Activity a,
+            String userAgent) {
 
-		String app_version_name = UtilsApp.getAppVersionName(a);
+        String app_version_name = UtilsApp.getAppVersionName(a);
 
-		return userAgent + " WebApp/" + app_version_name;
-	}
+        return userAgent + " WebApp/" + app_version_name;
+    }
 }

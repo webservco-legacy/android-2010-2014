@@ -14,155 +14,155 @@ import bolts.AppLinks;
 
 public class AppBrowser extends Activity implements SysAsyncResponse {
 
-	private SysActivity mSysActivity;
+    private SysActivity mSysActivity;
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		mSysActivity.onActivityResult(requestCode, resultCode, data);
-	}
+        mSysActivity.onActivityResult(requestCode, resultCode, data);
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mSysActivity = new SysActivity(AppBrowser.this);
+        mSysActivity = new SysActivity(AppBrowser.this);
 
-		mSysActivity.OnCreate(savedInstanceState);
+        mSysActivity.OnCreate(savedInstanceState);
 
-		/**
-		 * Set splash layout.
-		 */
-		setContentView(R.layout.browser);
+        /**
+         * Set splash layout.
+         */
+        setContentView(R.layout.browser);
 
-		mSysActivity.webBrowserInit();
+        mSysActivity.webBrowserInit();
 
-		String home_url = getString(R.string.app_url) + getString(R.string.app_home_page);
+        String home_url = getString(R.string.app_url) + getString(R.string.app_home_page);
 
-		if (getString(R.string.set_use_tutorial).length() > 0) {
+        if (getString(R.string.set_use_tutorial).length() > 0) {
 
-			Boolean show_tutorial = UtilsSharedPreferences.getBoolean(getApplicationContext(), "show_tutorial", true);
+            Boolean show_tutorial = UtilsSharedPreferences.getBoolean(getApplicationContext(), "show_tutorial", true);
 
-			UtilsAndroid.logDebug(this, "AppBrowser: onCreate: show_tutorial: " + show_tutorial);
+            UtilsAndroid.logDebug(this, "AppBrowser: onCreate: show_tutorial: " + show_tutorial);
 
-			if (show_tutorial) {
+            if (show_tutorial) {
 
-				home_url = getString(R.string.app_url) + "tutorial";
+                home_url = getString(R.string.app_url) + "tutorial";
 
-				UtilsSharedPreferences.putBoolean(getApplicationContext(), "show_tutorial", false);
-			}
-		}
+                UtilsSharedPreferences.putBoolean(getApplicationContext(), "show_tutorial", false);
+            }
+        }
 
-		UtilsAndroid.logDebug(this, "AppBrowser: onCreate: home_url: " + home_url);
+        UtilsAndroid.logDebug(this, "AppBrowser: onCreate: home_url: " + home_url);
 
-		if (getString(R.string.set_use_applinks).length() > 0) {
+        if (getString(R.string.set_use_applinks).length() > 0) {
 
-			UtilsAndroid.logDebug(this,
-					"AppBrowser: onCreate: AppLinks enabled in configuration, initializing Facebook SDK.");
+            UtilsAndroid.logDebug(this,
+                    "AppBrowser: onCreate: AppLinks enabled in configuration, initializing Facebook SDK.");
 
-			FacebookSdk.sdkInitialize(this.getApplicationContext());
+            FacebookSdk.sdkInitialize(this.getApplicationContext());
 
-			Uri applinks_url = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+            Uri applinks_url = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
 
-			if (applinks_url != null) {
+            if (applinks_url != null) {
 
-				UtilsAndroid.logDebug(this, "AppBrowser: onCreate: AppLinks url: " + applinks_url);
+                UtilsAndroid.logDebug(this, "AppBrowser: onCreate: AppLinks url: " + applinks_url);
 
-				home_url = applinks_url.toString();
+                home_url = applinks_url.toString();
 
-				if (getString(R.string.set_applinks_process_url).length() > 0) {
+                if (getString(R.string.set_applinks_process_url).length() > 0) {
 
-					home_url = home_url.replace("Preview", "");
+                    home_url = home_url.replace("Preview", "");
 
-					UtilsAndroid.logDebug(this, "AppBrowser: onCreate: AppLinks processed url: " + home_url);
-				}
+                    UtilsAndroid.logDebug(this, "AppBrowser: onCreate: AppLinks processed url: " + home_url);
+                }
 
-				UtilsAndroid.logDebug(this, "AppBrowser: onCreate: loading AppLinks url instead of homepage");
-			}
-		}
+                UtilsAndroid.logDebug(this, "AppBrowser: onCreate: loading AppLinks url instead of homepage");
+            }
+        }
 
-		mSysActivity.webBrowserLoadUrl(home_url);
+        mSysActivity.webBrowserLoadUrl(home_url);
 
-		if (!UtilsAndroid.gpsIsConnected(AppBrowser.this)) {
+        if (!UtilsAndroid.gpsIsConnected(AppBrowser.this)) {
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(AppBrowser.this);
-			builder.setIcon(R.drawable.ic_launcher).setTitle(AppBrowser.this.getString(R.string.gpserr_title))
-					.setMessage(AppBrowser.this.getString(R.string.gpserr_message)).setCancelable(false)
-					.setPositiveButton(AppBrowser.this.getString(R.string.gpserr_opensettings),
-							new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AppBrowser.this);
+            builder.setIcon(R.drawable.ic_launcher).setTitle(AppBrowser.this.getString(R.string.gpserr_title))
+                    .setMessage(AppBrowser.this.getString(R.string.gpserr_message)).setCancelable(false)
+                    .setPositiveButton(AppBrowser.this.getString(R.string.gpserr_opensettings),
+                            new DialogInterface.OnClickListener() {
 
-								public void onClick(DialogInterface dialog, int id) {
-									dialog.cancel();
-									Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-									AppBrowser.this.startActivity(myIntent);
-								}
-							})
-					.setNegativeButton(AppBrowser.this.getString(R.string.gpserr_cancel),
-							new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    AppBrowser.this.startActivity(myIntent);
+                                }
+                            })
+                    .setNegativeButton(AppBrowser.this.getString(R.string.gpserr_cancel),
+                            new DialogInterface.OnClickListener() {
 
-								public void onClick(DialogInterface dialog, int id) {
-									dialog.cancel();
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
 
-								}
-							})
-					.create().show();
-		}
-	}
+                                }
+                            })
+                    .create().show();
+        }
+    }
 
-	@Override
-	protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 
-		mSysActivity.OnDestroy();
+        mSysActivity.OnDestroy();
 
-		super.onDestroy();
-	}
+        super.onDestroy();
+    }
 
-	@Override
-	protected void onPause() {
+    @Override
+    protected void onPause() {
 
-		mSysActivity.onPause();
+        mSysActivity.onPause();
 
-		super.onPause();
-	}
+        super.onPause();
+    }
 
-	@Override
-	protected void onResume() {
+    @Override
+    protected void onResume() {
 
-		super.onResume();
+        super.onResume();
 
-		mSysActivity.onResume();
-	}
+        mSysActivity.onResume();
+    }
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
 
-		super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
 
-		mSysActivity.onSaveInstanceState(outState);
-	}
+        mSysActivity.onSaveInstanceState(outState);
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-		UtilsAndroid.logDebug(this, "AppBrowser: onKeyDown: " + keyCode);
+        UtilsAndroid.logDebug(this, "AppBrowser: onKeyDown: " + keyCode);
 
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-			mSysActivity.onBackPressed();
+            mSysActivity.onBackPressed();
 
-			return true;
-		}
+            return true;
+        }
 
-		return super.onKeyDown(keyCode, event);
-	}
+        return super.onKeyDown(keyCode, event);
+    }
 
-	@Override
-	public void asyncTaskFinishFileUpload(String uploadResultCode) {
+    @Override
+    public void asyncTaskFinishFileUpload(String uploadResultCode) {
 
-		UtilsAndroid.logDebug(this, "AppBrowser: asyncTaskFinishFileUpload: result: " + uploadResultCode);
+        UtilsAndroid.logDebug(this, "AppBrowser: asyncTaskFinishFileUpload: result: " + uploadResultCode);
 
-		mSysActivity.handleFileUploadResult(uploadResultCode);
+        mSysActivity.handleFileUploadResult(uploadResultCode);
 
-	}
+    }
 }

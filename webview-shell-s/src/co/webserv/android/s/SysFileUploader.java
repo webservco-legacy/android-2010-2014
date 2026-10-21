@@ -25,252 +25,252 @@ import com.ipaulpro.afilechooser.utils.FileUtils;
  * 
  */
 public class SysFileUploader extends AsyncTask<Void, Integer, String> implements
-		DialogInterface.OnCancelListener {
+        DialogInterface.OnCancelListener {
 
-	public SysAsyncResponse mSysAsyncResponse;
+    public SysAsyncResponse mSysAsyncResponse;
 
-	private Activity mActivity;
+    private Activity mActivity;
 
-	private ProgressDialog mProgressDialog;
+    private ProgressDialog mProgressDialog;
 
-	private String mUrl;
+    private String mUrl;
 
-	private File mFile;
+    private File mFile;
 
-	private boolean mUseProgessDialog = false;
+    private boolean mUseProgessDialog = false;
 
-	public SysFileUploader(Activity a, String u, File f) {
+    public SysFileUploader(Activity a, String u, File f) {
 
-		mActivity = a;
+        mActivity = a;
 
-		mUrl = u;
+        mUrl = u;
 
-		mFile = f;
+        mFile = f;
 
-		UtilsAndroid.logDebug(mActivity, "SysFileUploader: url: " + mUrl);
-	}
+        UtilsAndroid.logDebug(mActivity, "SysFileUploader: url: " + mUrl);
+    }
 
-	public void setUseProgressDialog(boolean useProgressDialog) {
+    public void setUseProgressDialog(boolean useProgressDialog) {
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysFileUploader: setUseProgressDialog: " + useProgressDialog);
+        UtilsAndroid.logDebug(mActivity,
+                "SysFileUploader: setUseProgressDialog: " + useProgressDialog);
 
-		mUseProgessDialog = useProgressDialog;
+        mUseProgessDialog = useProgressDialog;
 
-	}
+    }
 
-	@Override
-	protected void onPreExecute() {
+    @Override
+    protected void onPreExecute() {
 
-		if (mUseProgessDialog) {
+        if (mUseProgessDialog) {
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysFileUploader: onPreExecute: progress dialog enabled");
+            UtilsAndroid.logDebug(mActivity,
+                    "SysFileUploader: onPreExecute: progress dialog enabled");
 
-			mProgressDialog = new ProgressDialog(mActivity);
-			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			mProgressDialog.setMessage(mActivity
-					.getString(R.string.progress_uploading));
-			mProgressDialog.setCancelable(false);
-			mProgressDialog.setMax((int) mFile.length());
-			mProgressDialog.show();
-		} else {
-			UtilsAndroid.logDebug(mActivity,
-					"SysFileUploader: onPreExecute: progress dialog disabled");
-		}
+            mProgressDialog = new ProgressDialog(mActivity);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setMessage(mActivity
+                    .getString(R.string.progress_uploading));
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMax((int) mFile.length());
+            mProgressDialog.show();
+        } else {
+            UtilsAndroid.logDebug(mActivity,
+                    "SysFileUploader: onPreExecute: progress dialog disabled");
+        }
 
-	}
+    }
 
-	@Override
-	protected String doInBackground(Void... v) {
+    @Override
+    protected String doInBackground(Void... v) {
 
-		UtilsAndroid.logDebug(mActivity, "SysFileUploader: doInBackground");
+        UtilsAndroid.logDebug(mActivity, "SysFileUploader: doInBackground");
 
-		String response = null;
+        String response = null;
 
-		HttpURLConnection.setFollowRedirects(false);
+        HttpURLConnection.setFollowRedirects(false);
 
-		HttpURLConnection connection = null;
+        HttpURLConnection connection = null;
 
-		String file_name = mFile.getName();
+        String file_name = mFile.getName();
 
-		String file_content_type = FileUtils.getMimeType(mFile);
+        String file_content_type = FileUtils.getMimeType(mFile);
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysFileUploader: doInBackground: file_name: " + file_name);
-		UtilsAndroid.logDebug(mActivity,
-				"SysFileUploader: doInBackground: file_content_type: "
-						+ file_content_type);
+        UtilsAndroid.logDebug(mActivity,
+                "SysFileUploader: doInBackground: file_name: " + file_name);
+        UtilsAndroid.logDebug(mActivity,
+                "SysFileUploader: doInBackground: file_content_type: "
+                        + file_content_type);
 
-		try {
+        try {
 
-			connection = (HttpURLConnection) new URL(mUrl).openConnection();
+            connection = (HttpURLConnection) new URL(mUrl).openConnection();
 
-			if (mActivity.getString(R.string.set_use_ua_version).length() > 0) {
+            if (mActivity.getString(R.string.set_use_ua_version).length() > 0) {
 
-				String user_agent_string = UtilsApp
-						.getCustomUserAgentString(mActivity);
+                String user_agent_string = UtilsApp
+                        .getCustomUserAgentString(mActivity);
 
-				connection.setRequestProperty("User-Agent", user_agent_string);
-			}
+                connection.setRequestProperty("User-Agent", user_agent_string);
+            }
 
-			String httpd_auth_user = mActivity
-					.getString(R.string.httpd_auth_user);
+            String httpd_auth_user = mActivity
+                    .getString(R.string.httpd_auth_user);
 
-			if (httpd_auth_user.length() > 0) {
+            if (httpd_auth_user.length() > 0) {
 
-				byte[] auth = (httpd_auth_user + ":" + mActivity
-						.getString(R.string.httpd_auth_password)).getBytes();
-				String basic = Base64.encodeToString(auth, Base64.NO_WRAP);
-				connection
-						.setRequestProperty("Authorization", "Basic " + basic);
-			}
+                byte[] auth = (httpd_auth_user + ":" + mActivity
+                        .getString(R.string.httpd_auth_password)).getBytes();
+                String basic = Base64.encodeToString(auth, Base64.NO_WRAP);
+                connection
+                        .setRequestProperty("Authorization", "Basic " + basic);
+            }
 
-			connection.setRequestMethod("POST");
+            connection.setRequestMethod("POST");
 
-			connection.setRequestProperty("Cookie",
-					UtilsHttp.getCookieFromAppCookieManager(mUrl));
+            connection.setRequestProperty("Cookie",
+                    UtilsHttp.getCookieFromAppCookieManager(mUrl));
 
-			String boundary = "---------------------------boundary";
+            String boundary = "---------------------------boundary";
 
-			String tail = "\r\n--" + boundary + "--\r\n";
+            String tail = "\r\n--" + boundary + "--\r\n";
 
-			connection.setRequestProperty("Content-Type",
-					"multipart/form-data; boundary=" + boundary);
+            connection.setRequestProperty("Content-Type",
+                    "multipart/form-data; boundary=" + boundary);
 
-			connection.setDoOutput(true);
+            connection.setDoOutput(true);
 
-			String metadata_part = "--"
-					+ boundary
-					+ "\r\n"
-					+ "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
-					+ "" + "\r\n";
+            String metadata_part = "--"
+                    + boundary
+                    + "\r\n"
+                    + "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
+                    + "" + "\r\n";
 
-			String file_header1 = "--" + boundary + "\r\n"
-					+ "Content-Disposition: form-data; name=\""
-					+ mActivity.getString(R.string.set_upload_field_name)
-					+ "\"; filename=\"" + file_name + "\"\r\n"
-					+ "Content-Type: " + file_content_type + "\r\n"
-					+ "Content-Transfer-Encoding: binary\r\n";
+            String file_header1 = "--" + boundary + "\r\n"
+                    + "Content-Disposition: form-data; name=\""
+                    + mActivity.getString(R.string.set_upload_field_name)
+                    + "\"; filename=\"" + file_name + "\"\r\n"
+                    + "Content-Type: " + file_content_type + "\r\n"
+                    + "Content-Transfer-Encoding: binary\r\n";
 
-			long file_length = mFile.length() + tail.length();
+            long file_length = mFile.length() + tail.length();
 
-			String file_header2 = "Content-length: " + file_length + "\r\n";
-			String file_header = file_header1 + file_header2 + "\r\n";
-			String string_data = metadata_part + file_header;
+            String file_header2 = "Content-length: " + file_length + "\r\n";
+            String file_header = file_header1 + file_header2 + "\r\n";
+            String string_data = metadata_part + file_header;
 
-			long request_length = string_data.length() + file_length;
-			connection
-					.setRequestProperty("Content-length", "" + request_length);
-			connection.setFixedLengthStreamingMode((int) request_length);
-			connection.connect();
+            long request_length = string_data.length() + file_length;
+            connection
+                    .setRequestProperty("Content-length", "" + request_length);
+            connection.setFixedLengthStreamingMode((int) request_length);
+            connection.connect();
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysFileUploader: doInBackground: string_data:"
-							+ string_data);
+            UtilsAndroid.logDebug(mActivity,
+                    "SysFileUploader: doInBackground: string_data:"
+                            + string_data);
 
-			DataOutputStream out = new DataOutputStream(
-					connection.getOutputStream());
+            DataOutputStream out = new DataOutputStream(
+                    connection.getOutputStream());
 
-			try {
+            try {
 
-				out.writeBytes(string_data);
-				out.flush();
+                out.writeBytes(string_data);
+                out.flush();
 
-				int progress = 0;
-				int bytes_read = 0;
-				byte buf[] = new byte[1024];
-				BufferedInputStream buf_input = new BufferedInputStream(
-						new FileInputStream(mFile));
+                int progress = 0;
+                int bytes_read = 0;
+                byte buf[] = new byte[1024];
+                BufferedInputStream buf_input = new BufferedInputStream(
+                        new FileInputStream(mFile));
 
-				while ((bytes_read = buf_input.read(buf)) != -1) {
+                while ((bytes_read = buf_input.read(buf)) != -1) {
 
-					// write output
-					out.write(buf, 0, bytes_read);
-					out.flush();
-					progress += bytes_read;
+                    // write output
+                    out.write(buf, 0, bytes_read);
+                    out.flush();
+                    progress += bytes_read;
 
-					if (mUseProgessDialog) {
+                    if (mUseProgessDialog) {
 
-						// update progress bar
-						publishProgress(progress);
-					}
-				}
+                        // update progress bar
+                        publishProgress(progress);
+                    }
+                }
 
-				buf_input.close();
+                buf_input.close();
 
-				// Write closing boundary and close stream
-				out.writeBytes(tail);
-				out.flush();
-				out.close();
+                // Write closing boundary and close stream
+                out.writeBytes(tail);
+                out.flush();
+                out.close();
 
-				response = UtilsHttp.convertStreamToString(connection
-						.getInputStream());
+                response = UtilsHttp.convertStreamToString(connection
+                        .getInputStream());
 
-			} catch (SocketException e) {
+            } catch (SocketException e) {
 
-				response = "error_epipe"; // handled in onPostExecute
+                response = "error_epipe"; // handled in onPostExecute
 
-				Log.e(UtilsAndroid.LOG_TAG, "SysFileUploader: doInBackground: "
-						+ e.getMessage(), e);
-			}
+                Log.e(UtilsAndroid.LOG_TAG, "SysFileUploader: doInBackground: "
+                        + e.getMessage(), e);
+            }
 
-			UtilsAndroid.logDebug(mActivity,
-					"SysFileUploader: doInBackground: response: " + response);
+            UtilsAndroid.logDebug(mActivity,
+                    "SysFileUploader: doInBackground: response: " + response);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-			Log.e(UtilsAndroid.LOG_TAG,
-					"SysFileUploader: doInBackground: " + e.getMessage(), e);
+            Log.e(UtilsAndroid.LOG_TAG,
+                    "SysFileUploader: doInBackground: " + e.getMessage(), e);
 
-		} finally {
+        } finally {
 
-			if (connection != null) {
+            if (connection != null) {
 
-				connection.disconnect();
-			}
-		}
+                connection.disconnect();
+            }
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	@Override
-	protected void onProgressUpdate(Integer... progress) {
+    @Override
+    protected void onProgressUpdate(Integer... progress) {
 
-		if (mUseProgessDialog) {
+        if (mUseProgessDialog) {
 
-			mProgressDialog.setProgress((int) (progress[0]));
-		}
-	}
+            mProgressDialog.setProgress((int) (progress[0]));
+        }
+    }
 
-	@Override
-	protected void onPostExecute(String result) {
+    @Override
+    protected void onPostExecute(String result) {
 
-		UtilsAndroid.logDebug(mActivity,
-				"SysFileUploader: onPostExecute: result is: " + result);
+        UtilsAndroid.logDebug(mActivity,
+                "SysFileUploader: onPostExecute: result is: " + result);
 
-		if (mUseProgessDialog) {
+        if (mUseProgessDialog) {
 
-			mProgressDialog.dismiss();
-		}
+            mProgressDialog.dismiss();
+        }
 
-		if (result.equals("error_epipe")) {
-			UtilsAndroid.showToast(mActivity,
-					mActivity.getString(R.string.connection_error_epipe));
-		} else {
+        if (result.equals("error_epipe")) {
+            UtilsAndroid.showToast(mActivity,
+                    mActivity.getString(R.string.connection_error_epipe));
+        } else {
 
-			mSysAsyncResponse.asyncTaskFinishFileUpload(result.trim());
-		}
-	}
+            mSysAsyncResponse.asyncTaskFinishFileUpload(result.trim());
+        }
+    }
 
-	@Override
-	public void onCancel(DialogInterface dialog) {
+    @Override
+    public void onCancel(DialogInterface dialog) {
 
-		cancel(true);
+        cancel(true);
 
-		dialog.dismiss();
+        dialog.dismiss();
 
-		UtilsAndroid.logDebug(mActivity, "SysFileUploader: onCancel");
-	}
+        UtilsAndroid.logDebug(mActivity, "SysFileUploader: onCancel");
+    }
 
 }

@@ -7,107 +7,107 @@ import android.view.MotionEvent;
 
 public class AppSplash extends Activity {
 
-	private SysActivity mSysActivity;
+    private SysActivity mSysActivity;
 
-	protected boolean mSplashActive;
+    protected boolean mSplashActive;
 
-	protected int mSplashTime;
+    protected int mSplashTime;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		/**
-		 * Custom activity.
-		 */
-		mSysActivity = new SysActivity(AppSplash.this);
+        /**
+         * Custom activity.
+         */
+        mSysActivity = new SysActivity(AppSplash.this);
 
-		/**
-		 * Custom functionality.
-		 */
-		mSysActivity.OnCreate(savedInstanceState);
+        /**
+         * Custom functionality.
+         */
+        mSysActivity.OnCreate(savedInstanceState);
 
-		/**
-		 * Set splash layout.
-		 */
-		setContentView(R.layout.splash);
+        /**
+         * Set splash layout.
+         */
+        setContentView(R.layout.splash);
 
-		/**
-		 * Set splash active.
-		 */
-		mSplashActive = true;
+        /**
+         * Set splash active.
+         */
+        mSplashActive = true;
 
-		/**
-		 * Set splash time.
-		 */
-		mSplashTime = Integer.parseInt(getString(R.string.splash_time));
+        /**
+         * Set splash time.
+         */
+        mSplashTime = Integer.parseInt(getString(R.string.splash_time));
 
-		/**
-		 * Splash thread.
-		 */
-		Thread splashThread = new Thread() {
+        /**
+         * Splash thread.
+         */
+        Thread splashThread = new Thread() {
 
-			@Override
-			public void run() {
+            @Override
+            public void run() {
 
-				UtilsAndroid.logDebug(AppSplash.this,
-						"AppSplash: splashThread: run");
+                UtilsAndroid.logDebug(AppSplash.this,
+                        "AppSplash: splashThread: run");
 
-				try {
+                try {
 
-					int waited = 0;
+                    int waited = 0;
 
-					while (mSplashActive && (waited < mSplashTime)) {
+                    while (mSplashActive && (waited < mSplashTime)) {
 
-						sleep(100);
+                        sleep(100);
 
-						if (mSplashActive) {
+                        if (mSplashActive) {
 
-							waited += 100;
-						}
-					}
-				} catch (InterruptedException e) {
+                            waited += 100;
+                        }
+                    }
+                } catch (InterruptedException e) {
 
-					mSplashActive = false;
+                    mSplashActive = false;
 
-					UtilsAndroid.logDebug(AppSplash.this,
-							"AppSplash: splashThread: interrupted");
+                    UtilsAndroid.logDebug(AppSplash.this,
+                            "AppSplash: splashThread: interrupted");
 
-				} finally {
+                } finally {
 
-					finish();
+                    finish();
 
-					UtilsAndroid.logDebug(AppSplash.this,
-							"AppSplash: splashThread: finish");
+                    UtilsAndroid.logDebug(AppSplash.this,
+                            "AppSplash: splashThread: finish");
 
-					Intent i = new Intent(AppSplash.this, AppBrowser.class);
-					startActivityForResult(i, UtilsAndroid.REQUEST_CODE_SPLASH);
+                    Intent i = new Intent(AppSplash.this, AppBrowser.class);
+                    startActivityForResult(i, UtilsAndroid.REQUEST_CODE_SPLASH);
 
-					synchronized (this) {
-						notifyAll();
-					}
-				}
+                    synchronized (this) {
+                        notifyAll();
+                    }
+                }
 
-			}
+            }
 
-		};
+        };
 
-		/**
-		 * Start splash thread.
-		 */
-		splashThread.start();
-	}
+        /**
+         * Start splash thread.
+         */
+        splashThread.start();
+    }
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
 
-		UtilsAndroid.logDebug(AppSplash.this, "AppSplash: onTouchEvent");
+        UtilsAndroid.logDebug(AppSplash.this, "AppSplash: onTouchEvent");
 
-		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-			mSplashActive = false;
-		}
-		return true;
-	}
+            mSplashActive = false;
+        }
+        return true;
+    }
 }

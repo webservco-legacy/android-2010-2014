@@ -2,5 +2,5 @@ package co.webserv.android.s;
 
 public interface SysAsyncResponse {
 
-	void asyncTaskFinishFileUpload(String result);
+    void asyncTaskFinishFileUpload(String result);
 }

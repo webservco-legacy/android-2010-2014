@@ -8,34 +8,34 @@ import android.util.Log;
 
 public class UtilsString {
 
-	/**
-	 * http://stackoverflow.com/questions/3934331/android-how-to-encrypt-a-
-	 * string
-	 * 
-	 * @param s
-	 * 
-	 * @return
-	 */
-	public static String getMd5Hash(String s) {
+    /**
+     * http://stackoverflow.com/questions/3934331/android-how-to-encrypt-a-
+     * string
+     * 
+     * @param s
+     * 
+     * @return
+     */
+    public static String getMd5Hash(String s) {
 
-		MessageDigest digest;
+        MessageDigest digest;
 
-		try {
+        try {
 
-			digest = MessageDigest.getInstance("MD5");
+            digest = MessageDigest.getInstance("MD5");
 
-			digest.update(s.getBytes(), 0, s.length());
+            digest.update(s.getBytes(), 0, s.length());
 
-			String hash = new BigInteger(1, digest.digest()).toString(16);
+            String hash = new BigInteger(1, digest.digest()).toString(16);
 
-			return hash;
+            return hash;
 
-		} catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
 
-			Log.e(UtilsAndroid.LOG_TAG,
-					"UtilsString: getMd5Hash: " + e.getMessage(), e);
-		}
+            Log.e(UtilsAndroid.LOG_TAG,
+                    "UtilsString: getMd5Hash: " + e.getMessage(), e);
+        }
 
-		return "";
-	}
+        return "";
+    }
 }
