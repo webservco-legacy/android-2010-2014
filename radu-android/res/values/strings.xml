@@ -6,22 +6,22 @@
     <string name="site_url">http://radu.webserv.co/</string>
     
     <string name="conerr_title">NETWORK ERROR!</string>
-	<string name="conerr_message">Please enable internet connection and try again!
-	</string>
-	<string name="conerr_retry">Refresh</string>
-	<string name="conerr_cancel">Cancel</string>
+    <string name="conerr_message">Please enable internet connection and try again!
+    </string>
+    <string name="conerr_retry">Refresh</string>
+    <string name="conerr_cancel">Cancel</string>
 
-	<string name="progress_title">Loading</string>
-	<string name="progress_message">Please wait..</string>
-	
-	<string name="loading_video">Loading video</string>
-	
-	<string name="share_title">Share title</string>
-	
-	<string name="share_text">Share text</string>
-	
-	<string name="menu_home">Home</string>
-	<string name="menu_about">About</string>
-	<string name="menu_exit">Exit</string>
+    <string name="progress_title">Loading</string>
+    <string name="progress_message">Please wait..</string>
+    
+    <string name="loading_video">Loading video</string>
+    
+    <string name="share_title">Share title</string>
+    
+    <string name="share_text">Share text</string>
+    
+    <string name="menu_home">Home</string>
+    <string name="menu_about">About</string>
+    <string name="menu_exit">Exit</string>
 
 </resources>

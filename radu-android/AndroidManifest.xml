@@ -13,22 +13,22 @@
         android:label="@string/app_name" >
          
          <activity android:name=".SplashActvity" android:label="@string/app_name"
-			android:configChanges="keyboard|keyboardHidden|orientation|locale">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
+            android:configChanges="keyboard|keyboardHidden|orientation|locale">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-		<activity android:name=".BrowserActivity" android:label="@string/app_name"
-			android:configChanges="locale|orientation">
-			<intent-filter>
-				<action android:name="com.italiamultimedia.android.election.BrowserActivity" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		
-		<activity android:name=".AboutActivity" />
+        <activity android:name=".BrowserActivity" android:label="@string/app_name"
+            android:configChanges="locale|orientation">
+            <intent-filter>
+                <action android:name="com.italiamultimedia.android.election.BrowserActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".AboutActivity" />
         
     </application>
 

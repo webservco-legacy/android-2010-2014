@@ -11,91 +11,91 @@ import android.widget.TextView;
 
 public class SplashActvity extends Activity {
 
-	private GeneralAdapter mGeneralAdapter;
+    private GeneralAdapter mGeneralAdapter;
 
-	TextView title_lb;
-	TextView footermsg;
-	WebView browser;
+    TextView title_lb;
+    TextView footermsg;
+    WebView browser;
 
-	protected boolean _active = true;
-	protected int _splashTime = 5000;
-	private static final int REQUEST_CODE = 10;
+    protected boolean _active = true;
+    protected int _splashTime = 5000;
+    private static final int REQUEST_CODE = 10;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		mGeneralAdapter = new GeneralAdapter(this);
-		mGeneralAdapter.mCheckConnection = false;
-		mGeneralAdapter.onCreate();
+        mGeneralAdapter = new GeneralAdapter(this);
+        mGeneralAdapter.mCheckConnection = false;
+        mGeneralAdapter.onCreate();
 
-		setContentView(R.layout.splash);
+        setContentView(R.layout.splash);
 
-		Thread splashThread = new Thread() {
+        Thread splashThread = new Thread() {
 
-			@Override
-			public void run() {
+            @Override
+            public void run() {
 
-				try {
-					int waited = 0;
-					while (_active && (waited < _splashTime)) {
-						sleep(100);
-						if (_active) {
-							waited += 100;
-						}
-					}
-				} catch (InterruptedException e) {
-					_active = false;
-				} finally {
-					finish();
+                try {
+                    int waited = 0;
+                    while (_active && (waited < _splashTime)) {
+                        sleep(100);
+                        if (_active) {
+                            waited += 100;
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    _active = false;
+                } finally {
+                    finish();
 
-					Intent i = new Intent(SplashActvity.this,
-							BrowserActivity.class);
-					i.putExtra("main", true);
-					startActivityForResult(i, REQUEST_CODE);
-					synchronized (this) {
-						notifyAll();
-					}
-				}
+                    Intent i = new Intent(SplashActvity.this,
+                            BrowserActivity.class);
+                    i.putExtra("main", true);
+                    startActivityForResult(i, REQUEST_CODE);
+                    synchronized (this) {
+                        notifyAll();
+                    }
+                }
 
-			}
+            }
 
-		};
-		splashThread.start();
-	}
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			_active = false;
-		}
-		return true;
-	}
+        };
+        splashThread.start();
+    }
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            _active = false;
+        }
+        return true;
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return mGeneralAdapter.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return mGeneralAdapter.onCreateOptionsMenu(menu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return mGeneralAdapter.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mGeneralAdapter.onOptionsItemSelected(item);
+    }
 
-	/**
-	 * Splash crashes on orientation change, so we disable this.
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		mGeneralAdapter.onConfigurationChanged(newConfig);
-		setContentView(R.layout.splash);
-	}
-	*/
+    /**
+     * Splash crashes on orientation change, so we disable this.
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        mGeneralAdapter.onConfigurationChanged(newConfig);
+        setContentView(R.layout.splash);
+    }
+    */
 
-	@Override
-	public void onBackPressed() {
-		mGeneralAdapter.onBackPressed();
-	}
+    @Override
+    public void onBackPressed() {
+        mGeneralAdapter.onBackPressed();
+    }
 
 }
 /* $Id$ */
