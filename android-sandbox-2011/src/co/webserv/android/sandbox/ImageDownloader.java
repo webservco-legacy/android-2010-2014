@@ -160,7 +160,7 @@ public class ImageDownloader {
 
     Bitmap downloadBitmap(String url) {
         @SuppressWarnings("unused")
-		final int IO_BUFFER_SIZE = 4 * 1024;
+        final int IO_BUFFER_SIZE = 4 * 1024;
 
         // AndroidHttpClient is not allowed to be used from the main thread
         final HttpClient client = (mode == Mode.NO_ASYNC_TASK) ? new DefaultHttpClient() :
@@ -318,7 +318,7 @@ public class ImageDownloader {
 
     // Hard cache, with a fixed maximum capacity and a life duration
     @SuppressWarnings("serial")
-	private final HashMap<String, Bitmap> sHardBitmapCache =
+    private final HashMap<String, Bitmap> sHardBitmapCache =
         new LinkedHashMap<String, Bitmap>(HARD_CACHE_CAPACITY / 2, 0.75f, true) {
         @Override
         protected boolean removeEldestEntry(LinkedHashMap.Entry<String, Bitmap> eldest) {

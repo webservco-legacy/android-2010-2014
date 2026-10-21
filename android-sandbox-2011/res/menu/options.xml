@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/exit" android:icon="@drawable/ic_menu_close_clear_cancel"
-		android:title="@string/menu_exit" />
-	<item android:id="@+id/home" android:icon="@drawable/ic_menu_home"
-		android:title="@string/menu_home" />
-	<item android:id="@+id/about" android:icon="@drawable/ic_menu_info_details"
-		android:title="@string/menu_about" />
-	<item android:id="@+id/temp" android:icon="@drawable/ic_menu_archive"
-		android:title="@string/menu_temp" />
-	<item android:id="@+id/image_gallery" android:icon="@drawable/ic_menu_gallery"
-		android:title="@string/menu_image_gallery" />
-		
-	<item android:id="@+id/gridweb" android:icon="@drawable/ic_menu_archive"
-		android:title="@string/menu_gridweb" />
-	<item android:id="@+id/grid" android:icon="@drawable/ic_menu_archive"
-		android:title="@string/menu_grid" />
-	<item android:id="@+id/sax_gallery" android:icon="@drawable/ic_menu_archive"
-		android:title="@string/menu_sax_gallery" />
-	<item android:id="@+id/sax_example" android:icon="@drawable/ic_menu_archive"
-		android:title="@string/menu_sax_example" />
-	
-					
-			
-	
+    <item android:id="@+id/exit" android:icon="@drawable/ic_menu_close_clear_cancel"
+        android:title="@string/menu_exit" />
+    <item android:id="@+id/home" android:icon="@drawable/ic_menu_home"
+        android:title="@string/menu_home" />
+    <item android:id="@+id/about" android:icon="@drawable/ic_menu_info_details"
+        android:title="@string/menu_about" />
+    <item android:id="@+id/temp" android:icon="@drawable/ic_menu_archive"
+        android:title="@string/menu_temp" />
+    <item android:id="@+id/image_gallery" android:icon="@drawable/ic_menu_gallery"
+        android:title="@string/menu_image_gallery" />
+        
+    <item android:id="@+id/gridweb" android:icon="@drawable/ic_menu_archive"
+        android:title="@string/menu_gridweb" />
+    <item android:id="@+id/grid" android:icon="@drawable/ic_menu_archive"
+        android:title="@string/menu_grid" />
+    <item android:id="@+id/sax_gallery" android:icon="@drawable/ic_menu_archive"
+        android:title="@string/menu_sax_gallery" />
+    <item android:id="@+id/sax_example" android:icon="@drawable/ic_menu_archive"
+        android:title="@string/menu_sax_example" />
+    
+                    
+            
+    
 </menu>
 <!-- $Id$ -->

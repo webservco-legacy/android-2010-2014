@@ -15,41 +15,41 @@ import android.widget.Toast;
 
 public class SaxExampleActivity extends MenuActivity {
 
-	private final static String msUrl = "http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/example.xml";
+    private final static String msUrl = "http://dev.rudisoft.net/25779f8829ab7a7650e85a4cc871e6ac/example.xml";
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.sax);
+        setContentView(R.layout.sax);
 
-		TextView tv = (TextView) findViewById(R.id.saxresult);
+        TextView tv = (TextView) findViewById(R.id.saxresult);
 
-		try {
-			URL url = new URL(msUrl);
+        try {
+            URL url = new URL(msUrl);
 
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			SAXParser sp = spf.newSAXParser();
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            SAXParser sp = spf.newSAXParser();
 
-			XMLReader xr = sp.getXMLReader();
+            XMLReader xr = sp.getXMLReader();
 
-			ExampleHandler myExampleHandler = new ExampleHandler();
-			xr.setContentHandler(myExampleHandler);
+            ExampleHandler myExampleHandler = new ExampleHandler();
+            xr.setContentHandler(myExampleHandler);
 
-			xr.parse(new InputSource(url.openStream()));
+            xr.parse(new InputSource(url.openStream()));
 
-			ParsedExampleDataSet parsedExampleDataSet = myExampleHandler
-					.getParsedData();
+            ParsedExampleDataSet parsedExampleDataSet = myExampleHandler
+                    .getParsedData();
 
-			tv.setText(parsedExampleDataSet.toString());
+            tv.setText(parsedExampleDataSet.toString());
 
-		} catch (Exception e) {
-			Toast.makeText(SaxExampleActivity.this, "Error: " + e.getMessage(),
-					Toast.LENGTH_SHORT).show();
-			Log.e(getString(R.string.app_name), this.toString(), e);
-		}
-	}
+        } catch (Exception e) {
+            Toast.makeText(SaxExampleActivity.this, "Error: " + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+            Log.e(getString(R.string.app_name), this.toString(), e);
+        }
+    }
 
 }
 /* $Id$ */

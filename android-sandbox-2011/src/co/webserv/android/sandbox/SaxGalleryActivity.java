@@ -18,57 +18,57 @@ import android.widget.Toast;
 
 public class SaxGalleryActivity extends MenuActivity {
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		// setContentView(R.layout.sax);
+        // setContentView(R.layout.sax);
 
-		// TextView tv = (TextView) findViewById(R.id.saxresult);
+        // TextView tv = (TextView) findViewById(R.id.saxresult);
 
-		try {
-			String galleryUrl = getString(R.string.app_url) + "site/"
-					+ getString(R.string.app_id) + "/gallery/gallery.xml";
+        try {
+            String galleryUrl = getString(R.string.app_url) + "site/"
+                    + getString(R.string.app_id) + "/gallery/gallery.xml";
 
-			URL url = new URL(galleryUrl);
+            URL url = new URL(galleryUrl);
 
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			SAXParser sp = spf.newSAXParser();
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            SAXParser sp = spf.newSAXParser();
 
-			XMLReader xr = sp.getXMLReader();
+            XMLReader xr = sp.getXMLReader();
 
-			GalleryHandler gh = new GalleryHandler();
-			xr.setContentHandler(gh);
+            GalleryHandler gh = new GalleryHandler();
+            xr.setContentHandler(gh);
 
-			xr.parse(new InputSource(url.openStream()));
+            xr.parse(new InputSource(url.openStream()));
 
-			ArrayList<GalleryData> galleryList = gh.getGalleryList();
+            ArrayList<GalleryData> galleryList = gh.getGalleryList();
 
-			int galleryNum = galleryList.size();
+            int galleryNum = galleryList.size();
 
-			ScrollView sv = new ScrollView(this);
-			LinearLayout ll = new LinearLayout(this);
-			ll.setOrientation(LinearLayout.VERTICAL);
-			sv.addView(ll);
+            ScrollView sv = new ScrollView(this);
+            LinearLayout ll = new LinearLayout(this);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            sv.addView(ll);
 
-			for (int i = 0; i < galleryNum; i++) {
-				TextView itv = new TextView(this);
-				GalleryData galleryData = galleryList.get(i);
-				itv.setText(galleryData.toString());
-				ll.addView(itv);
-			}
+            for (int i = 0; i < galleryNum; i++) {
+                TextView itv = new TextView(this);
+                GalleryData galleryData = galleryList.get(i);
+                itv.setText(galleryData.toString());
+                ll.addView(itv);
+            }
 
-			setContentView(sv);
+            setContentView(sv);
 
-			// tv.setText("test");
+            // tv.setText("test");
 
-		} catch (Exception e) {
-			Toast.makeText(SaxGalleryActivity.this, "Error: " + e.getMessage(),
-					Toast.LENGTH_LONG).show();
-			Log.e(getString(R.string.app_name), this.toString(), e);
-		}
-	}
+        } catch (Exception e) {
+            Toast.makeText(SaxGalleryActivity.this, "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            Log.e(getString(R.string.app_name), this.toString(), e);
+        }
+    }
 
 }
 /* $Id$ */

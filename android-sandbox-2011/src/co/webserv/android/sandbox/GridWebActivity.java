@@ -16,60 +16,60 @@ import android.widget.Toast;
 
 public class GridWebActivity extends MenuActivity {
 
-	private GalleryData mGallery;
+    private GalleryData mGallery;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
-		setContentView(R.layout.gridview);
+        setContentView(R.layout.gridview);
 
-		setProgressBarIndeterminateVisibility(true);
+        setProgressBarIndeterminateVisibility(true);
 
-		GridView gridview = (GridView) findViewById(R.id.gridview);
+        GridView gridview = (GridView) findViewById(R.id.gridview);
 
-		mGallery = getGallery();
+        mGallery = getGallery();
 
-		gridview.setAdapter(new ImageAdapterGridWeb(this, mGallery));
-	}
+        gridview.setAdapter(new ImageAdapterGridWeb(this, mGallery));
+    }
 
-	public GalleryData getGallery() {
+    public GalleryData getGallery() {
 
-		if (mGallery != null) {
-			return mGallery;
-		}
+        if (mGallery != null) {
+            return mGallery;
+        }
 
-		GalleryData gallery = new GalleryData();
+        GalleryData gallery = new GalleryData();
 
-		try {
+        try {
 
-			String galleryUrl = getString(R.string.app_url) + "site/"
-					+ getString(R.string.app_id) + "/gallery/gallery.xml";
-			URL url = new URL(galleryUrl);
+            String galleryUrl = getString(R.string.app_url) + "site/"
+                    + getString(R.string.app_id) + "/gallery/gallery.xml";
+            URL url = new URL(galleryUrl);
 
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			SAXParser sp = spf.newSAXParser();
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            SAXParser sp = spf.newSAXParser();
 
-			XMLReader xr = sp.getXMLReader();
+            XMLReader xr = sp.getXMLReader();
 
-			GalleryHandler gh = new GalleryHandler();
-			xr.setContentHandler(gh);
+            GalleryHandler gh = new GalleryHandler();
+            xr.setContentHandler(gh);
 
-			xr.parse(new InputSource(url.openStream()));
+            xr.parse(new InputSource(url.openStream()));
 
-			ArrayList<GalleryData> galleryList = gh.getGalleryList();
+            ArrayList<GalleryData> galleryList = gh.getGalleryList();
 
-			gallery = galleryList.get(0);
+            gallery = galleryList.get(0);
 
-		} catch (Exception e) {
-			Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG)
-					.show();
-		}
+        } catch (Exception e) {
+            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
 
-		return gallery;
-	}
+        return gallery;
+    }
 }
 /* $Id$ */

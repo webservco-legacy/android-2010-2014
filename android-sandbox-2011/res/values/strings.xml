@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_url">http://147.123.157.186/election/</string>
-	<string name="app_id">obama</string>
-	<string name="app_language">es</string>
+    <string name="app_url">http://147.123.157.186/election/</string>
+    <string name="app_id">obama</string>
+    <string name="app_language">es</string>
 
-	<string name="hello">Hello World!</string>
-	<string name="app_name">Sandbox</string>
-	<string name="menu_home">Home</string>
-	<string name="menu_about">About</string>
-	<string name="menu_sax_example">SAX Test</string>
-	<string name="menu_sax_gallery">SAX Gallery Test</string>
-	<string name="menu_grid">Grid Test</string>
-	<string name="menu_gridweb">Grid Test (web)</string>
-	<string name="menu_image_gallery">Image Gallery</string>
-	<string name="menu_temp">TEMP</string>
-	<string name="menu_exit">Exit</string>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">Sandbox</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_about">About</string>
+    <string name="menu_sax_example">SAX Test</string>
+    <string name="menu_sax_gallery">SAX Gallery Test</string>
+    <string name="menu_grid">Grid Test</string>
+    <string name="menu_gridweb">Grid Test (web)</string>
+    <string name="menu_image_gallery">Image Gallery</string>
+    <string name="menu_temp">TEMP</string>
+    <string name="menu_exit">Exit</string>
 </resources>
 <!-- $Id$ -->

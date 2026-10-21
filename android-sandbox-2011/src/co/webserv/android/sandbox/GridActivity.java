@@ -5,16 +5,16 @@ import android.widget.GridView;
 
 public class GridActivity extends MenuActivity {
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.gridview);
+        setContentView(R.layout.gridview);
 
-		GridView gridview = (GridView) findViewById(R.id.gridview);
+        GridView gridview = (GridView) findViewById(R.id.gridview);
 
-		gridview.setAdapter(new ImageAdapterGrid(this));
-	}
+        gridview.setAdapter(new ImageAdapterGrid(this));
+    }
 }
 /* $Id$ */
