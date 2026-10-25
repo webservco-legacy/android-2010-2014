@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_scroll"
+    style="@style/WsTheme.Pattern" >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_layout"
+        style="@style/WsTheme.Pattern" >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/WsTheme.Title"
+            android:text="@string/blank" />
+
+        <TextView
+            android:id="@+id/content"
+            style="@style/WsTheme.Text.Margin"
+            android:layout_below="@+id/title"
+            android:text="@string/blank" />
+
+        <TextView
+            android:id="@+id/id"
+            style="@style/WsTheme.Text.Margin"
+            android:layout_below="@+id/content"
+            android:text="@string/blank"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/info"
+            style="@style/WsTheme.Text.Margin"
+            android:layout_below="@+id/id"
+            android:text="@string/blank"
+            android:textStyle="italic"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/send_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info"
+            android:layout_margin="15dp"
+            android:background="@color/ws_light"
+            android:padding="1dp"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_repeat"
+                android:drawableLeft="@drawable/ic_menu_share"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:text="@string/send"
+                android:textColor="@color/ws_light"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/warning"
+            style="@style/WsTheme.Text.Margin"
+            android:layout_below="@+id/send_container"
+            android:text="@string/blank"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</ScrollView>

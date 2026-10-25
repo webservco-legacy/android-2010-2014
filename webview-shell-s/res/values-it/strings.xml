@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- general -->
+    <string name="app_name">WebView Shell</string> <!-- EDIT -->
+    <!-- actions -->
+    <string name="action_done_ok">L\'azione è stata completata con successo!</string>
+    <string name="action_done_ko">L\'azione è stata completata con errori!</string>
+    <string name="action_cancelled">L\'azione è stata annullata.</string>
+    <!-- network -->
+    <string name="progress_title">Caricamento</string>
+    <string name="progress_message">Attendere prego..</string>
+    <string name="connection_error_epipe">Errore di connessione: si prega di riprovare.</string>
+    <!-- gps -->
+    <string name="gpserr_title">Location error</string>
+    <string name="gpserr_message">Location not available</string>
+    <string name="gpserr_opensettings">Enable</string>
+    <string name="gpserr_cancel">Cancel</string>
+    <!-- file upload -->
+    <string name="file_upload">Carica un file</string>
+    <string name="file_upload_complete">Il caricamento del file completo</string>
+    <string name="progress_uploading">Caricamento..</string>
+    <!-- share -->
+    <string name="share_title">Condividi</string>
+    <string name="share_subject">Installa</string>
+    <string name="share_text">Installa da questo link</string>
+    <!-- facebook -->
+    <string name="facebook_error_noemail">Errore: email non disponibile. Si prega di confermare il vostro account di posta elettronica su Facebook.</string>
+</resources>

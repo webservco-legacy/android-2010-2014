@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/gallery"
+          android:icon="@drawable/ic_menu_gallery"
+          android:title="@string/menu_gallery" />
+    <item android:id="@+id/galleryweb"
+          android:icon="@drawable/ic_menu_gallery"
+          android:title="@string/menu_galleryweb" />
+    <item android:id="@+id/viewerbuttons"
+          android:icon="@drawable/ic_menu_view"
+          android:title="@string/menu_viewerbuttons" />          
+    <item android:id="@+id/viewerswipe"
+          android:icon="@drawable/ic_menu_view"
+          android:title="@string/menu_viewerswipe" />
+    <item android:id="@+id/about"
+          android:icon="@drawable/ic_menu_info_details"
+          android:title="@string/menu_about" />
+    <item android:id="@+id/exit"
+          android:icon="@drawable/ic_menu_close_clear_cancel"
+          android:title="@string/menu_exit" />
+</menu>
+<!-- $Id$ -->
