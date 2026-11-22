@@ -22,6 +22,8 @@ One folder per project, each with its own history (joined in 2026 by a merge com
 
 The tags of aPocket are not kept; its versions were tagged from bfb8c04 (0.2, 2012-03-31),
 79bbde0 (0.3, 2012-04-01) and 70d0c8c (0.4, 2012-04-03).
+Those commits and others before the last one hold files that the sources had deleted (73 files in all, a fault of the
+cut that joined the parts); the last commit removes the 72 left at the head.
 
 The sample photos of the gallery and the sandbox are kept as they were committed.
 
